@@ -1,26 +1,19 @@
 # View Wireframes
 
-## New User
-![new-user]
 
-## New Session
-![new-session]
+## EmailIndex
+![emailindex]
 
-## NotesIndex / NoteIndexItem / NoteForm
-![notes]
+## EmailShow
+![emailshow]
 
-## NotebooksIndex / NotebookIndexItem
-![notebooks]
-
-## NoteBookForm
-![notebook-form]
+## Setting
+![setting]
 
 ## Component Heirarchy
-![component-heirarchy]
+![flowchart]
 
-[new-user]: ./wireframes/new_user.png
-[new-session]: ./wireframes/new_session.png
-[notes]: ./wireframes/root_notes.png
-[notebooks]: ./wireframes/root_notebooks.png
-[notebook-form]: ./wireframes/notebook_form.png
-[component-heirarchy]: ./wireframes/component_heirarchy.png
+[emailindex]: ./wireframes/emailindex.png
+[emailshow]: ./wireframes/emailshow.png
+[setting]: ./wireframes/setting.png
+[flowchart]: ./flowchart.png
