@@ -12,16 +12,16 @@ and React.js. Ishmael allows users to:
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
 - [ ] Create an account
-- [ ] Log in / Log out
-- [ ] Read and write emails.
-- [ ] Star/unstar messages
-- [ ] Mark as read/unread/spam/trash
+- [ ] Log in and log out
+- [ ] Read and write emails
+- [ ] Star and un-star messages
+- [ ] Mark as read, unread, spam, and trash
 - [ ] Save unsent emails as drafts
 - [ ] Register a message's priority and type
 - [ ] Modify user settings; allows for signatures and vacation responses.
 - [ ] Dynamic real-time searches
-- [ ] Auto-complete contacts in email composition
-- [ ] Chat with friends
+- [ ] Auto-complete contacts
+- [ ] Chat with contacts
 
 ## Design Docs
 * [View Wireframes][view]
