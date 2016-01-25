@@ -13,15 +13,15 @@ and React.js. Ishmael allows users to:
 
 - [ ] Create an account
 - [ ] Log in / Log out
-- [ ] Read and write emails
-- [ ] Differentiate emails with starring, labels, and tabs.
-- [ ] Mark email as read/unread/spam
-- [ ] Automatically save drafted email
-- [ ] Use backend proccesses to determine an email's importance and type
-- [ ] User settings page
-- [ ] Auto-complete with contacts in email composition page
-- [ ] Search through emails
-- [ ] Chat with contacts
+- [ ] Read and write emails.
+- [ ] Star/unstar messages
+- [ ] Mark as read/unread/spam/trash
+- [ ] Save unsent emails as drafts
+- [ ] Register a message's priority and type
+- [ ] Modify user settings; allows for signatures and vacation responses.
+- [ ] Dynamic real-time searches
+- [ ] Auto-complete contacts in email composition
+- [ ] Chat with friends
 
 ## Design Docs
 * [View Wireframes][view]
@@ -37,7 +37,7 @@ and React.js. Ishmael allows users to:
 In Phase 1, I will begin by implementing user signup and authentication (using
 BCrypt). There will be a basic landing page after signup that will contain the
 container for the application's root React component. Before building out the
-front end, I will begin by setting up a full JSON API for Users, Emails, Chats, and Contacts.
+front end, I will begin by setting up a full JSON API for Users, Emails, Chats, Contacts, and Activities.
 
 [Details][phase-one]
 
