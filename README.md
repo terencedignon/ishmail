@@ -1,4 +1,4 @@
-# FresherNote
+# Ishmael
 
 [Heroku link][heroku]
 
@@ -32,16 +32,16 @@ and React.js. Ishmael allows users to:
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Email Model and JSON API (1 day)
+### Phase 1: User Authentication, User, Email, Chat, and Contact Models, and JSON API (1.5 days)
 
 In Phase 1, I will begin by implementing user signup and authentication (using
 BCrypt). There will be a basic landing page after signup that will contain the
 container for the application's root React component. Before building out the
-front end, I will set up a full JSON API for Users, Email, Contacts, and Chat.
+front end, I will begin by setting up a full JSON API for Users, Emails, Chats, and Contacts.
 
 [Details][phase-one]
 
-### Phase 2: Flux Architecture and Email CRUD (3 days)
+### Phase 2: Flux Architecture and Email CRUD (2.5 days)
 
 Phase 2 is focuses on setting up Flux, the React Router, and the React view
 structure for the main application. After the basic Flux architecture is
@@ -53,13 +53,13 @@ save as a draft every 10 seconds. While constructing the views I will begin styl
 
 [Details][phase-two]
 
-### Phase 3: Contacts and Chat (3 days)
+### Phase 3: Contacts and Chat (2.5 days)
 
 Phase 3 adds Contacts, with ContactIndex, ContactIndexItem, and ContactSearch.  Chat will have a ChatForm view.  
 
 [Details][phase-three]
 
-### Phase 4: Header, Settings, and Activity (1 day)
+### Phase 4: Header, Settings, and Activity (1.5 days)
 
 Phase 4 adds search functionality to the top bar, a settings panel to modify user preferences, and an activity pop-out to show previous session information.
 

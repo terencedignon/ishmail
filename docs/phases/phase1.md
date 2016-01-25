@@ -1,11 +1,13 @@
-# Phase 1: User Authentication, Note Model and JSON API
+# Phase 1: User Authentication, User, Email, Chat, Line, and Contact Models, and JSON API
 
 ## Rails
 ### Models
 * User
-* Email 
-* Chat 
+* Email
+* Chat
+* Contact
 * Activity
+* Line
 
 ### Controllers
 * UsersController (create, new, update, destroy)
@@ -21,7 +23,7 @@
 * session/new.html.erb
 * emails/index.json.jbuilder
 * emails/show.json.jbuilder
-* chats/show.json.jbuilder 
+* chats/show.json.jbuilder
 * activities/index.json.jbuilder
 
 ## Flux
