@@ -16,4 +16,4 @@
 [emailindex]: ./wireframes/emailindex.png
 [emailshow]: ./wireframes/emailshow.png
 [setting]: ./wireframes/setting.png
-[flowchart]: ./flowchart.png
+[flowchart]: ./wireframes/flowchart.png
