@@ -2,7 +2,10 @@
   <button class="sign-in">Sign In</button>
 </header>
 
+
+<center>
 <%= list_errors %>
+</center>
 
 <h1 class="banner">Create your Ishmael Account</h1>
 
@@ -32,14 +35,14 @@
   <input type="password" class="sign-up-fname" name="user[password_confirmation]" id="user_password_confirmation" value="">
   <p>
   <label>Birthday</label><br>
-  <select name="user[birth_month]" class="sign-up-birth-month">
+  <select name="user[birthday][]" class="sign-up-birth-month">
     <% month = %w[January February March April May June July August September October November December] %>
     <% month.each_with_index do |m, i| %>
     <option value="<%= i + 1 %>"><%= m %></option>
     <% end %>
   </select>
-  <input type="text" name="user[birth_day]" class="sign-up-birth-day" value="Day">
-  <input type="text" name="user[birth_year]" class="sign-up-birth-year" value="Year">
+  <input type="text" name="user[birthday][]" class="sign-up-birth-day" value="Day">
+  <input type="text" name="user[birthday][]" class="sign-up-birth-year" value="Year">
   <p>
   <label>Gender</label>
   <select name="user[gender]" class="sign-up-gender" value="I am...">

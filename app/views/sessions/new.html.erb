@@ -3,13 +3,13 @@
 <h2>Sign in to continue to Ishmael.</h2>
 
 
-<form class="sign-in" action="<%= session_url %>">
+<form class="sign-in" action="<%= session_url %>" method="POST">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <input type="text" name="user[username]" value="">
+  <input type="text" name="username" value="">
   <p>
 
-  <input type="password" name="user[password] value="Password">
+  <input type="password" name="password" value="Password">
   <p>
   <button >Sign In</button>
 
