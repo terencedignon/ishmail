@@ -1,0 +1,48 @@
+<%= list_errors %>
+
+<form class="sign-up" action="<%= users_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label>Name</label><br>
+  <input type="text" class="sign-up-fname" name="user[fname]" value="First">
+  <input type="text" class="sign-up-lname" name="user[lname]" value="Last">
+  <p>
+  <label>Choose your username</label><br>
+  <input type="text" class="sign-up-username" name="user[username]" value="">
+  <p>
+  <label>Create Password</label><br>
+  <input type="password" class="sign-up-password" name="user[password]" id="user_password" value="">
+  <p>
+  <label>Confirm your Password</label><br>
+  <input type="text" class="sign-up-fname" name="user[password_confirmation]" id="user_password_confirmation" value="">
+  <p>
+  <label>Birthday</label><br>
+  <select name="user[birth_month]" class="sign-up-birth-month">
+    <% month = %w[January February March April May June July August September October November December] %>
+    <% month.each do |m| %>
+    <option value="<%= m %>"><%= m %></option>
+    <% end %>
+  </select>
+  <input type="text" class="sign-up-birth-day" value="Day">
+  <input type="text" class="sign-up-birth-year" value="Year">
+  <p>
+  <label>Gender</label>
+  <select name="user[gender]" class="sign-up-gender" value="I am...">
+    <option value="M">Male</option>
+    <option value="F">Female</option>
+    <option value="O">Other</option>
+  </select>
+  <p>
+
+  <label>Your current email address</label>
+  <input type="text" class="sign-up-prev-email-address" value="">
+  <p>
+  <label>
+
+  <label>Location</label>
+  <select name="user[location]" class="sign-up-location">
+
+  </select>
+  <p>
+  <button>Next Step</button>
+</form>
