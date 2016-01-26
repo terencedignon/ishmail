@@ -1,0 +1,16 @@
+
+<h1 class="banner">One account. All of Ishmael.</h1>
+<h2>Sign in to continue to Ishmael.</h2>
+
+
+<form class="sign-in" action="<%= session_url %>">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="text" name="user[username]" value="">
+  <p>
+
+  <input type="password" name="user[password] value="Password">
+  <p>
+  <button >Sign In</button>
+
+</form>

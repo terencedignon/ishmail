@@ -1,4 +1,19 @@
+<header class="sign-up-navbar">
+  <button class="sign-in">Sign In</button>
+</header>
+
 <%= list_errors %>
+
+<h1 class="banner">Create your Ishmael Account</h1>
+
+<div class="wrapper group">
+
+<section class="side-content">
+  <h2>One account is all you need.</h2>
+  <p>
+  One free account gets you into everything Ishmail.
+  <p>
+</section>
 
 <form class="sign-up" action="<%= users_url %>" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -14,17 +29,17 @@
   <input type="password" class="sign-up-password" name="user[password]" id="user_password" value="">
   <p>
   <label>Confirm your Password</label><br>
-  <input type="text" class="sign-up-fname" name="user[password_confirmation]" id="user_password_confirmation" value="">
+  <input type="password" class="sign-up-fname" name="user[password_confirmation]" id="user_password_confirmation" value="">
   <p>
   <label>Birthday</label><br>
   <select name="user[birth_month]" class="sign-up-birth-month">
     <% month = %w[January February March April May June July August September October November December] %>
-    <% month.each do |m| %>
-    <option value="<%= m %>"><%= m %></option>
+    <% month.each_with_index do |m, i| %>
+    <option value="<%= i + 1 %>"><%= m %></option>
     <% end %>
   </select>
-  <input type="text" class="sign-up-birth-day" value="Day">
-  <input type="text" class="sign-up-birth-year" value="Year">
+  <input type="text" name="user[birth_day]" class="sign-up-birth-day" value="Day">
+  <input type="text" name="user[birth_year]" class="sign-up-birth-year" value="Year">
   <p>
   <label>Gender</label>
   <select name="user[gender]" class="sign-up-gender" value="I am...">
@@ -41,8 +56,9 @@
 
   <label>Location</label>
   <select name="user[location]" class="sign-up-location">
-
+    <option value="United States of America">United States of America</option>
   </select>
   <p>
   <button>Next Step</button>
 </form>
+</div>
