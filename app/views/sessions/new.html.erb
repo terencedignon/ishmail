@@ -8,9 +8,15 @@
 
   <input type="text" name="username" value="">
   <p>
-
-  <input type="password" name="password" value="Password">
+  <input type="password" name="password" value="">
   <p>
   <button >Sign In</button>
 
+</form>
+
+<form class="demo-sign-in" action="<%= session_url %>" method="POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="username" value="guest">
+  <input type="hidden" name="password" value="guestsignin123">
+  <button>Demo</button>
 </form>
