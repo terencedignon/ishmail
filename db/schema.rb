@@ -11,10 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126194508) do
+ActiveRecord::Schema.define(version: 20160126225148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "browser",    null: false
+    t.string   "location",   null: false
+    t.string   "ip_address", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.integer  "x_id",       null: false
+    t.integer  "y_id",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "x_id",       null: false
+    t.integer  "y_id",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "emails", force: :cascade do |t|
     t.integer  "parent_email_id"
@@ -27,6 +50,14 @@ ActiveRecord::Schema.define(version: 20160126194508) do
     t.boolean  "delete_set",      default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "lines", force: :cascade do |t|
+    t.integer  "chat_id",                 null: false
+    t.text     "line",       default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "user_id",                 null: false
   end
 
   create_table "users", force: :cascade do |t|
