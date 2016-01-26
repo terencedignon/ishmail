@@ -1,8 +1,8 @@
 var React = require('react');
 
-var EmailIndex = React.createClass({
+var EmailShow = React.createClass({
   render: function() {
-    return (<div>hey buddy it's the show</div>);
+    return (<div>EmailShow</div>);
   }
 });
 

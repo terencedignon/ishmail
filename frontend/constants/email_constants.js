@@ -1,0 +1,6 @@
+var EmailConstants = {
+  GET_ALL_EMAILS: "GET_ALL_EMAILS",
+  GET_ONE_EMAIL: "GET_ONE_EMAIL",
+  CREATE_EMAIL: "CREATE_EMAIL"
+
+};

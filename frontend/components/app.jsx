@@ -1,14 +1,9 @@
 var React = require('react');
-var EmailIndex = require('./email_index.jsx');
+// var EmailIndex = require('./email_index.jsx');
 
 var App = React.createClass({
   render: function() {
-    return(
-      <div>
-        <EmailIndex />
-      </div>
-    );
-
+    return(<div>hey</div>);
   }
 });
 
