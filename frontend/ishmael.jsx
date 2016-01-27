@@ -8,14 +8,18 @@ var IndexRoute = require('react-router').IndexRoute;
 var EmailIndex = require('./components/email_index.jsx');
 var Sidebar = require('./components/sidebar.jsx');
 var Header = require('./components/header.jsx');
+ApiUtil = require('./util/api_util.js');
+EmailStore = require('./stores/email_store.js');
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
       <Header />
+      <div className="content-container group">
       <Sidebar />
       {this.props.children}
+      </div>
     </div>
     );
   }

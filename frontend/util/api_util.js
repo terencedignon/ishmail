@@ -2,29 +2,29 @@ var EmailActions = require('../actions/email_actions.js');
 
 var ApiUtils = {
 	getAllEmail: function () {
-		$.ajax(
-			method: "GET",
+		$.ajax({
 			url: "api/emails",
 			success: function(data) {
 				EmailActions.receiveAllEmail(data);
 			},
 			error: function() {
-				console.log("error in fetchEmails function")
+				console.log("error in fetchEmails function");
 			}
-		);
+		});
 	},
 	getEmail: function (id) {
-		$.ajax(
+		$.ajax({
 			method: "GET",
-			url: "api/emails" + id,
+			url: "api/emails/" + id,
 			success: function(data) {
+
 				EmailActions.receiveEmail(data);
 			}
-		);
+		});
 	},
 
 	createEmail: function () {
-		$.ajax(
+		$.ajax({
 			method: "POST",
 			url: "api/emails",
 			success: function(data) {
@@ -33,11 +33,11 @@ var ApiUtils = {
 			error: function () {
 				console.log("error in createEmails function");
 			}
-		)
+		});
 	},
 
 	updateEmail: function(id) {
-		$.ajax(
+		$.ajax({
 			method: "PATCH",
 			url: "api/email/" + id,
 			success: function(data) {
@@ -46,11 +46,11 @@ var ApiUtils = {
 			error: function () {
 				console.log("error in updateEmail function");
 			}
-		)
+		});
 	},
 
 	destroyEmail: function(id) {
-		$.ajax(
+		$.ajax({
 			method: "DELETE",
 			url: "api/email" + id,
 			success: function(data) {
@@ -59,8 +59,8 @@ var ApiUtils = {
 			error: function () {
 				console.log("error in destroyEmail function");
 			}
-		)
+		});
 	}
-}
+};
 
 module.exports = ApiUtils;

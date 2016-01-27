@@ -4,7 +4,7 @@ var Sidebar = React.createClass({
 
   render: function() {
     return(
-      <div className="sidebar-nav">
+
       <div className="sidebar">
         <button>Compose</button>
         <ul className="group">
@@ -16,7 +16,7 @@ var Sidebar = React.createClass({
         <li><a href="#">Links</a></li>
         </ul>
       </div>
-    </div>
+
       );
 }
 

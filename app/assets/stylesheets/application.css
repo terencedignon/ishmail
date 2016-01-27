@@ -13,10 +13,11 @@
  *= require_tree .
  *= require_self
  */
- html, body, h1, h2, h3, h4, h5, h6 {
+ html, body, h1, h2, h3, h4, h5, h6, ul {
    border: 0;
    padding: 0;
    margin: 0;
+   list-style: none;
    background: transparent;
    display: inherit;
    font-family: inherit;
@@ -134,49 +135,12 @@ header {
   position: relative;
 }
 
-.sidebar-nav {
-  position: relative;
-  width: 150px;
-}
-
-.sidebar {
-position: absolute;
-top: 120px;
-}
-
-.sidebar button {
-  margin-left: 30px;
-  background: #dd4b39;
-  padding: 5px 30px;
-  font-size: 12px;
-  border: 0px;
-  text-transform: uppercase;
-  color: #FFF;
-}
-
-.sidebar a {
-  display: block;
-  color: #222;
-  text-decoration: none;
-  padding: 2px;
-}
-
-
-.sidebar ul {
-  list-style: none;
-  display: block;
-}
-
-.sidebar li:hover {
-  background: #eee;
-  width: 100px;
-}
-
 .top-left {
     background: #f7f7f7;
+    border-bottom: 1px solid #e5e5e5;
   width: 200px;
   height: 60px;
-  position: absolute;
+  float: left;
 
 }
 
@@ -189,10 +153,10 @@ header h1 {
 }
 
 .top-right {
+  float: right;
   background: #f7f7f7;
-  position: absolute;
   left: 200px;
-  width: 100%;
+  width: calc(100% - 200px);
   height: 60px;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -215,23 +179,84 @@ header input {
   width: 50%;
 }
 
+.content-container {
+
+  position: relative;
+  width: 100%;
+
+
+}
+
+
+.sidebar {
+  margin-top: 20px;
+  width: 200px;
+  height: 100%;
+  float: left;
+}
+
+
+.sidebar button {
+  margin-left: 30px;
+  background: #dd4b39;
+  padding: 5px 30px;
+  font-size: 12px;
+  border: 0px;
+  text-transform: uppercase;
+  color: #FFF;
+}
+
+.sidebar a {
+  display: block;
+  color: #222;
+  text-decoration: none;
+  padding: 2px;
+}
+
+
+.sidebar ul {
+  padding-top: 10px;
+  list-style: none;
+  display: block;
+}
+
+.sidebar li {
+  padding-left: 30px;
+  padding-right: 10px;
+  width: 100px;
+}
+
+.sidebar li:hover {
+  padding-left: 30px;
+  background: #eee;
+  width: 100px;
+}
+
+
+.main {
+  padding-left: 20px;
+  padding-top: 20px;
+  float: left;
+  text-align: left;
+}
+
+.main ul {
+
+}
+
 .bottom-left {
   width: 200px;
   height: 40px;
-  top: 60px;
-  left: 0px;
   background: #FFF;
-  position: absolute;
   border-bottom: 1px solid #e5e5e5;
+  float: left;
 }
 
 .bottom-right {
-  background: #fff;
-  position: absolute;
-  left: 200px;
-  top: 60px;
+  float: right;
   height: 40px;
-  width: 100%;
+  background: #fff;
+  width: calc(100% - 200px);
   border-bottom: 1px solid #e5e5e5;
 }
 

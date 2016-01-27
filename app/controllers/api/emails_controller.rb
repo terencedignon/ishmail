@@ -1,7 +1,7 @@
 class Api::EmailsController < ApplicationController
 
   def index
-    @emails = Email.all
+    @emails = Email.get_by_current_user(current_user.id)
   end
 
   def show

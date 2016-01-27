@@ -1,10 +1,12 @@
-var Dispatcher = require('../dispatchers/dispatcher.js');
+var Dispatcher = require('../dispatcher/dispatcher.js');
+var EmailConstants = require('../constants/email_constants.js');
 
 var EmailActions = {
-	receiveALLEmail: function (data) {
+	receiveAllEmail: function (data) {
 		Dispatcher.dispatch({
 			actionType: EmailConstants.GET_ALL_EMAIL,
 			data: data
+
 		});
 	},
 	receiveEmail: function(data) {
