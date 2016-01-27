@@ -236,12 +236,40 @@ header input {
 .main {
   padding-left: 20px;
   padding-top: 20px;
+  width: 1200px;
   float: left;
   text-align: left;
 }
 
-.main ul {
+.email-index-item {
+  border-left: 1px solid #e5e5e5;
+  background: #fff;
+  font-weight: bold;
+  padding: 5px;
+  border-bottom: 1px solid #e5e5e5;
+}
 
+.email-index-item li {
+  display: inline;
+  padding-left: 20px;
+}
+
+.important {
+
+}
+
+
+.star{
+  color: #eee;
+}
+
+.starred .star {
+  color: gold;
+}
+
+.read {
+  background: #f7f7f7;
+  font-weight: normal;
 }
 
 .bottom-left {

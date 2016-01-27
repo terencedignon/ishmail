@@ -30888,11 +30888,31 @@
 	var EmailIndexItem = React.createClass({
 	  displayName: "EmailIndexItem",
 
+	  classList: function (email) {
+	    var classString = "email-index-item group";
+	    if (email.importance_set) classString += " important";
+	    if (email.read_set) classString += " read";
+	    if (email.starred_set) classString += " starred";
+	    return classString;
+	  },
+
 	  render: function () {
+	    var classString = this.classList(this.props.email);
+	    var fontsClass = classString.includes('starred') ? "fa fa-star" : "fa fa-star-o";
+
 	    return React.createElement(
-	      "li",
-	      { className: "email-index-item" },
-	      this.props.email.subject
+	      "ul",
+	      { className: classString },
+	      React.createElement(
+	        "li",
+	        { className: "star" },
+	        React.createElement("i", { className: fontsClass })
+	      ),
+	      React.createElement(
+	        "li",
+	        null,
+	        this.props.email.subject
+	      )
 	    );
 	  }
 	});
