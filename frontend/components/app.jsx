@@ -1,9 +1,14 @@
 var React = require('react');
+var Sidebar = require('./sidebar.jsx');
 // var EmailIndex = require('./email_index.jsx');
 
 var App = React.createClass({
   render: function() {
-    return(<div>hey</div>);
+    return (
+      <div>
+      HEY
+      </div>
+    );
   }
 });
 

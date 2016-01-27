@@ -14,3 +14,15 @@
   body = Faker::Hipster.sentences.join("  ")
   Email.create!(sender: sender, user_id: user_id, subject: subject, body: body)
 end
+
+50.times do |i|
+  username = "guest#{i}"
+  password = "guest#{i}"
+  location = "United States of America"
+  gender = "M"
+  birthday= ["1987", "12", "1"]
+  fname = "guest"
+  lname = i.to_s
+  User.create!(username: username, password: password, location: location,
+    gender: gender, birthday: birthday, fname: fname, lname: lname)
+end

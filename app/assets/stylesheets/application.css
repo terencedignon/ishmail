@@ -85,7 +85,7 @@
 
  .sign-up-navbar {
    height: 70px;
-   background: #f1f1f1;
+   background: #f7f7f7;
    border-bottom: 1px solid #e5e5e5;
    overflow: hidden;
  }
@@ -126,6 +126,121 @@ form.sign-in input {
   padding: 5px 10px;
 }
 
+header {
+  width: 100%;
+}
+
+.header {
+  position: relative;
+}
+
+.sidebar-nav {
+  position: relative;
+  width: 150px;
+}
+
+.sidebar {
+position: absolute;
+top: 120px;
+}
+
+.sidebar button {
+  margin-left: 30px;
+  background: #dd4b39;
+  padding: 5px 30px;
+  font-size: 12px;
+  border: 0px;
+  text-transform: uppercase;
+  color: #FFF;
+}
+
+.sidebar a {
+  display: block;
+  color: #222;
+  text-decoration: none;
+  padding: 2px;
+}
+
+
+.sidebar ul {
+  list-style: none;
+  display: block;
+}
+
+.sidebar li:hover {
+  background: #eee;
+  width: 100px;
+}
+
+.top-left {
+    background: #f7f7f7;
+  width: 200px;
+  height: 60px;
+  position: absolute;
+
+}
+
+header h1 {
+  padding: 20px 30px;
+  color: #777;
+
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
+.top-right {
+  background: #f7f7f7;
+  position: absolute;
+  left: 200px;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+header button {
+  background: #3079ed;
+  font-size: 16px;
+  border: 1px solid #e5e5e5;
+  color: #FFF;
+  border: 0px;
+  padding: 5px 20px 7px 20px;
+
+  margin-left: -14px;
+}
+
+header input {
+  border: 1px solid #e5e5e5;
+  padding: 8px;
+  margin: 15px;
+  width: 50%;
+}
+
+.bottom-left {
+  width: 200px;
+  height: 40px;
+  top: 60px;
+  left: 0px;
+  background: #FFF;
+  position: absolute;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.bottom-right {
+  background: #fff;
+  position: absolute;
+  left: 200px;
+  top: 60px;
+  height: 40px;
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+form a {
+  color: #4c86ee;
+  text-decoration: none;
+  text-align: center;
+  text-align: center;
+}
 
 form.sign-in button, form.demo-sign-in button {
   width: 100%;
@@ -135,11 +250,11 @@ form.sign-in button, form.demo-sign-in button {
   font-weight: 700;
   border-radius: 5px;
   padding: 10px;
-  background: #357ae8;
+  background: #4b8efa;
 }
 
  .sign-up {
-   background: #f1f1f1;
+   background: #f7f7f7;
    padding: 25px;
    float: right;
    width: 362px;

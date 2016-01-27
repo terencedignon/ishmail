@@ -13,13 +13,16 @@
   <p>
   <input type="password" name="password" value="">
   <p>
-  <button >Sign In</button>
-
+  <button >Sign In</button><br>
+    <button type="submit" form="demo-sign-in">Demo</button>
+    <p>
+      <center>
+    <a href="<%= new_user_url %>">Create Account</a>
+  </center>
 </form>
 
-<form class="demo-sign-in" action="<%= session_url %>" method="POST">
+<form id="demo-sign-in" action="<%= session_url %>" method="POST">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <input type="hidden" name="username" value="guest">
-  <input type="hidden" name="password" value="guestsignin123">
-  <button>Demo</button>
+  <input type="hidden" name="username" value="guest49">
+  <input type="hidden" name="password" value="guest49">
 </form>

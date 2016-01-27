@@ -5,7 +5,7 @@ var EmailIndex = React.createClass({
 
   render: function() {
     return (<div>
-      {}
+      booyah
     </div>);
   }
 });

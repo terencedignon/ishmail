@@ -5,8 +5,22 @@ var Router = require('react-router').Router;
 var ReactDOM = require('react-dom');
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
-var App = require('./components/app.jsx');
-var EmailShow = require('./components/email_show.jsx');
+var EmailIndex = require('./components/email_index.jsx');
+var Sidebar = require('./components/sidebar.jsx');
+var Header = require('./components/header.jsx');
+
+var App = React.createClass({
+  render: function() {
+    return (
+      <div>
+      <Header />
+      <Sidebar />
+      {this.props.children}
+    </div>
+    );
+  }
+});
+
 
 var routes = (<Route path="/" component={App}>
                 <IndexRoute component={EmailIndex} />
