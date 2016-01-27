@@ -36,14 +36,17 @@ var ApiUtils = {
 		});
 	},
 
-	updateEmail: function(id) {
+	updateEmail: function(id, data) {
+
 		$.ajax({
-			method: "PATCH",
-			url: "api/email/" + id,
+			method: "PUT",
+			url: "api/emails/" + id,
+			data: {email: data},
 			success: function(data) {
 				EmailActions.updateEmail(data);
 			},
-			error: function () {
+			error: function (e) {
+
 				console.log("error in updateEmail function");
 			}
 		});
@@ -52,7 +55,7 @@ var ApiUtils = {
 	destroyEmail: function(id) {
 		$.ajax({
 			method: "DELETE",
-			url: "api/email" + id,
+			url: "api/emails" + id,
 			success: function(data) {
 				EmailActions.deleteEmail(data);
 			},

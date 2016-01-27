@@ -14,18 +14,16 @@ var EmailIndex = React.createClass({
     this.eventListener.remove();
   },
   _onChange: function () {
+
     this.setState({ emails: EmailStore.all() });
   },
   render: function() {
-    console.log(this.state.emails);
 
     var indexItems = this.state.emails.map(function(email) {
-
         return <EmailIndexItem key={email.id} id={email.id} email={email}/>;
       });
 
     var email = this.state.emails;
-    console.log(this.state.emails);
     return (
       <div className="main">
         <ul>

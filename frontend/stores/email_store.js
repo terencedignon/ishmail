@@ -19,8 +19,22 @@ EmailStore.getEmail = function () {
 EmailStore.__onDispatch = function (payload) {
 		if (payload.actionType === "CREATE_EMAIL") console.log("create email");
 		if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
-		if (payload.actionType === "UPDATE_EMAIL") console.log("update email");
-		if (payload.actionType === "GET_EMAIL") {
+		if (payload.actionType === "UPDATE_EMAIL") {
+      for (var i = 0; i < _emails.length; i++) {
+        if (_emails[i].id === payload.data.id) {
+          _email[i] = payload.data;
+        }
+      }
+
+      _emails.forEach(function(email) {
+        if email.id == payload.data.id
+
+      });
+      EmailStore.__emitChange();
+
+      console.log("update email");
+    }
+    if (payload.actionType === "GET_EMAIL") {
 
       _singleEmail = payload.data;
       EmailStore.__emitChange();

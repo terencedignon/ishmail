@@ -258,9 +258,24 @@ header input {
 
 }
 
+i {
+  cursor: pointer;
+}
 
 .star{
   color: #eee;
+}
+
+.importance {
+  color: #eee;
+}
+
+.important .importance {
+  color: gold;
+}
+
+i.fa-square-o {
+  font-size: 18px;
 }
 
 .starred .star {

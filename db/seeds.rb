@@ -8,7 +8,7 @@
 
 
 
-50.times do |i|
+10.times do |i|
   username = "guest#{i}"
   password = "guest#{i}"
   location = "United States of America"
@@ -19,7 +19,7 @@
   User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
-    50.times do |j|
+    10.times do |j|
       rand_num = rand(1..100)
       sender = Faker::Internet.free_email
       importance_set = j % 3 == 0 ? true : false
