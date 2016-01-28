@@ -14,10 +14,11 @@ var Sidebar = React.createClass({
     this.listener.remove();
   },
   composeClickHandler: function() {
-    EmailActions.composeEmail();
+    ApiUtil.createEmail({compose_set: true});
+    EmailActions.getComposeSet();
   },
   _onChange: function() {
-    debugger
+
     this.setState({ viewState: EmailStore.getViewState(), unread: EmailStore.unread(), unreadDrafts: EmailStore.unreadDrafts() });
   },
   hrefClickHandler: function(name, e) {

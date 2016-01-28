@@ -18,11 +18,7 @@ var App = React.createClass({
     return (
       <div>
       <Header />
-      <div className="content-container group">
-        <Sidebar />
-        <EmailForm />
-        {this.props.children}
-      </div>
+      {this.props.children}
     </div>
     );
   }

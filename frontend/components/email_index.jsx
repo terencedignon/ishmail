@@ -3,6 +3,8 @@ var EmailStore = require('../stores/email_store.js');
 var EmailIndexItem = require('./email_index_item.jsx');
 var EmailActions = require('../actions/email_actions.js');
 var ApiUtils = require('../util/api_util.js');
+var Sidebar = require('./sidebar.jsx');
+var EmailFormIndex = require('./email_form_index.jsx');
 
 
 var EmailIndex = React.createClass({
@@ -33,11 +35,17 @@ var EmailIndex = React.createClass({
     }
     var email = this.state.emails;
     return (
-      <div className="main">
-        <ul>
-          {indexItems}
-        </ul>
+      <div className="content-container group">
+        <Sidebar />
+        <EmailFormIndex />
+        {this.props.children}
+        <div className="main">
+          <ul>
+            {indexItems}
+          </ul>
+        </div>
       </div>
+
       );
   }
 });

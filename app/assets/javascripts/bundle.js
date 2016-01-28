@@ -67,13 +67,7 @@
 	      'div',
 	      null,
 	      React.createElement(Header, null),
-	      React.createElement(
-	        'div',
-	        { className: 'content-container group' },
-	        React.createElement(Sidebar, null),
-	        React.createElement(EmailForm, null),
-	        this.props.children
-	      )
+	      this.props.children
 	    );
 	  }
 	});
@@ -24031,6 +24025,8 @@
 	var EmailIndexItem = __webpack_require__(230);
 	var EmailActions = __webpack_require__(232);
 	var ApiUtils = __webpack_require__(231);
+	var Sidebar = __webpack_require__(233);
+	var EmailFormIndex = __webpack_require__(236);
 
 	var EmailIndex = React.createClass({
 	  displayName: 'EmailIndex',
@@ -24063,11 +24059,18 @@
 	    var email = this.state.emails;
 	    return React.createElement(
 	      'div',
-	      { className: 'main' },
+	      { className: 'content-container group' },
+	      React.createElement(Sidebar, null),
+	      React.createElement(EmailFormIndex, null),
+	      this.props.children,
 	      React.createElement(
-	        'ul',
-	        null,
-	        indexItems
+	        'div',
+	        { className: 'main' },
+	        React.createElement(
+	          'ul',
+	          null,
+	          indexItems
+	        )
 	      )
 	    );
 	  }
@@ -24090,6 +24093,7 @@
 	var _unread = 0;
 	var _unreadDrafts = 0;
 	var _compose = false;
+	var _composeSet = [];
 	var _filterEmails = [];
 
 	EmailStore.all = function () {
@@ -24100,6 +24104,19 @@
 	  return _unread;
 	}, EmailStore.getEmail = function () {
 	  return _singleEmail;
+	};
+
+	// getEmails (filter) {
+	//  if (filter == 'starred') {
+	//
+	// }
+	// }
+
+	EmailStore.getComposeSet = function () {
+	  _composeSet = _emails.filter(function (email) {
+	    return email.compose_set === true;
+	  });
+	  return _composeSet;
 	};
 
 	EmailStore.unreadDrafts = function () {
@@ -24131,6 +24148,11 @@
 	  // if (payload.actionType === "CREATE_EMAIL") console.log("create email");
 	  // if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
 
+	  if (payload.actionType === "CREATE_EMAIL") {
+	    _emails.unshift(payload.data);
+	    EmailStore.__emitChange();
+	  }
+
 	  if (payload.actionType === "CREATE_VIEW") {
 	    _viewState = payload.data;
 	    EmailStore.__emitChange();
@@ -24147,6 +24169,9 @@
 	    EmailStore.__emitChange();
 	  } else if (payload.actionType === "GET_ALL_EMAIL") {
 	    _emails = payload.data;
+	    EmailStore.__emitChange();
+	  } else if (payload.actionType === "GET_COMPOSE_SET") {
+	    // EmailStore.__emitChange();
 	    EmailStore.__emitChange();
 	  }
 	};
@@ -30928,7 +30953,8 @@
 	  UPDATE_EMAIL: "UPDATE_EMAIL",
 	  COMPOSE_EMAIL: "COMPOSE_EMAIL",
 	  CREATE_VIEW: "CREATE_VIEW",
-	  UNREAD_EMAIL: "UNREAD_EMAIL"
+	  UNREAD_EMAIL: "UNREAD_EMAIL",
+	  GET_COMPOSE_SET: "GET_COMPOSE_SET"
 	};
 
 	module.exports = EmailConstants;
@@ -31099,6 +31125,20 @@
 				}
 			});
 		},
+		//
+		// getComposeSet: function() {
+		// 	$.ajax({
+		// 		method: "GET",
+		// 		url: "api/emails",
+		// 		success: function(data) {
+		// 			EmailActions.getComposeSet(data);
+		// 		},
+		// 		error: function () {
+		// 			console.log("error in getComposeSet");
+		// 		}
+		// 	});
+		//
+		// },
 
 		destroyEmail: function (id) {
 			$.ajax({
@@ -31170,6 +31210,13 @@
 				data: data
 			});
 		},
+
+		getComposeSet: function () {
+			Dispatcher.dispatch({
+				actionType: EmailConstants.GET_COMPOSE_SET
+			});
+		},
+
 		composeEmail: function () {
 			Dispatcher.dispatch({
 				actionType: EmailConstants.COMPOSE_EMAIL
@@ -31202,10 +31249,11 @@
 	    this.listener.remove();
 	  },
 	  composeClickHandler: function () {
-	    EmailActions.composeEmail();
+	    ApiUtil.createEmail({ compose_set: true });
+	    EmailActions.getComposeSet();
 	  },
 	  _onChange: function () {
-	    debugger;
+
 	    this.setState({ viewState: EmailStore.getViewState(), unread: EmailStore.unread(), unreadDrafts: EmailStore.unreadDrafts() });
 	  },
 	  hrefClickHandler: function (name, e) {
@@ -31352,6 +31400,7 @@
 	    };
 	    if (this.state.display && this.state.created === false) {
 	      ApiUtil.createEmail(params);
+	      console.log("created");
 	      this.setState({ created: true });
 	    }
 	  },
@@ -31373,12 +31422,10 @@
 	  render: function () {
 	    var display;
 
-	    if (this.state.display === false) {
-	      display = React.createElement('div', null);
-	    } else if (this.state.minimize) {
+	    if (this.state.minimize) {
 	      display = React.createElement(
 	        'div',
-	        { onClick: this.titleClickHandler, className: 'email-form minimize' },
+	        { onClick: this.titleClickHandler, className: 'email-form minimize group' },
 	        React.createElement(
 	          'span',
 	          null,
@@ -31418,7 +31465,11 @@
 	        React.createElement(
 	          'div',
 	          { className: 'footer' },
-	          'Send'
+	          React.createElement(
+	            'button',
+	            null,
+	            'Send'
+	          )
 	        )
 	      );
 	    }
@@ -31433,6 +31484,53 @@
 	});
 
 	module.exports = EmailForm;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var EmailStore = __webpack_require__(207);
+	var EmailActions = __webpack_require__(232);
+	var EmailForm = __webpack_require__(235);
+	var ApiUtil = __webpack_require__(231);
+
+	var EmailFormIndex = React.createClass({
+	  displayName: 'EmailFormIndex',
+
+	  getInitialState: function () {
+	    return { formIndexItems: [] };
+	  },
+	  componentDidMount: function () {
+	    this.listener = EmailStore.addListener(this._onChange);
+	    ApiUtil.getAllEmail();
+	    EmailActions.getComposeSet();
+	  },
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	  _onChange: function () {
+	    this.setState({ formIndexItems: EmailStore.getComposeSet() });
+	  },
+	  render: function () {
+	    var formItems = this.state.formIndexItems.map(function (draft) {
+	      return React.createElement(
+	        'li',
+	        { key: Math.random() },
+	        React.createElement(EmailForm, { email: draft })
+	      );
+	    });
+
+	    return React.createElement(
+	      'ul',
+	      { className: 'form-holder' },
+	      formItems
+	    );
+	  }
+
+	});
+
+	module.exports = EmailFormIndex;
 
 /***/ }
 /******/ ]);

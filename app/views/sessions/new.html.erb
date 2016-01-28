@@ -21,8 +21,46 @@
   </center>
 </form>
 
-<form id="demo-sign-in" action="<%= session_url %>" method="POST">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <input type="hidden" name="username" value="guest0">
-  <input type="hidden" name="password" value="guest0">
-</form>
+
+<!-- Create the toolbar container -->
+<div id="toolbar">
+  <!-- Add font size dropdown
+  <! <select class="ql-size">
+    <option value="10px">Small</option>
+    <option value="13px" selected>Normal</option>
+    <option value="18px">Large</option>
+    <option value="32px">Huge</option>
+  </select>
+
+  <select class="ql-font">
+    <option value="sans serif">Sans Serif</option>
+    <option value="Serif">Serif</option>
+    <option value="Fixed Width">Fixed Width</option>
+    <option value="Wide">Wide</option>
+    <option value="Narrow">Narrow</option>
+    <option value="Times new Roman">Times New Roman</option>
+
+  </select> -->
+  <!-- Add a bold button -->
+  <!-- <button class="ql-bold"></button> -->
+</div>
+<!-- Create the editor container -->
+<div id="editor">
+  <div>Hello World!</div>
+  <div>Some initial <b>bold</b> text</div>
+  <div><br></div>
+</div>
+
+<!-- Include the Quill library -->
+
+<script src="//cdn.quilljs.com/0.20.1/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+  var quill = new Quill('#editor',
+  modules: {
+    'toolbar': 'options',
+    'link-tooltip': true,
+    'multi-cursor': true
+  }
+</script>

@@ -37,7 +37,7 @@ var ApiUtils = {
 		});
 	},
 
-	// getComposeSet: function (params) { 
+	// getComposeSet: function (params) {
 	// 	$.ajax({
 	// 		method: "POST",
 	// 		url: "api/emails",
@@ -62,6 +62,20 @@ var ApiUtils = {
 			}
 		});
 	},
+	// 
+	// getComposeSet: function() {
+	// 	$.ajax({
+	// 		method: "GET",
+	// 		url: "api/emails",
+	// 		success: function(data) {
+	// 			EmailActions.getComposeSet(data);
+	// 		},
+	// 		error: function () {
+	// 			console.log("error in getComposeSet");
+	// 		}
+	// 	});
+	//
+	// },
 
 	destroyEmail: function(id) {
 		$.ajax({

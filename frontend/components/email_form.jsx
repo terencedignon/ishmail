@@ -29,6 +29,7 @@ var EmailForm = React.createClass({
     };
     if (this.state.display && this.state.created === false) {
       ApiUtil.createEmail(params);
+      console.log("created");
       this.setState({created: true});
     }
   },
@@ -50,15 +51,14 @@ var EmailForm = React.createClass({
   render: function () {
     var display;
 
-    if (this.state.display === false) {
-      display = <div></div>;
-    } else if (this.state.minimize) {
-      display = <div onClick={this.titleClickHandler} className="email-form minimize">
+    if (this.state.minimize) {
+      display =
+      <div onClick={this.titleClickHandler} className="email-form minimize group">
          <span>{this.state.title}</span> <i onClick={this.closeClickHandler} className="fa fa-times"></i>
       </div>;
     } else {
       display = <div className="email-form group">
-        <div onClick={this.titleClickHandler} className="title">
+          <div onClick={this.titleClickHandler} className="title">
           <span>{this.state.title}</span>
         </div>
 
@@ -72,9 +72,11 @@ var EmailForm = React.createClass({
         <textarea></textarea>
         </div>
         <div className="footer">
-        Send
+          <button>Send</button>
+
         </div>
       </div>;
+
     }
 
     return (<div>

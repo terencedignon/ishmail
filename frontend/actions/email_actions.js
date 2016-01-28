@@ -45,9 +45,16 @@ var EmailActions = {
 			data: data
 		});
 	},
+
+	getComposeSet: function() {
+		Dispatcher.dispatch({
+			actionType: EmailConstants.GET_COMPOSE_SET,
+		});
+	},
+
 	composeEmail: function() {
 		Dispatcher.dispatch({
-			actionType: EmailConstants.COMPOSE_EMAIL
+			actionType: EmailConstants.COMPOSE_EMAIL,
 		});
 
 	}

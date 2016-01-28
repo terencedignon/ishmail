@@ -1,6 +1,6 @@
 class Email < ActiveRecord::Base
 
-  validates :sender, :user_id, presence: true
+  # validates :sender, :user_id, presence: true
   belongs_to :user
 
   def self.get_by_current_user(id)
