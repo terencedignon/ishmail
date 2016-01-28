@@ -24027,6 +24027,8 @@
 	var React = __webpack_require__(1);
 	var EmailStore = __webpack_require__(207);
 	var EmailIndexItem = __webpack_require__(230);
+	var EmailActions = __webpack_require__(232);
+	var ApiUtils = __webpack_require__(231);
 
 	var EmailIndex = React.createClass({
 	  displayName: 'EmailIndex',
@@ -24042,21 +24044,18 @@
 	    this.eventListener.remove();
 	  },
 	  _onChange: function () {
-	    var viewState = EmailStore.getViewState();
 
-	    var emails = EmailStore.all().filter(function (email) {
-	      if (viewState === "inbox") return email.compose_set === false;
-	      if (viewState === "starred") return email.starred_set === true;
-	      if (viewState === "important") return email.importance_set === true;
-	      if (viewState === "sent") return email.sent;
-	      if (viewState === "drafts") return email.sent_set === false;
-	    });
-	    this.setState({ emails: emails, view: viewState });
+	    EmailStore.setFilterEmails();
+	    var viewState = EmailStore.getViewState();
+	    this.setState({ emails: EmailStore.all(), view: viewState });
 	  },
 	  render: function () {
-	    var indexItems = this.state.emails.map(function (email) {
-	      return React.createElement(EmailIndexItem, { key: email.id, id: email.id, email: email });
-	    });
+	    var indexItems = React.createElement('div', null);
+	    if (!(typeof this.state.emails === "undefined")) {
+	      var indexItems = this.state.emails.map(function (email) {
+	        return React.createElement(EmailIndexItem, { key: email.id, id: email.id, email: email });
+	      });
+	    }
 	    var email = this.state.emails;
 	    return React.createElement(
 	      'div',
@@ -24084,15 +24083,31 @@
 	var _emails = [];
 	var _singleEmail = [];
 	var _viewState = "inbox";
-
+	var _unread = 0;
 	var _compose = false;
+	var _filterEmails = [];
 
 	EmailStore.all = function () {
 	  return _emails;
 	};
 
-	EmailStore.getEmail = function () {
+	EmailStore.unread = function () {
+	  return _unread;
+	}, EmailStore.getEmail = function () {
 	  return _singleEmail;
+	};
+
+	EmailStore.setFilterEmails = function () {
+	  _filterEmails = EmailStore.all().filter(function (email) {
+	    if (_viewState === "inbox") return email.compose_set === false;
+	    if (_viewState === "starred") return email.starred_set === true;
+	    if (_viewState === "important") return email.importance_set === true;
+	    if (_viewState === "sent") return email.sent;
+	    if (_viewState === "drafts") return email.sent_set === false;
+	  });
+
+	  _unread = _filterEmails.length;
+	  console.log(_unread);
 	};
 
 	EmailStore.getViewState = function () {
@@ -24107,11 +24122,16 @@
 	  if (payload.actionType === "CREATE_EMAIL") console.log("create email");
 	  if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
 	  if (payload.actionType === "CREATE_VIEW") {
-
 	    _viewState = payload.data;
-
 	    EmailStore.__emitChange();
 	  }
+
+	  // if (payload.actionType === "UNREAD_EMAIL") {
+	  //   _unread = payload.data;
+	  //
+	  //   EmailStore.__emitChange();
+	  // }
+
 	  if (payload.actionType === "COMPOSE_EMAIL") {
 	    _compose = true;
 	    EmailStore.__emitChange();
@@ -30910,7 +30930,8 @@
 	  DELETE_EMAIL: "DELETE_EMAIL",
 	  UPDATE_EMAIL: "UPDATE_EMAIL",
 	  COMPOSE_EMAIL: "COMPOSE_EMAIL",
-	  CREATE_VIEW: "CREATE_VIEW"
+	  CREATE_VIEW: "CREATE_VIEW",
+	  UNREAD_EMAIL: "UNREAD_EMAIL"
 	};
 
 	module.exports = EmailConstants;
@@ -31141,6 +31162,12 @@
 				data: data
 			});
 		},
+		sendUnreadEmail: function (data) {
+			Dispatcher.dispatch({
+				actionType: EmailConstants.UNREAD_EMAIL,
+				data: data
+			});
+		},
 		composeEmail: function () {
 			Dispatcher.dispatch({
 				actionType: EmailConstants.COMPOSE_EMAIL
@@ -31157,17 +31184,61 @@
 
 	var React = __webpack_require__(1);
 	var EmailActions = __webpack_require__(232);
+	var EmailStore = __webpack_require__(207);
 
 	var Sidebar = React.createClass({
 	  displayName: 'Sidebar',
 
+	  getInitialState: function () {
+	    return { viewState: "inbox" };
+	  },
+	  componentDidMount: function () {
+	    this.listener = EmailStore.addListener(this._onChange);
+	  },
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
 	  composeClickHandler: function () {
 	    EmailActions.composeEmail();
 	  },
-	  hrefClickHandler: function (name) {
+	  _onChange: function () {
+	    this.setState({ viewState: EmailStore.getViewState() });
+	  },
+	  hrefClickHandler: function (name, e) {
+	    console.log(name);
+	    EmailActions.sendUnreadEmail();
 	    EmailActions.createView(name);
 	  },
 	  render: function () {
+	    console.log(this.state.viewState);
+
+	    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
+	    var lis = links.map(function (link) {
+	      if (this.state.viewState === link.toLowerCase()) {
+	        return React.createElement(
+	          'li',
+	          { className: 'selected' },
+	          React.createElement(
+	            'a',
+	            { onClick: this.hrefClickHandler.bind(this, link.toLowerCase()), href: '#' },
+	            link,
+	            ' (',
+	            EmailStore.unread(),
+	            ')'
+	          )
+	        );
+	      }
+	      return React.createElement(
+	        'li',
+	        null,
+	        React.createElement(
+	          'a',
+	          { onClick: this.hrefClickHandler.bind(this, link.toLowerCase()), href: '#' },
+	          link
+	        )
+	      );
+	    }.bind(this));
+
 	    return React.createElement(
 	      'div',
 	      { className: 'sidebar' },
@@ -31179,60 +31250,7 @@
 	      React.createElement(
 	        'ul',
 	        { className: 'group' },
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, "inbox"), href: '#' },
-	            'Inbox'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, "starred"), href: '#' },
-	            'Starred'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, "important"), href: '#' },
-	            'Important'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, "sent"), href: '#' },
-	            'Sent Mail'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, "drafts"), href: '#' },
-	            'Drafts'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, "links"), href: '#' },
-	            'Links'
-	          )
-	        )
+	        lis
 	      )
 	    );
 	  }

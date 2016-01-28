@@ -39,6 +39,12 @@ var EmailActions = {
 			data: data
 		});
 	},
+	sendUnreadEmail: function(data) {
+		Dispatcher.dispatch({
+			actionType: EmailConstants.UNREAD_EMAIL,
+			data: data
+		});
+	},
 	composeEmail: function() {
 		Dispatcher.dispatch({
 			actionType: EmailConstants.COMPOSE_EMAIL

@@ -1,26 +1,45 @@
 var React = require('react');
 var EmailActions = require('../actions/email_actions.js');
-
+var EmailStore = require('../stores/email_store.js');
 
 var Sidebar = React.createClass({
+  getInitialState: function() {
+    return { viewState: "inbox"};
+  },
+  componentDidMount: function() {
+    this.listener = EmailStore.addListener(this._onChange);
+  },
+  componentWillUnmount: function() {
+    this.listener.remove();
+  },
   composeClickHandler: function() {
     EmailActions.composeEmail();
   },
-  hrefClickHandler: function(name) {
+  _onChange: function() {
+    this.setState({ viewState: EmailStore.getViewState() });
+  },
+  hrefClickHandler: function(name, e) {
+    console.log(name);
+    EmailActions.sendUnreadEmail();
     EmailActions.createView(name);
   },
   render: function() {
-    return(
+    console.log(this.state.viewState);
 
+    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
+    var lis = links.map(function(link) {
+      if (this.state.viewState === link.toLowerCase()) {
+      return <li className="selected"><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
+    }
+      return <li><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
+    }.bind(this));
+
+
+    return(
       <div className="sidebar">
         <button onClick={this.composeClickHandler}>Compose</button>
         <ul className="group">
-        <li><a onClick={this.hrefClickHandler.bind(this, "inbox")} href="#">Inbox</a></li>
-        <li><a onClick={this.hrefClickHandler.bind(this, "starred")} href="#">Starred</a></li>
-        <li><a onClick={this.hrefClickHandler.bind(this, "important")} href="#">Important</a></li>
-        <li><a onClick={this.hrefClickHandler.bind(this, "sent")} href="#">Sent Mail</a></li>
-        <li><a onClick={this.hrefClickHandler.bind(this, "drafts")} href="#">Drafts</a></li>
-        <li><a onClick={this.hrefClickHandler.bind(this, "links")} href="#">Links</a></li>
+          {lis}
         </ul>
       </div>
 
