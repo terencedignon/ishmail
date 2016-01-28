@@ -27,6 +27,16 @@ var EmailIndex = React.createClass({
     }
   },
   render: function() {
+    headerNav = <ul className="index-header">
+      <li><i className="fa fa-shopping-basket"></i> Primary</li>
+      <li><i className="fa fa-users"></i> Social</li>
+      <li><i className="fa fa-tags"></i> Promotions</li>
+      <li><i className="fa fa-info-circle"></i>Updates</li>
+      <li><i className="fa fa-comments"></i> Forums</li>
+    </ul>;
+
+
+
     var indexItems = <div></div>;
     if (!(typeof this.state.emails === "undefined")) {
     var indexItems = this.state.emails.map(function(email) {
@@ -40,6 +50,8 @@ var EmailIndex = React.createClass({
         <EmailFormIndex />
         {this.props.children}
         <div className="main">
+          {headerNav}
+
           <ul>
             {indexItems}
           </ul>

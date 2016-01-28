@@ -59,7 +59,7 @@ var EmailForm = React.createClass({
     } else {
       display = <div className="email-form group">
           <div onClick={this.titleClickHandler} className="title">
-          <span>{this.state.title}</span>
+          {this.state.title} <i className="fa fa-minus toolbar"></i>
         </div>
 
         <div className="recipients">

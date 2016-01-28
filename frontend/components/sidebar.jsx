@@ -14,7 +14,7 @@ var Sidebar = React.createClass({
     this.listener.remove();
   },
   composeClickHandler: function() {
-    ApiUtil.createEmail({compose_set: true});
+    ApiUtil.createEmail({compose_set: true, subject: "New Message"});
     EmailActions.getComposeSet();
   },
   _onChange: function() {

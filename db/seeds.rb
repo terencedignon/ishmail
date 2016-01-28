@@ -19,13 +19,13 @@
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
-    10.times do |j|
+    100.times do |j|
       rand_num = rand(1..100)
       sender = Faker::Internet.free_email
       # importance_set = j % 3 == 0 ? true : false
       # starred_set = j % 5 == 0 ? true : false
       read_set = j % 6 == 0 ? true : false
-      user_id = user.id 
+      user_id = user.id
       subject = Faker::Hipster.sentences(1).join("  ")
       body = Faker::Hipster.sentences.join("  ")
       Email.create!(sender: sender, user_id: user_id,

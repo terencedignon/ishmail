@@ -24050,6 +24050,41 @@
 	    }
 	  },
 	  render: function () {
+	    headerNav = React.createElement(
+	      'ul',
+	      { className: 'index-header' },
+	      React.createElement(
+	        'li',
+	        null,
+	        React.createElement('i', { className: 'fa fa-shopping-basket' }),
+	        ' Primary'
+	      ),
+	      React.createElement(
+	        'li',
+	        null,
+	        React.createElement('i', { className: 'fa fa-users' }),
+	        ' Social'
+	      ),
+	      React.createElement(
+	        'li',
+	        null,
+	        React.createElement('i', { className: 'fa fa-tags' }),
+	        ' Promotions'
+	      ),
+	      React.createElement(
+	        'li',
+	        null,
+	        React.createElement('i', { className: 'fa fa-info-circle' }),
+	        'Updates'
+	      ),
+	      React.createElement(
+	        'li',
+	        null,
+	        React.createElement('i', { className: 'fa fa-comments' }),
+	        ' Forums'
+	      )
+	    );
+
 	    var indexItems = React.createElement('div', null);
 	    if (!(typeof this.state.emails === "undefined")) {
 	      var indexItems = this.state.emails.map(function (email) {
@@ -24066,6 +24101,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'main' },
+	        headerNav,
 	        React.createElement(
 	          'ul',
 	          null,
@@ -31249,7 +31285,7 @@
 	    this.listener.remove();
 	  },
 	  composeClickHandler: function () {
-	    ApiUtil.createEmail({ compose_set: true });
+	    ApiUtil.createEmail({ compose_set: true, subject: "New Message" });
 	    EmailActions.getComposeSet();
 	  },
 	  _onChange: function () {
@@ -31441,11 +31477,9 @@
 	        React.createElement(
 	          'div',
 	          { onClick: this.titleClickHandler, className: 'title' },
-	          React.createElement(
-	            'span',
-	            null,
-	            this.state.title
-	          )
+	          this.state.title,
+	          ' ',
+	          React.createElement('i', { className: 'fa fa-minus toolbar' })
 	        ),
 	        React.createElement(
 	          'div',
