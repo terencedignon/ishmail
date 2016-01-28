@@ -32,7 +32,20 @@ var EmailActions = {
 			actionType: EmailConstants.UPDATE_EMAIL,
 			data: data
 		});
+	},
+	createView: function(data) {
+		Dispatcher.dispatch({
+			actionType: EmailConstants.CREATE_VIEW,
+			data: data
+		});
+	},
+	composeEmail: function() {
+		Dispatcher.dispatch({
+			actionType: EmailConstants.COMPOSE_EMAIL
+		});
+
 	}
+
 };
 
 module.exports = EmailActions;

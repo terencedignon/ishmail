@@ -14,8 +14,17 @@ class Api::EmailsController < ApplicationController
     render :show
   end
 
+  def create
+    @email = Email.new(email_params)
+    @email.user_id = current_user.id
+    @email.sender = "#{current_user.username}@ishmael.com"
+  
+    @email.save
+    render :show
+  end
+
   private
   def email_params
-    params.require(:email).permit(:starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set)
+    params.require(:email).permit(:starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :sent_set, :compose_set)
   end
 end

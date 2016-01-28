@@ -23,10 +23,11 @@ var ApiUtils = {
 		});
 	},
 
-	createEmail: function () {
+	createEmail: function (params) {
 		$.ajax({
 			method: "POST",
 			url: "api/emails",
+			data: {email: params},
 			success: function(data) {
 				EmailActions.createEmail(data);
 			},
@@ -35,6 +36,16 @@ var ApiUtils = {
 			}
 		});
 	},
+
+	// getComposeSet: function (params) { 
+	// 	$.ajax({
+	// 		method: "POST",
+	// 		url: "api/emails",
+	// 		data:
+	//
+	// 	});
+	//
+	// }.
 
 	updateEmail: function(id, data) {
 
@@ -63,7 +74,12 @@ var ApiUtils = {
 				console.log("error in destroyEmail function");
 			}
 		});
+	},
+
+	createDraft: function(id) {
+
 	}
+
 };
 
 module.exports = ApiUtils;
