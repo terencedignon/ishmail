@@ -31531,7 +31531,34 @@
 	var Header = React.createClass({
 	  displayName: "Header",
 
+	  getInitialState: function () {
+	    return { indexToolbar: true };
+	  },
+
 	  render: function () {
+	    var toolbar;
+	    if (this.state.indexToolbar) {
+	      toolbar = React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	          "li",
+	          null,
+	          "Select All"
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          React.createElement("i", { className: "fa fa-refresh" })
+	        ),
+	        React.createElement(
+	          "li",
+	          null,
+	          "More"
+	        )
+	      );
+	    }
+
 	    return React.createElement(
 	      "header",
 	      null,
@@ -31565,7 +31592,11 @@
 	        React.createElement(
 	          "div",
 	          { className: "bottom-right" },
-	          " "
+	          React.createElement(
+	            "ul",
+	            { className: "header-nav group" },
+	            toolbar
+	          )
 	        )
 	      )
 	    );
