@@ -53,7 +53,7 @@
 	var IndexRoute = __webpack_require__(159).IndexRoute;
 	var EmailIndex = __webpack_require__(206);
 	var Sidebar = __webpack_require__(233);
-	var Header = __webpack_require__(234);
+	var Header = __webpack_require__(236);
 	var EmailForm = __webpack_require__(235);
 	ApiUtil = __webpack_require__(231);
 	EmailStore = __webpack_require__(207);
@@ -9345,6 +9345,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9378,8 +9379,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9390,7 +9389,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 
@@ -13239,7 +13242,10 @@
 	      }
 	    });
 
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+
 	    return nativeProps;
 	  }
 
@@ -18712,7 +18718,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.6';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 147 */
@@ -24026,7 +24032,7 @@
 	var EmailActions = __webpack_require__(232);
 	var ApiUtils = __webpack_require__(231);
 	var Sidebar = __webpack_require__(233);
-	var EmailFormIndex = __webpack_require__(236);
+	var EmailFormIndex = __webpack_require__(234);
 
 	var EmailIndex = React.createClass({
 	  displayName: 'EmailIndex',
@@ -24056,7 +24062,7 @@
 	      React.createElement(
 	        'li',
 	        null,
-	        React.createElement('i', { className: 'fa fa-shopping-basket' }),
+	        React.createElement('i', { className: 'fa fa-inbox' }),
 	        ' Primary'
 	      ),
 	      React.createElement(
@@ -31355,53 +31361,47 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var EmailStore = __webpack_require__(207);
+	var EmailActions = __webpack_require__(232);
+	var EmailForm = __webpack_require__(235);
+	var ApiUtil = __webpack_require__(231);
 
-	var Header = React.createClass({
-	  displayName: "Header",
+	var EmailFormIndex = React.createClass({
+	  displayName: 'EmailFormIndex',
 
+	  getInitialState: function () {
+	    return { formIndexItems: [] };
+	  },
+	  componentDidMount: function () {
+	    this.listener = EmailStore.addListener(this._onChange);
+	    ApiUtil.getAllEmail();
+	    EmailActions.getComposeSet();
+	  },
+	  componentWillUnmount: function () {
+	    this.listener.remove();
+	  },
+	  _onChange: function () {
+	    this.setState({ formIndexItems: EmailStore.getComposeSet() });
+	  },
 	  render: function () {
+	    var formItems = this.state.formIndexItems.map(function (draft) {
+	      return React.createElement(
+	        'li',
+	        { key: Math.random() },
+	        React.createElement(EmailForm, { email: draft })
+	      );
+	    });
+
 	    return React.createElement(
-	      "header",
-	      null,
-	      React.createElement(
-	        "div",
-	        { className: "header group" },
-	        React.createElement(
-	          "div",
-	          { className: "top-left" },
-	          React.createElement(
-	            "h1",
-	            null,
-	            "Ishmael"
-	          )
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "top-right" },
-	          React.createElement("input", { type: "text" }),
-	          React.createElement(
-	            "button",
-	            null,
-	            React.createElement("i", { className: "fa fa-search" })
-	          )
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "bottom-left" },
-	          " "
-	        ),
-	        React.createElement(
-	          "div",
-	          { className: "bottom-right" },
-	          " "
-	        )
-	      )
+	      'ul',
+	      { className: 'form-holder' },
+	      formItems
 	    );
 	  }
 
 	});
 
-	module.exports = Header;
+	module.exports = EmailFormIndex;
 
 /***/ },
 /* 235 */
@@ -31527,47 +31527,53 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var EmailStore = __webpack_require__(207);
-	var EmailActions = __webpack_require__(232);
-	var EmailForm = __webpack_require__(235);
-	var ApiUtil = __webpack_require__(231);
 
-	var EmailFormIndex = React.createClass({
-	  displayName: 'EmailFormIndex',
+	var Header = React.createClass({
+	  displayName: "Header",
 
-	  getInitialState: function () {
-	    return { formIndexItems: [] };
-	  },
-	  componentDidMount: function () {
-	    this.listener = EmailStore.addListener(this._onChange);
-	    ApiUtil.getAllEmail();
-	    EmailActions.getComposeSet();
-	  },
-	  componentWillUnmount: function () {
-	    this.listener.remove();
-	  },
-	  _onChange: function () {
-	    this.setState({ formIndexItems: EmailStore.getComposeSet() });
-	  },
 	  render: function () {
-	    var formItems = this.state.formIndexItems.map(function (draft) {
-	      return React.createElement(
-	        'li',
-	        { key: Math.random() },
-	        React.createElement(EmailForm, { email: draft })
-	      );
-	    });
-
 	    return React.createElement(
-	      'ul',
-	      { className: 'form-holder' },
-	      formItems
+	      "header",
+	      null,
+	      React.createElement(
+	        "div",
+	        { className: "header group" },
+	        React.createElement(
+	          "div",
+	          { className: "top-left" },
+	          React.createElement(
+	            "h1",
+	            null,
+	            "Ishmael"
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "top-right" },
+	          React.createElement("input", { type: "text" }),
+	          React.createElement(
+	            "button",
+	            null,
+	            React.createElement("i", { className: "fa fa-search" })
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "bottom-left" },
+	          " "
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "bottom-right" },
+	          " "
+	        )
+	      )
 	    );
 	  }
 
 	});
 
-	module.exports = EmailFormIndex;
+	module.exports = Header;
 
 /***/ }
 /******/ ]);

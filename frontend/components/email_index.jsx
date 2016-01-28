@@ -28,7 +28,7 @@ var EmailIndex = React.createClass({
   },
   render: function() {
     headerNav = <ul className="index-header">
-      <li><i className="fa fa-shopping-basket"></i> Primary</li>
+      <li><i className="fa fa-inbox"></i> Primary</li>
       <li><i className="fa fa-users"></i> Social</li>
       <li><i className="fa fa-tags"></i> Promotions</li>
       <li><i className="fa fa-info-circle"></i>Updates</li>

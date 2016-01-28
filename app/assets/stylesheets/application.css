@@ -518,11 +518,16 @@ form.sign-in button, form.demo-sign-in button {
 }
 
 .index-header li {
+  cursor: pointer;
   display: inline;
   background: #f7f7f7;
   width: calc(100% / 5);
   padding: 10px 100px;
   border: 1px solid #ddd;
+}
+
+.index-header li:hover {
+  border-top: 1px solid #000;
 }
 
 .index-header i {
