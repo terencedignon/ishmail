@@ -78,6 +78,8 @@
 	  }
 	});
 
+	// <Route path="inbox/:emailID" component={EmailShow
+
 	var routes = React.createElement(
 	  Route,
 	  { path: '/', component: App },
@@ -24044,10 +24046,12 @@
 	    this.eventListener.remove();
 	  },
 	  _onChange: function () {
-
-	    EmailStore.setFilterEmails();
-	    var viewState = EmailStore.getViewState();
-	    this.setState({ emails: EmailStore.all(), view: viewState });
+	    if (EmailStore.getViewState() !== this.state.view) {
+	      this.setState({ emails: EmailStore.setFilterEmails(),
+	        view: EmailStore.getViewState() });
+	    } else {
+	      this.setState({ emails: EmailStore.setFilterEmails() });
+	    }
 	  },
 	  render: function () {
 	    var indexItems = React.createElement('div', null);
@@ -24084,6 +24088,7 @@
 	var _singleEmail = [];
 	var _viewState = "inbox";
 	var _unread = 0;
+	var _unreadDrafts = 0;
 	var _compose = false;
 	var _filterEmails = [];
 
@@ -24097,17 +24102,21 @@
 	  return _singleEmail;
 	};
 
+	EmailStore.unreadDrafts = function () {
+	  return _unreadDrafts;
+	};
+
 	EmailStore.setFilterEmails = function () {
 	  _filterEmails = EmailStore.all().filter(function (email) {
-	    if (_viewState === "inbox") return email.compose_set === false;
+	    if (_viewState === "inbox") return email.compose_set === false && email.sent_set === true;
 	    if (_viewState === "starred") return email.starred_set === true;
 	    if (_viewState === "important") return email.importance_set === true;
 	    if (_viewState === "sent") return email.sent;
 	    if (_viewState === "drafts") return email.sent_set === false;
 	  });
-
 	  _unread = _filterEmails.length;
-	  console.log(_unread);
+	  _unreadDrafts = _emails.length - _unread.length;
+	  return _filterEmails;
 	};
 
 	EmailStore.getViewState = function () {
@@ -24119,36 +24128,24 @@
 	};
 
 	EmailStore.__onDispatch = function (payload) {
-	  if (payload.actionType === "CREATE_EMAIL") console.log("create email");
-	  if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
+	  // if (payload.actionType === "CREATE_EMAIL") console.log("create email");
+	  // if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
+
 	  if (payload.actionType === "CREATE_VIEW") {
 	    _viewState = payload.data;
 	    EmailStore.__emitChange();
-	  }
-
-	  // if (payload.actionType === "UNREAD_EMAIL") {
-	  //   _unread = payload.data;
-	  //
-	  //   EmailStore.__emitChange();
-	  // }
-
-	  if (payload.actionType === "COMPOSE_EMAIL") {
+	  } else if (payload.actionType === "COMPOSE_EMAIL") {
 	    _compose = true;
 	    EmailStore.__emitChange();
-	  }
-
-	  if (payload.actionType === "UPDATE_EMAIL") {
+	  } else if (payload.actionType === "UPDATE_EMAIL") {
 	    for (var i = 0; i < _emails.length; i++) {
 	      if (_emails[i].id === payload.data.id) _emails[i] = payload.data;
 	    }
 	    EmailStore.__emitChange();
-	  }
-	  if (payload.actionType === "GET_EMAIL") {
-
+	  } else if (payload.actionType === "GET_EMAIL") {
 	    _singleEmail = payload.data;
 	    EmailStore.__emitChange();
-	  }
-	  if (payload.actionType === "GET_ALL_EMAIL") {
+	  } else if (payload.actionType === "GET_ALL_EMAIL") {
 	    _emails = payload.data;
 	    EmailStore.__emitChange();
 	  }
@@ -31020,6 +31017,11 @@
 	      ),
 	      React.createElement(
 	        'li',
+	        { className: 'first-line' },
+	        this.state.email.body.split(" ").slice(0, 10).join(" ")
+	      ),
+	      React.createElement(
+	        'li',
 	        { className: 'date' },
 	        date
 	      )
@@ -31190,9 +31192,10 @@
 	  displayName: 'Sidebar',
 
 	  getInitialState: function () {
-	    return { viewState: "inbox" };
+	    return { unread: EmailStore.unread(), viewState: "inbox", unreadDrafts: EmailStore.unreadDrafts() };
 	  },
 	  componentDidMount: function () {
+	    ApiUtil.getAllEmail();
 	    this.listener = EmailStore.addListener(this._onChange);
 	  },
 	  componentWillUnmount: function () {
@@ -31202,11 +31205,11 @@
 	    EmailActions.composeEmail();
 	  },
 	  _onChange: function () {
-	    this.setState({ viewState: EmailStore.getViewState() });
+	    debugger;
+	    this.setState({ viewState: EmailStore.getViewState(), unread: EmailStore.unread(), unreadDrafts: EmailStore.unreadDrafts() });
 	  },
 	  hrefClickHandler: function (name, e) {
-	    console.log(name);
-	    EmailActions.sendUnreadEmail();
+	    // EmailActions.sendUnreadEmail();
 	    EmailActions.createView(name);
 	  },
 	  render: function () {
@@ -31214,20 +31217,21 @@
 
 	    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
 	    var lis = links.map(function (link) {
-	      if (this.state.viewState === link.toLowerCase()) {
-	        return React.createElement(
-	          'li',
-	          { className: 'selected' },
-	          React.createElement(
-	            'a',
-	            { onClick: this.hrefClickHandler.bind(this, link.toLowerCase()), href: '#' },
-	            link,
-	            ' (',
-	            EmailStore.unread(),
-	            ')'
-	          )
-	        );
-	      }
+	      if (this.state.viewState === link.toLowerCase()) return React.createElement(
+	        'li',
+	        { className: 'selected' },
+	        React.createElement(
+	          'a',
+	          { onClick: this.hrefClickHandler.bind(this, link.toLowerCase()), href: '#' },
+	          link,
+	          ' (',
+	          EmailStore.unread(),
+	          ')'
+	        )
+	      );
+	      // else if (link === "Drafts")
+	      //   return <li><strong><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">Drafts ({EmailStore.unread()})</a></strong></li>;
+	      // else
 	      return React.createElement(
 	        'li',
 	        null,
@@ -31324,7 +31328,7 @@
 	  displayName: 'EmailForm',
 
 	  getInitialState: function () {
-	    return { title: "", subject: "New Message", body: "Body", display: false, minimize: false };
+	    return { title: "New Message", recipients: "", subject: "", body: "", created: false, display: false, minimize: false };
 	  },
 	  componentDidMount: function () {
 	    this.eventListener = EmailStore.addListener(this._onChange);
@@ -31338,13 +31342,25 @@
 	    this.setState({ minimize: opp });
 	  },
 	  _onChange: function () {
+	    var subject = this.state.subject;
+	    if (subject === "") subject = "New Message";
 	    this.setState({ display: EmailStore.getDisplay() });
 	    var params = {
-	      subject: this.state.subject,
+	      subject: subject,
 	      body: this.state.body,
 	      compose_set: true
 	    };
-	    ApiUtil.createEmail(params);
+	    if (this.state.display && this.state.created === false) {
+	      ApiUtil.createEmail(params);
+	      this.setState({ created: true });
+	    }
+	  },
+	  recipientsChangeHandler: function (e) {
+	    if (e.currentTarget.value === "") {
+	      this.setState({ recipients: "Recipients" });
+	    } else {
+	      this.setState({ recipients: e.currentTarget.value });
+	    }
 	  },
 	  closeClickHandler: function () {
 	    // var params = {
@@ -31363,23 +31379,31 @@
 	      display = React.createElement(
 	        'div',
 	        { onClick: this.titleClickHandler, className: 'email-form minimize' },
-	        this.state.title,
+	        React.createElement(
+	          'span',
+	          null,
+	          this.state.title
+	        ),
 	        ' ',
 	        React.createElement('i', { onClick: this.closeClickHandler, className: 'fa fa-times' })
 	      );
 	    } else {
 	      display = React.createElement(
 	        'div',
-	        { className: 'email-form' },
+	        { className: 'email-form group' },
 	        React.createElement(
 	          'div',
 	          { onClick: this.titleClickHandler, className: 'title' },
-	          'New Message'
+	          React.createElement(
+	            'span',
+	            null,
+	            this.state.title
+	          )
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'recipients' },
-	          React.createElement('input', { type: 'text' })
+	          React.createElement('input', { onChange: this.recipientsChangeHandler, type: 'text', value: this.state.recipients })
 	        ),
 	        React.createElement(
 	          'div',

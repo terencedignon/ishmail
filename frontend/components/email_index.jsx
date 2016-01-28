@@ -17,11 +17,12 @@ var EmailIndex = React.createClass({
     this.eventListener.remove();
   },
   _onChange: function () {
-
-    EmailStore.setFilterEmails();
-    var viewState = EmailStore.getViewState();
-    this.setState({ emails: EmailStore.all(), view: viewState});
-
+    if (EmailStore.getViewState() !== this.state.view) {
+      this.setState({ emails: EmailStore.setFilterEmails(),
+        view: EmailStore.getViewState()});
+    } else {
+      this.setState({ emails: EmailStore.setFilterEmails()});
+    }
   },
   render: function() {
     var indexItems = <div></div>;

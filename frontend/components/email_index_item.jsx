@@ -65,6 +65,9 @@ var EmailIndexItem = React.createClass({
        <li>
         {this.props.email.subject}
       </li>
+      <li className="first-line">
+        {this.state.email.body.split(" ").slice(0, 10).join(" ")}
+      </li>
       <li className="date">
         {date}
       </li>

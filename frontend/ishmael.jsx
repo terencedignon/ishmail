@@ -19,15 +19,16 @@ var App = React.createClass({
       <div>
       <Header />
       <div className="content-container group">
-      <Sidebar />
-      <EmailForm />
-      {this.props.children}
+        <Sidebar />
+        <EmailForm />
+        {this.props.children}
       </div>
     </div>
     );
   }
 });
 
+// <Route path="inbox/:emailID" component={EmailShow
 
 var routes = (<Route path="/" component={App}>
                 <IndexRoute component={EmailIndex}>

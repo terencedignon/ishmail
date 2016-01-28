@@ -4,9 +4,10 @@ var EmailStore = require('../stores/email_store.js');
 
 var Sidebar = React.createClass({
   getInitialState: function() {
-    return { viewState: "inbox"};
+    return { unread: EmailStore.unread(), viewState: "inbox", unreadDrafts: EmailStore.unreadDrafts()};
   },
   componentDidMount: function() {
+    ApiUtil.getAllEmail();
     this.listener = EmailStore.addListener(this._onChange);
   },
   componentWillUnmount: function() {
@@ -16,11 +17,11 @@ var Sidebar = React.createClass({
     EmailActions.composeEmail();
   },
   _onChange: function() {
-    this.setState({ viewState: EmailStore.getViewState() });
+    debugger
+    this.setState({ viewState: EmailStore.getViewState(), unread: EmailStore.unread(), unreadDrafts: EmailStore.unreadDrafts() });
   },
   hrefClickHandler: function(name, e) {
-    console.log(name);
-    EmailActions.sendUnreadEmail();
+    // EmailActions.sendUnreadEmail();
     EmailActions.createView(name);
   },
   render: function() {
@@ -28,10 +29,12 @@ var Sidebar = React.createClass({
 
     var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
     var lis = links.map(function(link) {
-      if (this.state.viewState === link.toLowerCase()) {
-      return <li className="selected"><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
-    }
-      return <li><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
+      if (this.state.viewState === link.toLowerCase())
+        return <li className="selected"><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
+      // else if (link === "Drafts")
+      //   return <li><strong><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">Drafts ({EmailStore.unread()})</a></strong></li>;
+      // else
+        return <li><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
     }.bind(this));
 
 
