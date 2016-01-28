@@ -18,8 +18,11 @@ var Sidebar = React.createClass({
     EmailActions.getComposeSet();
   },
   _onChange: function() {
-
-    this.setState({ viewState: EmailStore.getViewState(), unread: EmailStore.unread(), unreadDrafts: EmailStore.unreadDrafts() });
+    this.setState({
+      viewState: EmailStore.getViewState(),
+      unread: EmailStore.unread(),
+      unreadDrafts: EmailStore.unreadDrafts()
+    });
   },
   hrefClickHandler: function(name, e) {
     // EmailActions.sendUnreadEmail();
