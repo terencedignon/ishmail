@@ -49,7 +49,7 @@ var EmailIndex = React.createClass({
         <Sidebar />
         <EmailFormIndex />
         {this.props.children}
-        <div className="main">
+        <div className="main group">
           {headerNav}
 
           <ul>

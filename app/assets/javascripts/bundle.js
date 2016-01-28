@@ -24106,7 +24106,7 @@
 	      this.props.children,
 	      React.createElement(
 	        'div',
-	        { className: 'main' },
+	        { className: 'main group' },
 	        headerNav,
 	        React.createElement(
 	          'ul',

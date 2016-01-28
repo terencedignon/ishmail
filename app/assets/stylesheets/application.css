@@ -44,7 +44,7 @@
  h1.banner {
    margin: 0 0 .92em;
    text-align: center;
-   color #555;
+   color: #555;
    font-family: 'Open Sans', sans-serif;
    font-size: 38px;
    margin-top: 27px;
@@ -381,16 +381,18 @@ form.sign-in button, form.demo-sign-in button {
  }
 
 .form-holder {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  right: 30px;
 }
 
 .email-form {
-  position: fixed;
+  float: right;
   font-size: 14px;
   border: 1px solid #e5e5e5;
   background: #fff;
-  right: 30px;
-  bottom: 0;
+  /*right: 30px;
+  bottom: 0;*/
   width: 600px;
   /*width: 40%;
   height: 65%;*/
@@ -539,17 +541,17 @@ form.sign-in button, form.demo-sign-in button {
 }
 
 .header-nav {
+  display: block;
   width: 100%;
   padding: 10px;
 }
 
 .header-nav li {
-  display: inline-block;
+  float: left;
   background: #f7f7f7;
   margin-right: 50px;
   font-size: 14px;
   border: 1px solid #e5e5e5;
-  display: none;
   width: 33px;
   height: 33px;
 
