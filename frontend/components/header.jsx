@@ -1,17 +1,20 @@
 var React = require('react');
-
+var EmailStore = require('../stores/email_store.js');
+var EmailActions = require('../actions/email_actions.js');
 
 var Header = React.createClass({
   getInitialState: function() {
     return { indexToolbar: true };
   },
-
+  selectAll: function() {
+    EmailActions.selectAll();
+  },
   render: function () {
     var toolbar;
     if (this.state.indexToolbar) {
       toolbar = <div>
         <li>
-        Select All
+        <a onClick={this.selectAll} href="#">Select All</a>
         </li>
         <li>
         <i className="fa fa-refresh"></i>

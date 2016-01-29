@@ -31577,74 +31577,82 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var EmailStore = __webpack_require__(207);
+	var EmailActions = __webpack_require__(232);
 
 	var Header = React.createClass({
-	  displayName: "Header",
+	  displayName: 'Header',
 
 	  getInitialState: function () {
 	    return { indexToolbar: true };
 	  },
-
+	  selectAll: function () {
+	    EmailActions.selectAll();
+	  },
 	  render: function () {
 	    var toolbar;
 	    if (this.state.indexToolbar) {
 	      toolbar = React.createElement(
-	        "div",
+	        'div',
 	        null,
 	        React.createElement(
-	          "li",
+	          'li',
 	          null,
-	          "Select All"
+	          React.createElement(
+	            'a',
+	            { onClick: this.selectAll, href: '#' },
+	            'Select All'
+	          )
 	        ),
 	        React.createElement(
-	          "li",
+	          'li',
 	          null,
-	          React.createElement("i", { className: "fa fa-refresh" })
+	          React.createElement('i', { className: 'fa fa-refresh' })
 	        ),
 	        React.createElement(
-	          "li",
+	          'li',
 	          null,
-	          "More"
+	          'More'
 	        )
 	      );
 	    }
 
 	    return React.createElement(
-	      "header",
+	      'header',
 	      null,
 	      React.createElement(
-	        "div",
-	        { className: "header group" },
+	        'div',
+	        { className: 'header group' },
 	        React.createElement(
-	          "div",
-	          { className: "top-left" },
+	          'div',
+	          { className: 'top-left' },
 	          React.createElement(
-	            "h1",
+	            'h1',
 	            null,
-	            "Ishmael"
+	            'Ishmael'
 	          )
 	        ),
 	        React.createElement(
-	          "div",
-	          { className: "top-right" },
-	          React.createElement("input", { type: "text" }),
+	          'div',
+	          { className: 'top-right' },
+	          React.createElement('input', { type: 'text' }),
 	          React.createElement(
-	            "button",
+	            'button',
 	            null,
-	            React.createElement("i", { className: "fa fa-search" })
+	            React.createElement('i', { className: 'fa fa-search' })
 	          )
 	        ),
 	        React.createElement(
-	          "div",
-	          { className: "bottom-left" },
-	          " "
+	          'div',
+	          { className: 'bottom-left' },
+	          ' '
 	        ),
 	        React.createElement(
-	          "div",
-	          { className: "bottom-right" },
+	          'div',
+	          { className: 'bottom-right' },
 	          React.createElement(
-	            "ul",
-	            { className: "header-nav group" },
+	            'ul',
+	            { className: 'header-nav group' },
 	            toolbar
 	          )
 	        )
