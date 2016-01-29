@@ -24137,6 +24137,7 @@
 	var _compose = false;
 	var _composeSet = [];
 	var _filterEmails = [];
+	var _selectedEmails = [];
 
 	EmailStore.all = function () {
 	  return _emails;
@@ -24215,6 +24216,17 @@
 	  } else if (payload.actionType === "GET_COMPOSE_SET") {
 	    // EmailStore.__emitChange();
 	    EmailStore.__emitChange();
+	  } else if (payload.actionType === "TYPE_SELECT") {
+
+	    var present = _selectedEmails.filter(function (email) {
+	      return email.id === payload.data.id;
+	    });
+	    if (present.length === 0) {
+	      _selectedEmails.push(payload.data);
+	    } else {
+	      _selectedEmails.splice(_selectedEmails.indexOf(payload.data), 1);
+	    }
+	    console.log(_selectedEmails);
 	  }
 	};
 
@@ -30996,7 +31008,8 @@
 	  COMPOSE_EMAIL: "COMPOSE_EMAIL",
 	  CREATE_VIEW: "CREATE_VIEW",
 	  UNREAD_EMAIL: "UNREAD_EMAIL",
-	  GET_COMPOSE_SET: "GET_COMPOSE_SET"
+	  GET_COMPOSE_SET: "GET_COMPOSE_SET",
+	  TYPE_SELECT: "TYPE_SELECT"
 	};
 
 	module.exports = EmailConstants;
@@ -31008,6 +31021,7 @@
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(231);
 	var EmailStore = __webpack_require__(207);
+	var EmailConstants = __webpack_require__(229);
 
 	var EmailIndexItem = React.createClass({
 	  displayName: 'EmailIndexItem',
@@ -31038,17 +31052,27 @@
 	    ApiUtil.updateEmail(this.props.id, { starred_set: starred_set });
 	  },
 	  checkClickHandler: function () {
-
+	    ApiUtil.updateEmail(this.state.email.id, { select_set: !this.state.email.select_set }, EmailConstants.TYPE_SELECT);
 	    var truthy = !this.state.checked;
 	    this.setState({ checked: truthy });
 	  },
 	  _onChange: function () {
 	    this.setState({ email: this.props.email });
 	  },
-	  render: function () {
+	  formatDate: function () {
 
-	    var dateTime = new Date(this.props.email.created_at);
-	    var date = dateTime.toString().split(" ").slice(1, 3).join(" ");
+	    var currentDate = new Date();
+	    var emailDate = new Date(this.state.email.created_at);
+	    if (currentDate.getMonth() !== emailDate.getMonth() || currentDate.getYear() !== emailDate.getYear()) {
+
+	      var year = emailDate.toLocaleDateString().split("/")[2].slice(2);
+	      return emailDate.toLocaleDateString().split("/").slice(0, 2).concat(year).join("/");
+	    } else {
+	      return emailDate.toString().split(" ").slice(1, 3).join(" ");
+	    }
+	  },
+	  render: function () {
+	    var date = this.formatDate();
 	    var classString = this.classList(this.props.email);
 	    var starClass = classString.includes('starred') ? "fa fa-star" : "fa fa-star-o";
 	    var importantClass = classString.includes('important') ? "fa fa-square" : "fa fa-square-o";
@@ -31104,6 +31128,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var EmailActions = __webpack_require__(232);
+	var EmailConstants = __webpack_require__(229);
 
 	var ApiUtils = {
 		getAllEmail: function () {
@@ -31128,13 +31153,14 @@
 			});
 		},
 
-		createEmail: function (params) {
+		createEmail: function (params, callback) {
 			$.ajax({
 				method: "POST",
 				url: "api/emails",
 				data: { email: params },
 				success: function (data) {
 					EmailActions.createEmail(data);
+					callback && callback();
 				},
 				error: function () {
 					console.log("error in createEmails function");
@@ -31152,21 +31178,26 @@
 		//
 		// }.
 
-		updateEmail: function (id, data) {
+		updateEmail: function (id, data, typeOfUpdate) {
 
 			$.ajax({
 				method: "PUT",
 				url: "api/emails/" + id,
 				data: { email: data },
 				success: function (data) {
-					EmailActions.updateEmail(data);
+					if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
+
+						EmailActions.updateSelect(data);
+					} else {
+						EmailActions.updateEmail(data);
+					}
 				},
 				error: function (e) {
-
 					console.log("error in updateEmail function");
 				}
 			});
 		},
+
 		//
 		// getComposeSet: function() {
 		// 	$.ajax({
@@ -31259,6 +31290,13 @@
 			});
 		},
 
+		updateSelect: function (data) {
+			Dispatcher.dispatch({
+				actionType: EmailConstants.TYPE_SELECT,
+				data: data
+			});
+		},
+
 		composeEmail: function () {
 			Dispatcher.dispatch({
 				actionType: EmailConstants.COMPOSE_EMAIL
@@ -31312,7 +31350,7 @@
 	    var lis = links.map(function (link) {
 	      if (this.state.viewState === link.toLowerCase()) return React.createElement(
 	        'li',
-	        { className: 'selected' },
+	        { key: Math.random(), className: 'selected' },
 	        React.createElement(
 	          'a',
 	          { onClick: this.hrefClickHandler.bind(this, link.toLowerCase()), href: '#' },
@@ -31327,7 +31365,7 @@
 	      // else
 	      return React.createElement(
 	        'li',
-	        null,
+	        { key: Math.random() },
 	        React.createElement(
 	          'a',
 	          { onClick: this.hrefClickHandler.bind(this, link.toLowerCase()), href: '#' },
@@ -31410,10 +31448,12 @@
 	var React = __webpack_require__(1);
 	var EmailStore = __webpack_require__(207);
 	var ApiUtils = __webpack_require__(231);
+	var LinkedStateMixin = __webpack_require__(237);
 
 	var EmailForm = React.createClass({
 	  displayName: 'EmailForm',
 
+	  mixins: [LinkedStateMixin],
 	  getInitialState: function () {
 	    return { title: "New Message", recipients: "", subject: "", body: "", created: false, display: false, minimize: false };
 	  },
@@ -31457,7 +31497,17 @@
 	    // }
 	    ApiUtil.updateEmail(params);
 	  },
-
+	  createEmail: function () {
+	    var params = {
+	      title: this.state.title,
+	      body: this.state.body,
+	      compose_set: false,
+	      sent_set: true
+	    };
+	    ApiUtil.createEmail(params, function () {
+	      this.setState({ created: false });
+	    }.bind(this));
+	  },
 	  render: function () {
 	    var display;
 
@@ -31487,24 +31537,24 @@
 	        React.createElement(
 	          'div',
 	          { className: 'recipients' },
-	          React.createElement('input', { onChange: this.recipientsChangeHandler, type: 'text', value: this.state.recipients })
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('recipients') })
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'subject' },
-	          React.createElement('input', { type: 'text' })
+	          React.createElement('input', { type: 'text', valueLink: this.linkState('subject') })
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'body' },
-	          React.createElement('textarea', null)
+	          React.createElement('textarea', { valueLink: this.linkState('body') })
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'footer' },
 	          React.createElement(
 	            'button',
-	            null,
+	            { onClick: this.createEmail },
 	            'Send'
 	          )
 	        )
@@ -31605,6 +31655,236 @@
 	});
 
 	module.exports = Header;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(238);
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+
+	'use strict';
+
+	var ReactLink = __webpack_require__(239);
+	var ReactStateSetters = __webpack_require__(240);
+
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function (key) {
+	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+	  }
+	};
+
+	module.exports = LinkedStateMixin;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+
+	'use strict';
+
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   _handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+
+	var React = __webpack_require__(2);
+
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+
+	module.exports = ReactLink;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+
+	'use strict';
+
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (component, funcReturningState) {
+	    return function (a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+
+	module.exports = ReactStateSetters;
 
 /***/ }
 /******/ ]);

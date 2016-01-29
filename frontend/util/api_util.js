@@ -1,4 +1,5 @@
 var EmailActions = require('../actions/email_actions.js');
+var EmailConstants = require('../constants/email_constants.js');
 
 var ApiUtils = {
 	getAllEmail: function () {
@@ -23,13 +24,14 @@ var ApiUtils = {
 		});
 	},
 
-	createEmail: function (params) {
+	createEmail: function (params, callback) {
 		$.ajax({
 			method: "POST",
 			url: "api/emails",
 			data: {email: params},
 			success: function(data) {
 				EmailActions.createEmail(data);
+        callback && callback();
 			},
 			error: function () {
 				console.log("error in createEmails function");
@@ -47,22 +49,27 @@ var ApiUtils = {
 	//
 	// }.
 
-	updateEmail: function(id, data) {
+	updateEmail: function(id, data, typeOfUpdate) {
 
 		$.ajax({
 			method: "PUT",
 			url: "api/emails/" + id,
 			data: {email: data},
 			success: function(data) {
-				EmailActions.updateEmail(data);
-			},
+        if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
+      
+          EmailActions.updateSelect(data);
+        } else {
+  				EmailActions.updateEmail(data);
+        }
+      },
 			error: function (e) {
-
 				console.log("error in updateEmail function");
 			}
 		});
 	},
-	// 
+
+	//
 	// getComposeSet: function() {
 	// 	$.ajax({
 	// 		method: "GET",

@@ -1,9 +1,11 @@
 var React = require('react');
 var EmailStore = require('../stores/email_store.js');
 var ApiUtils = require('../util/api_util.js');
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 
 var EmailForm = React.createClass({
+  mixins: [LinkedStateMixin],
   getInitialState: function() {
     return { title: "New Message", recipients: "", subject: "", body: "", created: false, display: false, minimize: false };
   },
@@ -47,7 +49,17 @@ var EmailForm = React.createClass({
     // }
     ApiUtil.updateEmail(params);
   },
-
+  createEmail: function () {
+    var params = {
+      title: this.state.title,
+      body: this.state.body,
+      compose_set: false,
+      sent_set: true
+    };
+    ApiUtil.createEmail(params, function () {
+      this.setState({created: false});
+    }.bind(this));
+  },
   render: function () {
     var display;
 
@@ -63,16 +75,16 @@ var EmailForm = React.createClass({
         </div>
 
         <div className="recipients">
-          <input onChange={this.recipientsChangeHandler} type="text" value={this.state.recipients}/>
+          <input type="text" valueLink={this.linkState('recipients')}/>
         </div>
         <div className="subject">
-          <input type="text"/>
+          <input type="text" valueLink={this.linkState('subject')}/>
         </div>
         <div className="body">
-        <textarea></textarea>
+        <textarea valueLink={this.linkState('body')}/>
         </div>
         <div className="footer">
-          <button>Send</button>
+          <button onClick={this.createEmail}>Send</button>
 
         </div>
       </div>;

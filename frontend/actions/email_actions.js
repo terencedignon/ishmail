@@ -52,6 +52,13 @@ var EmailActions = {
 		});
 	},
 
+  updateSelect: function(data) {
+    Dispatcher.dispatch({
+      actionType: EmailConstants.TYPE_SELECT,
+      data: data
+    });
+  },
+
 	composeEmail: function() {
 		Dispatcher.dispatch({
 			actionType: EmailConstants.COMPOSE_EMAIL,

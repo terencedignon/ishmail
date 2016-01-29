@@ -11,6 +11,7 @@ var _unreadDrafts = 0;
 var _compose = false;
 var _composeSet = [];
 var _filterEmails = [];
+var _selectedEmails = [];
 
 EmailStore.all = function () {
   return _emails;
@@ -91,6 +92,17 @@ EmailStore.__onDispatch = function (payload) {
     } else if (payload.actionType === "GET_COMPOSE_SET") {
       // EmailStore.__emitChange();
       EmailStore.__emitChange();
+    } else if (payload.actionType === "TYPE_SELECT") {
+
+      var present = _selectedEmails.filter(function(email) {
+        return email.id === payload.data.id;
+      });
+      if (present.length === 0) {
+        _selectedEmails.push(payload.data);
+      } else {
+        _selectedEmails.splice(_selectedEmails.indexOf(payload.data), 1);
+      }
+      console.log(_selectedEmails);
     }
   };
 

@@ -1,6 +1,7 @@
 var React = require('react');
 var ApiUtil = require('../util/api_util.js');
 var EmailStore = require('../stores/email_store.js');
+var EmailConstants = require('../constants/email_constants.js');
 
 
 var EmailIndexItem = React.createClass({
@@ -32,17 +33,29 @@ var EmailIndexItem = React.createClass({
 
   },
   checkClickHandler: function () {
-
+    ApiUtil.updateEmail(
+      this.state.email.id, {select_set: !(this.state.email.select_set)}, EmailConstants.TYPE_SELECT
+    );
     var truthy = !(this.state.checked);
     this.setState({ checked: truthy });
   },
   _onChange: function () {
     this.setState({ email: this.props.email });
   },
-  render: function () {
+  formatDate: function () {
 
-    var dateTime = new Date(this.props.email.created_at);
-    var date = dateTime.toString().split(" ").slice(1, 3).join(" ");
+    var currentDate = new Date();
+    var emailDate = new Date(this.state.email.created_at);
+    if (currentDate.getMonth() !== emailDate.getMonth() || currentDate.getYear() !== emailDate.getYear()) {
+
+      var year = emailDate.toLocaleDateString().split("/")[2].slice(2);
+      return emailDate.toLocaleDateString().split("/").slice(0, 2).concat(year).join("/");
+    } else {
+        return emailDate.toString().split(" ").slice(1, 3).join(" ");
+    }
+  },
+  render: function () {
+    var date = this.formatDate();
     var classString = this.classList(this.props.email);
     var starClass = (classString.includes('starred') ? "fa fa-star" : "fa fa-star-o");
     var importantClass = (classString.includes('important') ? "fa fa-square" : "fa fa-square-o" );

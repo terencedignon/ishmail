@@ -34,11 +34,11 @@ var Sidebar = React.createClass({
     var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
     var lis = links.map(function(link) {
       if (this.state.viewState === link.toLowerCase())
-        return <li className="selected"><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
+        return <li key={Math.random()} className="selected"><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
       // else if (link === "Drafts")
       //   return <li><strong><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">Drafts ({EmailStore.unread()})</a></strong></li>;
       // else
-        return <li><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
+        return <li key={Math.random()}><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
     }.bind(this));
 
 
