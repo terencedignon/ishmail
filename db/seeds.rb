@@ -26,11 +26,14 @@
       # starred_set = j % 5 == 0 ? true : false
       read_set = j % 6 == 0 ? true : false
       user_id = user.id
-      subject = Faker::Hipster.sentences(1).join("  ")
-      body = Faker::Hipster.sentences.join("  ")
+      subject = Faker::Hacker.say_something_smart
+      body = Faker::Hacker.say_something_smart
       Email.create!(sender: sender, user_id: user_id,
       subject: subject, body: body, sent_set: true, read_set: read_set
       )
+    end
+    Email.all.each do |email|
+      email.update(created_at: Faker::Time.between(3000.days.ago, Time.now, :all))
     end
 
 end

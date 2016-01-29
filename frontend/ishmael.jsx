@@ -11,6 +11,7 @@ var Header = require('./components/header.jsx');
 var EmailForm = require('./components/email_form.jsx');
 ApiUtil = require('./util/api_util.js');
 EmailStore = require('./stores/email_store.js');
+SelectStore = require('./stores/select_store.js');
 
 var App = React.createClass({
   render: function() {

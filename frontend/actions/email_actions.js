@@ -52,6 +52,26 @@ var EmailActions = {
 		});
 	},
 
+  // updateSelectAll: function(data) {
+  //   Dispatcher.dispatch({
+  //     actionType: EmailConstants.SELECT_ALL,
+  //     data: data
+  //   });
+  // },
+
+  destroyAll: function(length) {
+    Dispatcher.dispatch({
+      actionType: EmailConstants.DESTROY_EMAIL,
+      data: length
+    });
+  },
+
+  updateAll: function(array, constant) {
+    Dispatcher.dispatch({
+      actionType: constant,
+      data: array
+    });
+  },
   updateSelect: function(data) {
     Dispatcher.dispatch({
       actionType: EmailConstants.TYPE_SELECT,

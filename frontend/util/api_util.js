@@ -49,15 +49,44 @@ var ApiUtils = {
 	//
 	// }.
 
-	updateEmail: function(id, data, typeOfUpdate) {
+  destroyAll: function(emails) {
+    $.ajax({
+      method: "DELETE",
+      url: "api/emails/mass_destroy",
+      data: {email: emails},
+      success: function(data) {
 
+        EmailActions.destroyAll(emails.length);
+        // callback && callback();
+      },
+      error: function() {
+        console.log("error in the destroyAll function");
+      }
+    });
+  },
+
+  updateAll: function(emails, data, typeOfUpdate, callback) {
+      $.ajax({
+        method: "POST",
+        url: "api/emails/mass_update",
+        data: {email: emails, data: data},
+        success: function(payload) {
+          EmailActions.updateAll(emails, typeOfUpdate);
+          callback && callback();
+        },
+        error: function (e) {
+          console.log("error in updateAllfunction");
+        }
+      });
+  },
+	updateEmail: function(id, data, typeOfUpdate) {
 		$.ajax({
 			method: "PUT",
 			url: "api/emails/" + id,
 			data: {email: data},
 			success: function(data) {
         if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
-      
+
           EmailActions.updateSelect(data);
         } else {
   				EmailActions.updateEmail(data);

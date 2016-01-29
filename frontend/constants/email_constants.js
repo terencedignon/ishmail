@@ -8,7 +8,8 @@ var EmailConstants = {
   CREATE_VIEW: "CREATE_VIEW",
   UNREAD_EMAIL: "UNREAD_EMAIL",
   GET_COMPOSE_SET: "GET_COMPOSE_SET",
-  TYPE_SELECT: "TYPE_SELECT"
+  TYPE_SELECT: "TYPE_SELECT",
+  TYPE_DELETE: "TYPE_DELETE"
 };
 
 module.exports = EmailConstants;

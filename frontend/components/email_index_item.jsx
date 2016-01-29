@@ -2,11 +2,12 @@ var React = require('react');
 var ApiUtil = require('../util/api_util.js');
 var EmailStore = require('../stores/email_store.js');
 var EmailConstants = require('../constants/email_constants.js');
-
+var SelectActions = require('../actions/select_actions.js');
+var SelectConstants = require('../constants/select_constants.js');
 
 var EmailIndexItem = React.createClass({
   getInitialState: function () {
-    return { email: this.props.email, checked: false };
+    return { email: this.props.email };
   },
   componentDidMount: function () {
     this.eventListener = EmailStore.addListener(this._onChange);
@@ -19,7 +20,7 @@ var EmailIndexItem = React.createClass({
     if (email.importance_set) classString += " important";
     if (email.read_set) classString += " read";
     if (email.starred_set) classString += " starred";
-    if (this.state.checked) classString += " checked";
+    if (this.props.checked === "true") classString += " checked";
     return classString;
   },
   importanceClickHandler: function () {
@@ -33,14 +34,18 @@ var EmailIndexItem = React.createClass({
 
   },
   checkClickHandler: function () {
-    ApiUtil.updateEmail(
-      this.state.email.id, {select_set: !(this.state.email.select_set)}, EmailConstants.TYPE_SELECT
-    );
-    var truthy = !(this.state.checked);
-    this.setState({ checked: truthy });
+
+    // ApiUtil.updateEmail(
+    //   this.state.email.id, {select_set: !(this.state.email.select_set)}, EmailConstants.TYPE_SELECT
+    // );
+
+    SelectActions.toggleSelect(this.props.id, SelectConstants.TOGGLE_SELECT);
+
+    // var truthy = !(this.state.checked);
+    // this.setState({ checked: truthy });
   },
   _onChange: function () {
-    this.setState({ email: this.props.email });
+    this.forceUpdate();
   },
   formatDate: function () {
 
@@ -59,7 +64,7 @@ var EmailIndexItem = React.createClass({
     var classString = this.classList(this.props.email);
     var starClass = (classString.includes('starred') ? "fa fa-star" : "fa fa-star-o");
     var importantClass = (classString.includes('important') ? "fa fa-square" : "fa fa-square-o" );
-    var checked = (this.state.checked ? "fa fa-check-square-o" : "fa fa-square-o");
+    var checked = (this.props.checked === "true" ? "fa fa-check-square-o" : "fa fa-square-o");
 
     return (
       <ul className={classString}>

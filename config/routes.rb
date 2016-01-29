@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   root to: 'static_pages#root'
   namespace :api, defaults: { format: :json } do
-    resources :emails, only: [:create, :destroy, :update, :show, :index]
+    resources :emails, only: [:create, :destroy, :update, :show, :index] do
+      collection do
+        post 'mass_update'
+        delete 'mass_destroy'
+      end
+    end
     resources :users, only: [:index, :show, :create, :update]
     resources :chats, only: [:show, :create]
     resources :lines, only: [:create, :show, :index]
