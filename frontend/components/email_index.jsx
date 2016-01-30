@@ -10,7 +10,7 @@ var SelectActions = require('../actions/select_actions.js');
 
 var EmailIndex = React.createClass({
   getInitialState: function () {
-    return { emails: EmailStore.all(), view: "inbox", selectEmails: SelectStore.all() };
+    return { emails: EmailStore.all(), view: "inbox", selectEmails: SelectStore.all(), tabView: "primary"};
   },
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
@@ -32,13 +32,26 @@ var EmailIndex = React.createClass({
 
     this.setState({ selectEmails: SelectStore.all() });
   },
+  clickTabView: function (name) {
+    this.setState({ tabView: name });
+  },
   render: function() {
-    headerNav = <ul className="index-header">
-      <li><i className="fa fa-inbox"></i> Primary</li>
-      <li><i className="fa fa-users"></i> Social</li>
-      <li><i className="fa fa-tags"></i> Promotions</li>
-      <li><i className="fa fa-info-circle"></i>Updates</li>
-      <li><i className="fa fa-comments"></i> Forums</li>
+    var tabs = ["primary", "social", "promotions", "updates", "forums"];
+    var icons = ["fa fa-inbox", "fa fa-users", "fa fa-tags", "fa fa-info-circle", "fa fa-comments"];
+
+    var lis = [];
+
+    for (var i = 0; i < tabs.length; i++) {
+      var name = tabs[i][0].toUpperCase() + tabs[i].slice(1);
+      if (tabs[i] === this.state.tabView) {
+        lis.push(<li className={tabs[i] + "selected"}><i className={icons[i]}/> {name} </li>);
+      } else {
+        lis.push(<li onClick={this.clickTabView.bind(this, tabs[i])} className={tabs[i]}><i className={icons[i]}/> {name} </li>);
+      }
+    }
+
+    var headerNav = <ul className="index-header group">
+    {lis}
     </ul>;
 
 

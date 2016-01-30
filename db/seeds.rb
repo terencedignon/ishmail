@@ -33,7 +33,7 @@
       )
     end
     Email.all.each do |email|
-      email.update(created_at: Faker::Time.between(3000.days.ago, Time.now, :all))
+      email.update(created_at: Faker::Time.between(5.days.ago, Time.now, :all))
     end
 
 end

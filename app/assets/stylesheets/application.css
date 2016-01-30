@@ -238,8 +238,12 @@ header input {
 .main {
   padding-left: 20px;
   padding-top: 20px;
-  width: 1400px;
+  width: calc(100% - 300px);
+  height: 800px;
+  overflow: scroll;
+  overflow-x: hidden;
   float: left;
+  font-size: 13px;
   text-align: left;
 }
 
@@ -519,19 +523,76 @@ form.sign-in button, form.demo-sign-in button {
   height: 30px;
   padding: 10px 0px;
   font-size: 13px;
+
+  border-bottom: 1px solid #f7f7f7;
+  transition: 3000ms ease-in-out;
 }
 
 .index-header li {
   cursor: pointer;
-  display: inline;
   background: #f7f7f7;
-  width: calc(100% / 5);
-  padding: 10px 100px;
+  display: inline;
+  padding: 10px 90px;
   border: 1px solid #ddd;
+  transition: 0ms ease-in-out;
 }
 
-.index-header li:hover {
-  border-top: 1px solid #000;
+.index-header li.primary:hover {
+  border-top: 2px solid #000;
+
+}
+
+.index-header li.primaryselected {
+  background: #fff;
+  color: #000;
+  border-top: 2px solid #000;
+  border-bottom: 0;
+}
+
+.index-header li.social:hover li.social:active {
+  border-top: 2px solid #4986e7;
+}
+
+.index-header li.socialselected {
+  background: #fff;
+  color: #000;
+  border-top: 2px solid #4986e7;
+  border-bottom: 0;
+}
+
+.index-header li.promotions:hover {
+  border-top: 2px solid #16a765;
+}
+
+.index-header li.promotionsselected {
+  background: #fff;
+  color: #000;
+  border-top: 2px solid #16a765;
+  border-bottom: 0;
+}
+
+
+.index-header li.updates:hover {
+  border-top: 2px solid #e9b330;
+}
+
+.index-header li.updatesselected {
+  background: #fff;
+  color: #000;
+  border-top: 2px solid #e9b330;
+  border-bottom: 0;
+}
+
+
+.index-header li.forums:hover {
+  border-top: 2px solid #a479e2;
+}
+
+.index-header li.forumsselected {
+  background: #fff;
+  color: #000;
+  border-top: 2px solid #a479e2;
+  border-bottom: 0;
 }
 
 .index-header i {
@@ -544,17 +605,71 @@ form.sign-in button, form.demo-sign-in button {
 .header-nav {
   display: block;
   width: 100%;
-
   padding: 10px;
 }
 
 .header-nav li {
+  cursor: pointer;
+  text-align: center;
   float: left;
   background: #f7f7f7;
-  margin-right: 50px;
-  font-size: 14px;
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ddd;
   border: 1px solid #e5e5e5;
-  width: 33px;
-  height: 33px;
+  padding: 5px 20px;
+}
 
+.header-nav i:hover {
+  color: #555;
+}
+
+.nav-holder {
+  position: relative;
+}
+
+.drop-down {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  width: 120px;
+  border: 0px solid #ccc;
+  height: 180px;
+  background: #fff;
+  display: none;
+  box-shadow: 0px 0 2px 2px #ccc;
+}
+
+.header-nav .checked-square {
+  color: #555;
+}
+
+.header-nav .refresh:hover {
+  color: #333;
+}
+
+.drop-down-ul li {
+    display: block;
+    /*margin-left: 10px;*/
+    color: #000;
+    margin-left: 0px;
+    font-size: 14px;
+    background: #fff;
+    border: 0;
+}
+
+.drop-down ul a:visited {
+  color: #000;
+}
+
+.drop-down-ul a {
+  /*padding: 10px 0;*/
+  padding: 30px 0;
+  text-decoration: none;
+  text-align: left;
+}
+
+.drop-down-ul li:hover {
+  background: #f7f7f7;
 }

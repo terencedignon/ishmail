@@ -49,7 +49,7 @@ var ApiUtils = {
 	//
 	// }.
 
-  destroyAll: function(emails) {
+  destroyAll: function(emails, callback) {
     $.ajax({
       method: "DELETE",
       url: "api/emails/mass_destroy",
@@ -57,7 +57,7 @@ var ApiUtils = {
       success: function(data) {
 
         EmailActions.destroyAll(emails.length);
-        // callback && callback();
+        callback && callback();
       },
       error: function() {
         console.log("error in the destroyAll function");

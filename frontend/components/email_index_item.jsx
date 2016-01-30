@@ -48,13 +48,20 @@ var EmailIndexItem = React.createClass({
     this.forceUpdate();
   },
   formatDate: function () {
-
     var currentDate = new Date();
+
+    // currentDate.getTime() - ((currentDate.getHours() * 60 * 60 * 1000) + currentDate.getMinutes() * 60 * 1000);
+
+
     var emailDate = new Date(this.state.email.created_at);
     if (currentDate.getMonth() !== emailDate.getMonth() || currentDate.getYear() !== emailDate.getYear()) {
 
       var year = emailDate.toLocaleDateString().split("/")[2].slice(2);
       return emailDate.toLocaleDateString().split("/").slice(0, 2).concat(year).join("/");
+    } else if (emailDate.getTime() > (currentDate.getTime() - ((currentDate.getHours() * 60 * 60 * 1000) + currentDate.getMinutes() * 60 * 1000))) {
+      var time = emailDate.toLocaleTimeString().split(":").slice(0, 2).join(":");
+      var amPM = emailDate.toLocaleTimeString().split(" ")[1];
+      return time + " " + amPM;
     } else {
         return emailDate.toString().split(" ").slice(1, 3).join(" ");
     }
