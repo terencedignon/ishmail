@@ -23,6 +23,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'rails_12factor'
+gem 'faker'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -33,7 +34,6 @@ gem 'rails_12factor'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'faker'
 end
 
 group :development do
