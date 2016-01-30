@@ -7,6 +7,7 @@ var Sidebar = require('./sidebar.jsx');
 var EmailFormIndex = require('./email_form_index.jsx');
 var SelectStore = require('../stores/select_store.js');
 var SelectActions = require('../actions/select_actions.js');
+var DraftStore = require('../stores/draft_store.js');
 
 var EmailIndex = React.createClass({
   getInitialState: function () {
@@ -71,7 +72,7 @@ var EmailIndex = React.createClass({
       <ul>{indexItems}</ul> : <EmailShow />);
     return (
       <div className="content-container group">
-        
+
         <EmailFormIndex />
         {this.props.children}
         <div className="main group">

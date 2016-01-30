@@ -3,6 +3,7 @@ var EmailStore = require('../stores/email_store.js');
 var EmailActions = require('../actions/email_actions.js');
 var EmailForm = require('./email_form.jsx');
 var ApiUtil = require('../util/api_util.js');
+var DraftStore = require('../stores/draft_store.js');
 
 
 var EmailFormIndex = React.createClass({
@@ -10,8 +11,8 @@ var EmailFormIndex = React.createClass({
     return { formIndexItems: [] };
   },
   componentDidMount: function () {
-    this.listener = EmailStore.addListener(this._onChange);
-    ApiUtil.getAllEmail();
+    this.listener = DraftStore.addListener(this._onChange);
+    // ApiUtil.getAllEmail();
     EmailActions.getComposeSet();
   },
   componentWillUnmount: function () {

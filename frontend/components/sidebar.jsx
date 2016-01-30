@@ -27,6 +27,7 @@ var Sidebar = React.createClass({
   hrefClickHandler: function(name, e) {
     // EmailActions.sendUnreadEmail();
     EmailActions.createView(name);
+    this.setState({ viewState: name});
   },
   render: function() {
     console.log(this.state.viewState);
@@ -34,7 +35,7 @@ var Sidebar = React.createClass({
     var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
     var lis = links.map(function(link) {
       if (this.state.viewState === link.toLowerCase())
-        return <li key={Math.random()} className="selected"><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
+        return <li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
       // else if (link === "Drafts")
       //   return <li><strong><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">Drafts ({EmailStore.unread()})</a></strong></li>;
       // else

@@ -2,7 +2,7 @@ var React = require('react');
 var EmailStore = require('../stores/email_store.js');
 var ApiUtils = require('../util/api_util.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-
+var DraftStore = require('../stores/draft_store.js');
 
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -10,17 +10,23 @@ var EmailForm = React.createClass({
     return { title: "New Message", recipients: "", subject: "", body: "", created: false, display: false, minimize: false };
   },
   componentDidMount: function() {
-    this.eventListener = EmailStore.addListener(this._onChange);
+
+    // this.emailListener = EmailStore.addListener(this._onEmailChange);
+    this.draftListener = DraftStore.addListener(this._onDraftChange);
   },
   componentWillUnmount: function() {
-    this.eventListener.remove();
+    // this.emailListener.remove();
+    this.draftListener.remove();
   },
   titleClickHandler: function () {
 
     var opp = !(this.state.minimize);
     this.setState({minimize: opp});
   },
-  _onChange: function () {
+  _onDraftChange: function () {
+    console.log("draft change");
+  },
+  _onEmailChange: function () {
     var subject = this.state.subject;
     if (subject === "") subject = "New Message";
     this.setState({ display: EmailStore.getDisplay() });
@@ -62,6 +68,7 @@ var EmailForm = React.createClass({
   },
   render: function () {
     var display;
+
 
     if (this.state.minimize) {
       display =
