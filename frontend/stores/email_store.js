@@ -99,30 +99,7 @@ EmailStore.__onDispatch = function (payload) {
     } else if (payload.actionType === "DESTROY_EMAIL") {
       EmailStore.__emitChange();
     } else if (payload.actionType === "TYPE_SELECT") {
-        // _emails.filter(function(email) {
-        //   return email.select_set === true;
-        // });
-        // console.log(_selectedEmails);
-
-
-        // if (payload.data instanceof Array) {
-        //   if (_selectedEmails === payload.data) {
-        //       _selectedEmails = [];
-        //   } else {
-        //     _selectedEmails = payload.data;
-        //   }
-        // } else {
-        //   var present = _selectedEmails.filter(function(email) {
-        //     return email.id === payload.data.id;
-        //   });
-        //   if (present.length === 0) {
-        //     _selectedEmails.push(payload.data);
-        //   } else {
-        //     _selectedEmails.splice(_selectedEmails.indexOf(payload.data), 1);
-        //   }
-        // }
         EmailStore.__emitChange();
-      // console.log(_selectedEmails);
     }
   };
 

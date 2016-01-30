@@ -66,17 +66,17 @@ var EmailIndex = React.createClass({
         }}.bind(this));
     }
     var email = this.state.emails;
+
+    var mainContent = (typeof this.props.params.id === "undefined" ?
+      <ul>{indexItems}</ul> : <EmailShow />);
     return (
       <div className="content-container group">
-        <Sidebar />
+        
         <EmailFormIndex />
         {this.props.children}
         <div className="main group">
           {headerNav}
-
-          <ul>
-            {indexItems}
-          </ul>
+          {mainContent}
         </div>
       </div>
 

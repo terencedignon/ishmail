@@ -21,6 +21,7 @@ var App = React.createClass({
     return (
       <div>
       <Header />
+      <Sidebar />
       {this.props.children}
     </div>
     );

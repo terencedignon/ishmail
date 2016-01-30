@@ -146,9 +146,12 @@ header {
 
 }
 
+header h1 {
+  color: #777;
+}
+
 header a {
   padding: 20px 30px;
-  color: #777;
   display: block;
   text-decoration: none;
   padding-top: 19px;
@@ -197,6 +200,7 @@ header input {
   margin-top: 20px;
   width: 200px;
   height: 100%;
+  font-size: 14px;
   float: left;
 }
 
@@ -242,7 +246,7 @@ header input {
 .main {
   padding-left: 20px;
   padding-top: 20px;
-  width: calc(100% - 300px);
+  width: calc(100% - 250px);
   height: 800px;
   overflow: visible;
   overflow-x: hidden;
@@ -252,6 +256,7 @@ header input {
 }
 
 .email-index-item {
+  display: flex;
   border-top: 1px solid #e5e5e5;
   background: #fff;
   font-weight: bold;
@@ -261,11 +266,37 @@ header input {
 
 
 .email-index-item li {
-  display: inline;
-  padding-left: 20px;
+  overflow: hidden;
+  max-height: 15px;
+  padding-top: 2px;
+  padding-left: 10px;
+}
+
+.email-index-item a, a:visited, a:hover {
+  text-decoration: none;
+  color: inherit;
 }
 
 
+.email-index-item > .sender {
+  min-width: 10%;
+  padding-left: 20px;
+}
+
+.email-index-item > .subject {
+  min-width: 20%;
+}
+
+.email-index-item > .subject c {
+  color: #777;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.email-index-item > .date {
+  display: inline;
+  margin-right: -100% auto;
+}
 
 .important {
 
@@ -290,6 +321,7 @@ i {
 
 .importance {
   color: #eee;
+  padding-right: 9px;
   /*margin-right: 1px;*/
 }
 
@@ -298,6 +330,7 @@ i {
 }
 
 .important .importance {
+  padding-right: 12px;
   color: gold;
 
 }
@@ -334,6 +367,11 @@ i.fa-square-o {
 }
 
 .checked {
+  color: #ccc;
+  background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat 6px;
+}
+
+.highlight {
   background: #ffc;
 }
 
@@ -478,7 +516,9 @@ form.sign-in button, form.demo-sign-in button {
 
 .minimize {
   cursor: pointer;
-  box-sizing: padding-box;
+  display: flex;
+  flex-flow: row wrap;
+  /*box-sizing: padding-box;*/
   float: right;
   height: 33px;
   width: 300px;
@@ -522,93 +562,96 @@ form.sign-in button, form.demo-sign-in button {
 }
 
 .index-header {
+  display: flex;
   list-style: none;
-  width: 100%;
-  height: 30px;
+  min-width: 100%;
   padding: 10px 0px;
   font-size: 13px;
-
+  overflow: hidden;
   border-bottom: 1px solid #f7f7f7;
   transition: 3000ms ease-in-out;
 }
 
 .index-header li {
   cursor: pointer;
+  /*float: left;*/
   background: #f7f7f7;
-  display: inline;
+  /*padding: 1% 7%;*/
   padding: 10px 90px;
   border: 1px solid #ddd;
-  transition: 0ms ease-in-out;
+  transition: 75ms ease-in-out;
 }
 
-.index-header li.primary:hover {
-  border-top: 2px solid #000;
 
+
+.index-header li.primary:hover {
+
+  border-top: 1px solid #000;
 }
 
 .index-header li.primaryselected {
   background: #fff;
   color: #000;
-  border-top: 2px solid #000;
-  border-bottom: 0;
+  border-top: 1px solid #000;
+
 }
 
 .index-header li.social:hover li.social:active {
-  border-top: 2px solid #4986e7;
+  border-top: 1px solid #4986e7;
+
 }
 
 .index-header li.socialselected {
+    box-sizing: border-box;
   background: #fff;
   color: #000;
-  border-top: 2px solid #4986e7;
-  border-bottom: 0;
+  border-top: 1px solid #4986e7;
+
 }
 
 .index-header li.promotions:hover {
-  border-top: 2px solid #16a765;
+
+  border-top: 1px solid #16a765;
 }
 
 .index-header li.promotionsselected {
   background: #fff;
   color: #000;
-  border-top: 2px solid #16a765;
+  border-top: 1px solid #16a765;
   border-bottom: 0;
 }
 
 
 .index-header li.updates:hover {
-  border-top: 2px solid #e9b330;
+  border-top: 1px solid #e9b330;
 }
 
 .index-header li.updatesselected {
   background: #fff;
   color: #000;
-  border-top: 2px solid #e9b330;
-  border-bottom: 0;
+  border-top: 1px solid #e9b330;
 }
 
 
 .index-header li.forums:hover {
-  border-top: 2px solid #a479e2;
+  border-top: 1px solid #a479e2;
 }
 
 .index-header li.forumsselected {
   background: #fff;
   color: #000;
-  border-top: 2px solid #a479e2;
-  border-bottom: 0;
+  border-top: 1px solid #a479e2;
 }
 
 .index-header i {
-  font-size: 16px;
+  font-size: 13px;
   color: #6e6e6e;
   margin-left: -75px;
   padding-right: 10px;
 }
 
 .header-nav {
-  display: block;
-  width: 100%;
+  display: flex;
   padding: 10px;
 }
 
@@ -645,8 +688,12 @@ form.sign-in button, form.demo-sign-in button {
   box-shadow: 0px 0 2px 2px #ccc;
 }
 
-.header-nav .checked-square {
+.header-nav .checked {
   color: #555;
+  color: #ccc;
+  background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat center;
+  background-size: cover;
+  border: 0
 }
 
 .header-nav .refresh:hover {

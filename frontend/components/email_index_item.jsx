@@ -20,7 +20,7 @@ var EmailIndexItem = React.createClass({
     if (email.importance_set) classString += " important";
     if (email.read_set) classString += " read";
     if (email.starred_set) classString += " starred";
-    if (this.props.checked === "true") classString += " checked";
+    if (this.props.checked === "true") classString += " highlight";
     return classString;
   },
   importanceClickHandler: function () {
@@ -71,15 +71,16 @@ var EmailIndexItem = React.createClass({
     var classString = this.classList(this.props.email);
     var starClass = (classString.includes('starred') ? "fa fa-star" : "fa fa-star-o");
     var importantClass = (classString.includes('important') ? "fa fa-square" : "fa fa-square-o" );
-    var checked = (this.props.checked === "true" ? "fa fa-check-square-o" : "fa fa-square-o");
+    var checked = (this.props.checked === "true" ? "checkbox checked" : "checkbox");
+    var sender = this.props.email.sender.match(/[a-zA-Z.-]+/)[0];
 
     return (
       <ul className={classString}>
       <li className="ellipse">
         <i className="fa fa-ellipsis-v"></i><i className="fa fa-ellipsis-v"></i>
       </li>
-      <li className="checkbox">
-        <i onClick={this.checkClickHandler} className={checked}></i>
+      <li className={checked}>
+        <i onClick={this.checkClickHandler} className="fa fa-square-o"></i>
         </li>
         <li className="star">
        <i onClick={this.starClickHandler} className={starClass}></i>
@@ -87,11 +88,11 @@ var EmailIndexItem = React.createClass({
        <li className="importance">
        <i onClick={this.importanceClickHandler} className={importantClass}></i>
        </li>
-       <li>
-        {this.props.email.subject}
-      </li>
-      <li className="first-line">
-        {this.state.email.body.split(" ").slice(0, 10).join(" ")}
+       <li className="sender">
+         {sender[0].toUpperCase() + sender.slice(1)}
+       </li>
+       <li className="subject">
+         <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a> - <c>{this.state.email.body.split(" ").slice(0, 10).join(" ")}</c>
       </li>
       <li className="date">
         {date}

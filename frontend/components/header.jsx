@@ -58,58 +58,57 @@ var Header = React.createClass({
   },
   render: function () {
     var toolbar;
-    var checkClass = (this.state.checked ? "checked-square" : "");
+    var checkClass = (this.state.checked ? "checked" : "");
     var checkClassName = "a fa-square-o ";
+    var selector = <li onClick={this.toggleDropDown}>
+        <i onClick={this.updateAll.bind(this, this.state.selectAll)} className={checkClassName + checkClass}></i>
+        <div className="drop-down">
+            <ul className="drop-down-ul group">
+              <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_ALL)} href="#">All</a></li>
+              <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_NONE)} href="#">None</a></li>
+              <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_READ)}  href="#">Read</a></li>
+              <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_UNREAD)} href="#">Unread</a></li>
+              <li><a href="#">Starred</a></li>
+              <li><a href="#">Unstarred</a></li>
+            </ul>
+        </div>
+      </li>
+      ;
 
     if (this.state.indexToolbar) {
-      toolbar = <div className="nav-holder">
-      <li onClick={this.toggleDropDown}>
-      <i onClick={this.updateAll.bind(this, this.state.selectAll)} className={checkClassName + checkClass}></i>
-      <div className="drop-down">
-        <ul className="drop-down-ul group">
-          <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_ALL)} href="#">All</a></li>
-          <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_NONE)} href="#">None</a></li>
-          <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_READ)}  href="#">Read</a></li>
-          <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_UNREAD)} href="#">Unread</a></li>
-          <li><a href="#">Starred</a></li>
-          <li><a href="#">Unstarred</a></li>
-        </ul>
-      </div>
-
-      </li>
+      toolbar =
+      <div className="nav-holder">
+        {selector}
         <li onClick={ApiUtil.getAllEmail}>
-        <i className="fa fa-refresh refresh"></i>
+          <i className="fa fa-refresh refresh"></i>
         </li>
-        <li>
-        <a onClick={this.destroyEmail} href="#">Delete</a>
-        </li>
-
-        </div>;
+      </div>;
+    } else {
+      toolbar = <div className="nav-holder">
+        {selector}
+      </div>;
     }
 
     return (
-
       <header>
         <div className="header group">
-        <div className="top-left">
-          <h1><a href="/#">Ishmael</a></h1>
-        </div>
-        <div className="top-right">
-          <input type="text"/>
-          <button><i className ="fa fa-search"></i></button>
-
-        </div>
-        <div className="bottom-left">
-          &nbsp;
-        </div>
-        <div className="bottom-right">
-          <ul className="header-nav group">
-            {toolbar}
-          </ul>
-        </div>
+          <div className="top-left">
+            <h1><a href="/#">Ishmael</a></h1>
+          </div>
+            <div className="top-right">
+              <input type="text"/>
+              <button><i className ="fa fa-search"></i></button>
+          </div>
+          <div className="bottom-left">
+            &nbsp;
+          </div>
+          <div className="bottom-right">
+            <ul className="header-nav group">
+              {toolbar}
+            </ul>
+          </div>
       </div>
-
-      </header>
+    </header>
     );
 
   }
