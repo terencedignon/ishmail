@@ -29,8 +29,8 @@ var EmailIndex = React.createClass({
     }
   },
   _onSelectChange: function () {
-
     this.setState({ selectEmails: SelectStore.all() });
+    console.log(this.state.selectEmails);
   },
   clickTabView: function (name) {
     this.setState({ tabView: name });

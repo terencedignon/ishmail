@@ -11,6 +11,19 @@ var Header = React.createClass({
   getInitialState: function() {
     return { indexToolbar: true, selectAll: SelectConstants.SELECT_ALL, checked: false };
   },
+  componentDidMount: function() {
+    this.listener = SelectStore.addListener(this._selectOnChange);
+  },
+  componentWillUnmount: function () {
+    this.listener.remove();
+  },
+  _selectOnChange: function () {
+    if (SelectStore.all().length > 0) {
+      this.setState({ indexToolbar: false }); }
+    else {
+      this.setState({ indexToolbar: true });
+    }
+  },
   updateAll: function(type) {
     var value;
     if (type === SelectConstants.SELECT_ALL) {
@@ -79,7 +92,7 @@ var Header = React.createClass({
       <header>
         <div className="header group">
         <div className="top-left">
-          <h1>Ishmael</h1>
+          <h1><a href="/#">Ishmael</a></h1>
         </div>
         <div className="top-right">
           <input type="text"/>

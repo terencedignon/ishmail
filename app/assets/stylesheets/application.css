@@ -51,6 +51,7 @@
    margin-bottom: 50px;
  }
 
+
  .input {
    display: inline-block;
    height: 29px;
@@ -80,6 +81,7 @@
  }
 
  body {
+   overflow: hidden;
    font-family: 'Open-Sans';
    display: block;
  }
@@ -144,10 +146,12 @@ header {
 
 }
 
-header h1 {
+header a {
   padding: 20px 30px;
   color: #777;
-
+  display: block;
+  text-decoration: none;
+  padding-top: 19px;
   text-transform: uppercase;
   letter-spacing: 5px;
 }
@@ -240,7 +244,7 @@ header input {
   padding-top: 20px;
   width: calc(100% - 300px);
   height: 800px;
-  overflow: scroll;
+  overflow: visible;
   overflow-x: hidden;
   float: left;
   font-size: 13px;
