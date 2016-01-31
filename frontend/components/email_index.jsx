@@ -44,7 +44,7 @@ var EmailIndex = React.createClass({
   },
   render: function() {
     var tabs = ["primary", "social", "promotions", "updates", "forums"];
-    var icons = ["fa fa-inbox", "fa fa-users", "fa fa-tags", "fa fa-info-circle", "fa fa-comments"];
+    var icons = ["fa fa-inbox", "fa fa-user", "fa fa-tags", "fa fa-info-circle", "fa fa-comments"];
 
     var lis = [];
 

@@ -100,7 +100,7 @@ var Header = React.createClass({
 
     return (
       <header>
-        <div className="header group">
+        <div className="header-top group">
           <div className="top-left">
             <h1><a href="/#">Ishmael</a></h1>
           </div>
@@ -108,6 +108,8 @@ var Header = React.createClass({
               <input type="text"/>
               <button><i className ="fa fa-search"></i></button>
           </div>
+        </div>
+        <div className="header-bottom group">
           <div className="bottom-left">
             &nbsp;
           </div>
