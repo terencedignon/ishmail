@@ -25,12 +25,7 @@ var EmailIndex = React.createClass({
     this.draftListener.remove();
   },
   _onEmailChange: function () {
-    if (EmailStore.getViewState() !== this.state.view) {
-      this.setState({ emails: EmailStore.setFilterEmails(),
-        view: EmailStore.getViewState()});
-    } else {
-      this.setState({ emails: EmailStore.all()});
-    }
+      this.setState({ emails: EmailStore.setFilterEmails(), view: EmailStore.getViewState()});
   },
   _onSelectChange: function () {
     this.setState({ selectEmails: SelectStore.all() });
