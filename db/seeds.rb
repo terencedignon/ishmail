@@ -28,8 +28,8 @@ require 'faker'
       read_set = rand(1..100) % 3 == 0 ? true : false
       user_id = user.id
       draft_set = false
-      subject = Faker::Hacker.say_something_smart
-      body = Faker::Hacker.say_something_smart
+      subject = Faker::Hipster.sentence.join(" ")
+      body = Faker::Hipster.paragraph(3).join(" ")
       Email.create!(sender: sender, user_id: user_id,
       subject: subject, body: body, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, sent_set: true, read_set: read_set
       )
