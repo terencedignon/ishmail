@@ -14,22 +14,24 @@ require 'faker'
   location = "United States of America"
   gender = "M"
   birthday= ["1987", "12", "1"]
-  fname = "guest"
-  lname = i.to_s
+  fname = Faker::Name.first_name
+  lname = Faker::Name.last_name
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
     100.times do |j|
+      first_name = Faker::Name.first_name
       rand_num = rand(1..100)
-      sender = Faker::Internet.free_email
-      # importance_set = j % 3 == 0 ? true : false
-      # starred_set = j % 5 == 0 ? true : false
-      read_set = j % 6 == 0 ? true : false
+      sender = "#{first_name}@gmail.com"
+      importance_set = rand(1..100) % 3 == 0 ? true : false
+      starred_set = rand(1..100) % 3 == 0 ? true : false
+      read_set = rand(1..100) % 3 == 0 ? true : false
       user_id = user.id
+      draft_set = false
       subject = Faker::Hacker.say_something_smart
       body = Faker::Hacker.say_something_smart
       Email.create!(sender: sender, user_id: user_id,
-      subject: subject, body: body, sent_set: true, read_set: read_set
+      subject: subject, body: body, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, sent_set: true, read_set: read_set
       )
     end
     Email.all.each do |email|

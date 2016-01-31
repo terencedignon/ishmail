@@ -13,7 +13,7 @@ ApiUtil = require('./util/api_util.js');
 EmailStore = require('./stores/email_store.js');
 SelectStore = require('./stores/select_store.js');
 var EmailShow = require('./components/email_show.jsx');
-
+DraftStore = require('./stores/draft_store.js');
 
 var App = React.createClass({
   render: function() {
@@ -32,7 +32,7 @@ var App = React.createClass({
 
 var routes = (<Route path="/" component={App}>
                 <IndexRoute component={EmailIndex}/>
-                <Route path="inbox/:emailID" component={EmailShow}/>
+                <Route path="inbox/:id" component={EmailShow}/>
               </Route>
             );
 

@@ -8,22 +8,25 @@ var DraftStore = require('../stores/draft_store.js');
 
 var EmailFormIndex = React.createClass({
   getInitialState: function() {
-    return { formIndexItems: [] };
+    return { openDrafts: [] };
   },
   componentDidMount: function () {
     this.listener = DraftStore.addListener(this._onChange);
     // ApiUtil.getAllEmail();
-    EmailActions.getComposeSet();
+    DraftStore.getOpenDrafts();
   },
   componentWillUnmount: function () {
     this.listener.remove();
   },
   _onChange: function () {
-    this.setState({ formIndexItems: EmailStore.getComposeSet() });
+
+    this.setState({ openDrafts: DraftStore.getOpenDrafts() });
   },
   render: function() {
-    var formItems = this.state.formIndexItems.map(function(draft) {
-      return <li key={Math.random()}><EmailForm email={draft} /></li>;
+
+    var formItems = this.state.openDrafts.map(function(data) {
+
+      return <li key={Math.random()}><EmailForm minimize={data.minimize_set} save_set={data.save_set} draft={data.draft} /></li>;
     });
 
     return (

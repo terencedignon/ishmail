@@ -42,6 +42,10 @@ EmailStore.getComposeSet = function () {
   return _composeSet;
 };
 
+EmailStore.getFilterEmails = function () {
+  return _filterEmails;
+};
+
 EmailStore.unreadDrafts = function () {
   return _unreadDrafts;
 };
@@ -54,7 +58,11 @@ EmailStore.setFilterEmails = function () {
     if (_viewState === "sent") return email.sent;
     if (_viewState === "drafts") return email.sent_set === false ;
   });
-  _unread = _filterEmails.length;
+  _unread = _emails.filter(function(email) {
+    console.log(email.read_set);
+    return email.read_set === false;
+  }).length;
+
   _unreadDrafts = _emails.length - _unread.length;
   return _filterEmails;
 };
@@ -83,15 +91,30 @@ EmailStore.__onDispatch = function (payload) {
       _compose = true;
       EmailStore.__emitChange();
     } else if (payload.actionType === "UPDATE_EMAIL") {
-      for (var i = 0; i < _emails.length; i++) {
-        if (_emails[i].id === payload.data.id) _emails[i] = payload.data;
+        if (!(payload.data instanceof Array)) {
+          for (var i = 0; i < _emails.length; i++) {
+            if (_emails[i].id === payload.data.id) _emails[i] = payload.data;
+          }
+        } else {
+        for (var i = 0; i < _emails.length; i++) {
+          if (_emails[i].id === payload.data[i].id)
+            _emails[i] = payload.data[i];
+        }
       }
       EmailStore.__emitChange();
     } else if (payload.actionType === "GET_EMAIL") {
       _singleEmail = payload.data;
       EmailStore.__emitChange();
     } else if (payload.actionType === "GET_ALL_EMAIL") {
-        _emails = payload.data;
+      var emails = [];
+        payload.data.forEach(function(email) {
+
+          if (email.draft_set === false) {
+            console.log(email.draft_set);
+            emails.push(email);
+          }
+        });
+        _emails = emails;
         EmailStore.__emitChange();
     } else if (payload.actionType === "GET_COMPOSE_SET") {
       // EmailStore.__emitChange();

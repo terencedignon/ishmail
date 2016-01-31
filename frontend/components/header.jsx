@@ -25,9 +25,16 @@ var Header = React.createClass({
     }
   },
   updateAll: function(type) {
+    var view = EmailStore.getViewState();
     var value;
     if (type === SelectConstants.SELECT_ALL) {
-      value = EmailStore.all();
+      if (view === "inbox") {
+        value = EmailStore.all();
+      } else if (view === "drafts") {
+        value = DraftStore.all();
+      } else {
+        value = EmailStore.getFilterEmails();
+      }
       this.setState({ selectAll: SelectConstants.SELECT_NONE, checked: true });
     } else {
       value = [];
@@ -43,7 +50,9 @@ var Header = React.createClass({
     if (e.target.tagName === "LI") $(".drop-down").toggle();
   },
   callback: function(){
-    ApiUtil.getAllEmail();
+    // ApiUtil.getAllEmail();
+
+    console.log("howdy");
   },
   toggleRead: function(name) {
 

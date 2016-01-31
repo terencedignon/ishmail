@@ -3,11 +3,14 @@ var EmailStore = require('../stores/email_store.js');
 var ApiUtils = require('../util/api_util.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var DraftStore = require('../stores/draft_store.js');
+var DraftActions = require('../actions/draft_actions.js');
 
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
-    return { title: "New Message", recipients: "", subject: "", body: "", created: false, display: false, minimize: false };
+    return {
+      title: "New Message", recipients: "", subject: "", body: "",
+      created: false, display: false, minimize: false, save_set: false};
   },
   componentDidMount: function() {
 
@@ -18,10 +21,9 @@ var EmailForm = React.createClass({
     // this.emailListener.remove();
     this.draftListener.remove();
   },
-  titleClickHandler: function () {
-
-    var opp = !(this.state.minimize);
-    this.setState({minimize: opp});
+  toggleShow: function () {
+    
+    DraftActions.toggleShow(this.props.draft.id)
   },
   _onDraftChange: function () {
     console.log("draft change");
@@ -53,7 +55,13 @@ var EmailForm = React.createClass({
     //   compose_set = false;
     //   this.state.
     // }
-    ApiUtil.updateEmail(params);
+    // ApiUtil.updateEmail(params);
+    if (save_set) {
+      ApiUtil.updateEmail();
+    } else {
+      DraftActions.closeDraft();
+    }
+
   },
   createEmail: function () {
     var params = {
@@ -70,14 +78,14 @@ var EmailForm = React.createClass({
     var display;
 
 
-    if (this.state.minimize) {
+    if (this.props.minimize) {
       display =
-      <div onClick={this.titleClickHandler} className="email-form minimize group">
+      <div onClick={this.toggleShow} className="email-form minimize group">
          <span>{this.state.title}</span> <i onClick={this.closeClickHandler} className="fa fa-times"></i>
       </div>;
     } else {
       display = <div className="email-form group">
-          <div onClick={this.titleClickHandler} className="title">
+          <div onClick={this.toggleShow} className="title">
           {this.state.title} <i className="fa fa-minus toolbar"></i>
         </div>
 

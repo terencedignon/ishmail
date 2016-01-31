@@ -92,7 +92,7 @@ var EmailIndexItem = React.createClass({
          {sender[0].toUpperCase() + sender.slice(1)}
        </li>
        <li className="subject">
-         <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a> - <c>{this.state.email.body.split(" ").slice(0, 10).join(" ")}</c>
+         <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a>
       </li>
       <li className="date">
         {date}

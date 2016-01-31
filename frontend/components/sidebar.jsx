@@ -1,28 +1,78 @@
 var React = require('react');
 var EmailActions = require('../actions/email_actions.js');
 var EmailStore = require('../stores/email_store.js');
+var DraftStore = require('../stores/draft_store.js');
 
 var Sidebar = React.createClass({
   getInitialState: function() {
-    return { unread: EmailStore.unread(), viewState: "inbox", unreadDrafts: EmailStore.unreadDrafts()};
+    return { unread: EmailStore.unread(), viewState: "inbox", unreadDrafts: DraftStore.unreadCount()};
   },
   componentDidMount: function() {
     ApiUtil.getAllEmail();
-    this.listener = EmailStore.addListener(this._onChange);
+    this.emailListener = EmailStore.addListener(this._onEmailChange);
+    this.draftListener = DraftStore.addListener(this._onDraftChange);
   },
   componentWillUnmount: function() {
-    this.listener.remove();
+    this.emailListener.remove();
+    this.draftListener.remove();
   },
   composeClickHandler: function() {
-    ApiUtil.createEmail({compose_set: true, subject: "New Message"});
+    if (DraftStore.getOpenDrafts().length === 0) {
+    ApiUtil.createEmail({compose_set: true, sender: "helloyou", draft_set: true, read_set: true, subject: "New Message"});
     EmailActions.getComposeSet();
+  }
   },
-  _onChange: function() {
+  _onDraftChange: function () {
+    this.setState({ unreadDrafts: DraftStore.unreadCount() });
+  },
+  _onEmailChange: function() {
     this.setState({
       viewState: EmailStore.getViewState(),
       unread: EmailStore.unread(),
       unreadDrafts: EmailStore.unreadDrafts()
     });
+  },
+  generateSidebar: function () {
+
+    // this.state.viewState === "drafts"
+    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
+    var lens = this.state.viewState;
+    var emailUnread = (EmailStore.unread() > 0 ? "(" + EmailStore.unread() + ")" : "");
+    var drafts = (DraftStore.all().length > 0 ? "(" + DraftStore.all().length + ")" : "");
+    console.log(lens);
+    var lis = links.map(function(link) {
+
+      if (lens === link.toLowerCase()) {
+
+        if (lens === "inbox") {
+          return <li key={Math.random()}>
+            <a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">
+              {link} {emailUnread}
+            </a></li>;
+        } else if (lens == "drafts") {
+          return <li key={Math.random()}>
+          <a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">
+            {link} {drafts}
+          </a></li>;
+        } else {
+          return <li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
+        }
+      }
+      else if (link === "Drafts") {
+        if (drafts.length > 0) return <li key={Math.random()}><a className="bolded" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} {drafts}</a></li>;
+        return <li key={Math.random()}><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} {drafts}</a></li>
+      }
+      else if (link === "Inbox" && emailUnread.length > 0) {
+        return <li key={Math.random()}><a className="bolded" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} {emailUnread}</a></li>;
+      }
+      else {
+        return <li key={Math.random()}><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
+      }
+
+
+    }.bind(this));
+    // }});/.bind(this));
+    return lis;
   },
   hrefClickHandler: function(name, e) {
     // EmailActions.sendUnreadEmail();
@@ -30,24 +80,14 @@ var Sidebar = React.createClass({
     this.setState({ viewState: name});
   },
   render: function() {
-    console.log(this.state.viewState);
-
-    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
-    var lis = links.map(function(link) {
-      if (this.state.viewState === link.toLowerCase())
-        return <li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link} ({EmailStore.unread()})</a></li>;
-      // else if (link === "Drafts")
-      //   return <li><strong><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">Drafts ({EmailStore.unread()})</a></strong></li>;
-      // else
-        return <li key={Math.random()}><a onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
-    }.bind(this));
-
+    sidebarView = this.generateSidebar();
+    console.log(sidebarView);
 
     return(
       <div className="sidebar">
         <button onClick={this.composeClickHandler}>Compose</button>
         <ul className="group">
-          {lis}
+          {sidebarView}
         </ul>
       </div>
 

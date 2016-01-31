@@ -66,18 +66,18 @@ var EmailActions = {
     });
   },
 
-  updateAll: function(array, constant) {
+  updateAll: function(data) {
     Dispatcher.dispatch({
-      actionType: constant,
-      data: array
-    });
-  },
-  updateSelect: function(data) {
-    Dispatcher.dispatch({
-      actionType: EmailConstants.TYPE_SELECT,
+      actionType: EmailConstants.UPDATE_EMAIL,
       data: data
     });
   },
+  // updateSelect: function(data) {
+  //   Dispatcher.dispatch({
+  //     actionType: EmailConstants.TYPE_SELECT,
+  //     data: data
+  //   });
+  // },
 
 	composeEmail: function() {
 		Dispatcher.dispatch({

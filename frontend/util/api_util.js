@@ -1,5 +1,6 @@
 var EmailActions = require('../actions/email_actions.js');
 var EmailConstants = require('../constants/email_constants.js');
+var DraftActions = require('../actions/draft_actions.js');
 
 var ApiUtils = {
 	getAllEmail: function () {
@@ -7,6 +8,7 @@ var ApiUtils = {
 			url: "api/emails",
 			success: function(data) {
 				EmailActions.receiveAllEmail(data);
+				DraftActions.receiveAllDrafts(data);
 			},
 			error: function() {
 				console.log("error in fetchEmails function");
@@ -30,7 +32,9 @@ var ApiUtils = {
 			url: "api/emails",
 			data: {email: params},
 			success: function(data) {
-				EmailActions.createEmail(data);
+				DraftActions.createDraft(data);
+
+				// EmailActions.createEmail(data);
         callback && callback();
 			},
 			error: function () {
@@ -71,7 +75,9 @@ var ApiUtils = {
         url: "api/emails/mass_update",
         data: {email: emails, data: data},
         success: function(payload) {
-          EmailActions.updateAll(emails, typeOfUpdate);
+
+          EmailActions.updateAll(payload, typeOfUpdate);
+					DraftActions.updateAll(payload, typeOfUpdate);
           callback && callback();
         },
         error: function (e) {
@@ -85,6 +91,7 @@ var ApiUtils = {
 			url: "api/emails/" + id,
 			data: {email: data},
 			success: function(data) {
+	
         if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
 
           EmailActions.updateSelect(data);

@@ -27,12 +27,13 @@ class Api::EmailsController < ApplicationController
     emails = params["email"]
     data = params["data"]
     key, value = params["data"].to_a.flatten
-
+    return_array = []
     emails.each do |id|
       current_email = Email.find(id)
       current_email.update(key => value)
+      return_array.push(current_email)
     end
-    render :index
+    render json: return_array
   end
 
   def create
@@ -46,6 +47,6 @@ class Api::EmailsController < ApplicationController
 
   private
   def email_params
-    params.require(:email).permit(:emails, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :sent_set, :compose_set)
+    params.require(:email).permit(:emails, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :compose_set)
   end
 end

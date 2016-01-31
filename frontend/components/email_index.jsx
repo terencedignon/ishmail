@@ -11,27 +11,33 @@ var DraftStore = require('../stores/draft_store.js');
 
 var EmailIndex = React.createClass({
   getInitialState: function () {
-    return { emails: EmailStore.all(), view: "inbox", selectEmails: SelectStore.all(), tabView: "primary"};
+    return { emails: EmailStore.all(), drafts: DraftStore.all(), eview: "inbox", selectEmails: SelectStore.all(), tabView: "primary"};
   },
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.selectListener = SelectStore.addListener(this._onSelectChange);
+    this.draftListener = DraftStore.addListener(this._onDraftListener);
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {
-    this.eventListener.remove();
+    this.emailListener.remove();
+    this.selectListener.remove();
+    this.draftListener.remove();
   },
   _onEmailChange: function () {
     if (EmailStore.getViewState() !== this.state.view) {
       this.setState({ emails: EmailStore.setFilterEmails(),
         view: EmailStore.getViewState()});
     } else {
-      this.setState({ emails: EmailStore.setFilterEmails()});
+      this.setState({ emails: EmailStore.all()});
     }
   },
   _onSelectChange: function () {
     this.setState({ selectEmails: SelectStore.all() });
     console.log(this.state.selectEmails);
+  },
+  _onDraftChange: function () {
+    this.setState({ drafts: DraftStore.all() });
   },
   clickTabView: function (name) {
     this.setState({ tabView: name });
@@ -55,11 +61,11 @@ var EmailIndex = React.createClass({
     {lis}
     </ul>;
 
-
+    var listedEmails = (this.state.view === "drafts" ? DraftStore.all() : this.state.emails);
 
     var indexItems = <div></div>;
     if (!(typeof this.state.emails === "undefined")) {
-      var indexItems = this.state.emails.map(function(email) {
+      var indexItems = listedEmails.map(function(email) {
         if (this.state.selectEmails.indexOf(email.id) !== -1) {
           return <EmailIndexItem key={email.id} id={email.id} email={email} checked="true"/>;
         } else {
@@ -70,6 +76,13 @@ var EmailIndex = React.createClass({
 
     var mainContent = (typeof this.props.params.id === "undefined" ?
       <ul>{indexItems}</ul> : <EmailShow />);
+
+    if (this.state.view !== "inbox") {
+      headerNav = <div></div>;
+    }
+    if (indexItems.length <= 0) {
+      indexItems = <div className="index-header group">There are no conversations with this label</div>;
+    }
     return (
       <div className="content-container group">
 
@@ -80,8 +93,7 @@ var EmailIndex = React.createClass({
           {mainContent}
         </div>
       </div>
-
-      );
+    );
   }
 });
 
