@@ -15,13 +15,14 @@ var ApiUtils = {
 			}
 		});
 	},
-	getEmail: function (id) {
+	getEmail: function (id, callback) {
 		$.ajax({
 			method: "GET",
 			url: "api/emails/" + id,
 			success: function(data) {
-
+			
 				EmailActions.receiveEmail(data);
+				callback && callback();
 			}
 		});
 	},
@@ -91,7 +92,7 @@ var ApiUtils = {
 			url: "api/emails/" + id,
 			data: {email: data},
 			success: function(data) {
-	
+
         if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
 
           EmailActions.updateSelect(data);

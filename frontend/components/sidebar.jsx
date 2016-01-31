@@ -45,17 +45,17 @@ var Sidebar = React.createClass({
       if (lens === link.toLowerCase()) {
 
         if (lens === "inbox") {
-          return <li key={Math.random()}>
+          return <div className="select-holder"><div className="red-highlight"></div><li key={Math.random()}>
             <a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">
               {link} {emailUnread}
-            </a></li>;
+            </a></li></div>;
         } else if (lens == "drafts") {
-          return <li key={Math.random()}>
+          return <div className="select-holder"><div className="red-highlight"></div><li key={Math.random()}>
           <a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">
             {link} {drafts}
-          </a></li>;
+          </a></li></div>;
         } else {
-          return <li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li>;
+          return <div className="select-holder"><div className="red-highlight"></div><li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li></div>;
         }
       }
       else if (link === "Drafts") {

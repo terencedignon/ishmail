@@ -19,7 +19,7 @@ require 'faker'
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
-    100.times do |j|
+    50.times do |j|
       first_name = Faker::Name.first_name
       rand_num = rand(1..100)
       sender = "#{first_name}@gmail.com"
@@ -28,10 +28,16 @@ require 'faker'
       read_set = rand(1..100) % 3 == 0 ? true : false
       user_id = user.id
       draft_set = false
+      parent_email_id = nil
+      if rand(1..100) % 3 === 0
+        parent_email_id = nil
+      else
+        parent_email_id = rand(1..100)
+      end
       subject = Faker::Hipster.sentence
       body = Faker::Hipster.paragraph(5)
       Email.create!(sender: sender, user_id: user_id,
-      subject: subject, body: body, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, sent_set: true, read_set: read_set
+      subject: subject, body: body, parent_email_id: parent_email_id, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, sent_set: true, read_set: read_set
       )
     end
     Email.all.each do |email|

@@ -3,7 +3,8 @@ var EmailStore = require('../stores/email_store.js');
 var ReactRouter = require('react-router');
 var ApiUtil = require('../util/api_util.js');
 var Sidebar = require('../components/sidebar.jsx');
-
+var EmailConstants = require('../constants/email_constants.js');
+var EmailStore = require('../stores/email_store.js');
 
 var EmailShow = React.createClass({
   getInitialState: function () {
@@ -11,7 +12,10 @@ var EmailShow = React.createClass({
   },
   componentDidMount: function () {
     this.listener = EmailStore.addListener(this._onChange);
-    ApiUtil.getEmail(this.props.params.id);
+    ApiUtil.getEmail(this.props.params.id, this.ensureRead(this.props.params.id));
+  },
+  ensureRead: function (id) {
+    ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
   },
   componentWillUnmount: function () {
     this.listener.remove();
@@ -41,9 +45,18 @@ var EmailShow = React.createClass({
         <div className="email-show-date">
           {this.state.email.created_at}
         </div>
+        <div className="icons">
         <div className="email-show-reply">
           <i className="fa fa-reply"></i>
         </div>
+        <div className="email-show-reply-options">
+          <i className="fa fa-sort-desc"></i>
+          </div>
+        </div>
+      </div>
+
+      <div className="email-show-body">
+        {this.state.email.body}
       </div>
     </div>
     );

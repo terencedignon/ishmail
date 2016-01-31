@@ -58,10 +58,7 @@ EmailStore.setFilterEmails = function () {
     if (_viewState === "sent") return email.sent;
     if (_viewState === "drafts") return email.sent_set === false ;
   });
-  _unread = _emails.filter(function(email) {
-    console.log(email.read_set);
-    return email.read_set === false;
-  }).length;
+  this.setUnread();
 
   _unreadDrafts = _emails.length - _unread.length;
   return _filterEmails;
@@ -69,6 +66,13 @@ EmailStore.setFilterEmails = function () {
 
 EmailStore.getViewState = function () {
   return _viewState;
+};
+
+EmailStore.setUnread = function () {
+  _unread = _emails.filter(function(email) {
+    console.log(email.read_set);
+    return email.read_set === false;
+  }).length;
 };
 
 EmailStore.getDisplay = function () {
@@ -101,6 +105,7 @@ EmailStore.__onDispatch = function (payload) {
             _emails[i] = payload.data[i];
         }
       }
+      this.setUnread();
       EmailStore.__emitChange();
     } else if (payload.actionType === "GET_EMAIL") {
       _singleEmail = payload.data;

@@ -73,6 +73,10 @@ var EmailIndexItem = React.createClass({
     var importantClass = (classString.includes('important') ? "fa fa-square" : "fa fa-square-o" );
     var checked = (this.props.checked === "true" ? "checkbox checked" : "checkbox");
     var sender = this.props.email.sender.match(/[a-zA-Z.-]+/)[0];
+    var threadCount = "";
+    if (this.state.email && this.state.email.emails.length > 0) {
+      threadCount = "(" + this.state.email.emails.length + ")";
+    }
 
     return (
       <ul className={classString}>
@@ -89,10 +93,10 @@ var EmailIndexItem = React.createClass({
        <i onClick={this.importanceClickHandler} className={importantClass}></i>
        </li>
        <li className="sender">
-         {sender[0].toUpperCase() + sender.slice(1)}
+         {sender[0].toUpperCase() + sender.slice(1)} {threadCount}
        </li>
        <li className="subject">
-         <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a>
+          <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a>
       </li>
       <li className="date">
         {date}
