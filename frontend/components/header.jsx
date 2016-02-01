@@ -55,7 +55,7 @@ var Header = React.createClass({
     console.log("howdy");
   },
   toggleRead: function(name) {
-
+    debugger
     var action = SelectConstants.SELECT_ALL_READ;
     if (name !== action) action = SelectConstants.SELECT_ALL_UNREAD;
     var params = (action === SelectConstants.SELECT_ALL_READ ? { read_set: true } : { read_set: false });

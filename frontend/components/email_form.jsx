@@ -18,11 +18,12 @@ var EmailForm = React.createClass({
     this.draftListener = DraftStore.addListener(this._onDraftChange);
   },
   componentWillUnmount: function() {
+      console.log("unmounting form");
     // this.emailListener.remove();
     this.draftListener.remove();
   },
   toggleShow: function () {
-    
+
     DraftActions.toggleShow(this.props.draft.id)
   },
   _onDraftChange: function () {

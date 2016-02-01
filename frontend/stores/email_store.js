@@ -103,9 +103,10 @@ EmailStore.__onDispatch = function (payload) {
           if (_singleEmail.id === payload.data.id)
             _singleEmail = payload.data;
         } else {
-        for (var i = 0; i < _emails.length; i++) {
-          if (_emails[i].id === payload.data[i].id)
-            _emails[i] = payload.data[i];
+        for (var j = 0; j < payload.data.length; j++) {
+          for (var k = 0; k < _emails.length; k++) {
+            if (_emails[k].id === payload.data[j].id) _emails[k] = payload.data[j];
+          }
         }
 
       }

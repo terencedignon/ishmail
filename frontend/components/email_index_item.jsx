@@ -10,7 +10,7 @@ var EmailIndexItem = React.createClass({
     return { email: this.props.email };
   },
   componentDidMount: function () {
-    this.emailListener = EmailStore.addListener(this._onChange);
+    this.emailListener = EmailStore.addListener(this._onEmailChange);
   },
   componentWillUnmount: function () {
     this.emailListener.remove();
@@ -44,7 +44,7 @@ var EmailIndexItem = React.createClass({
     // var truthy = !(this.state.checked);
     // this.setState({ checked: truthy });
   },
-  _onChange: function () {
+  _onEmailChange: function () {
     this.forceUpdate();
   },
   formatDate: function () {
@@ -74,7 +74,7 @@ var EmailIndexItem = React.createClass({
     var checked = (this.props.checked === "true" ? "checkbox checked" : "checkbox");
     var sender = this.props.email.sender.match(/[a-zA-Z.-]+/)[0];
     var threadCount = "";
-    if (this.state.email && this.state.email.emails.length > 0) {
+    if (this.state.email.emails && this.state.email.emails.length > 0) {
       threadCount = "(" + this.state.email.emails.length + ")";
     }
 
