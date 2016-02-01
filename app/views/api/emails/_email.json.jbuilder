@@ -4,4 +4,5 @@ json.extract!(
     :created_at, :updated_at, :draft_set, :read_set, :compose_set, :sent_set, :select_set
 )
 
+
 json.emails email.emails

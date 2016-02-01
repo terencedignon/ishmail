@@ -205,7 +205,7 @@ header input {
 .sidebar {
   margin-top: 10px;
   width: 185px;
-  height: 100%;
+  min-height: 800px;
   font-size: 13px;
   float: left;
 }
@@ -869,6 +869,17 @@ a.selected {
   color: #222;
   font-size: 13px;
   font-family: sans-serif;
+}
+
+.email-show-holder {
+  display: flex;
+  width: 50%;
+  float: right;
+}
+
+.email-show-ul {
+  float: right;
+  list-style: none;
 }
 
 .email-show h2 {
