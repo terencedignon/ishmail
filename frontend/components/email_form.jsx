@@ -5,6 +5,8 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var DraftStore = require('../stores/draft_store.js');
 var DraftActions = require('../actions/draft_actions.js');
 var DraftConstants = require('../constants/draft_constants.js');
+var EmailConstants = require('../constants/email_constants.js');
+
 
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -67,11 +69,10 @@ var EmailForm = React.createClass({
       title: this.state.title,
       body: this.state.body,
       compose_set: false,
-      sent_set: true
+      sent_set: true,
+      draft_set: false
     };
-    ApiUtil.createEmail(params, function () {
-      this.setState({created: false});
-    }.bind(this));
+    ApiUtil.updateEmail(this.props.draft.id, params, EmailConstants.SEND_EMAIL);
   },
   render: function () {
     var display;

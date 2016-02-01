@@ -2,6 +2,7 @@ var Store = require('flux/utils').Store;
 var AppDispatcher = require('../dispatcher/dispatcher.js');
 var DraftConstants = require('../constants/draft_constants.js');
 var DraftStore = new Store(AppDispatcher);
+var EmailConstants = require('../constants/email_constants.js');
 
 _drafts = [];
 _unreadCount = 0;
@@ -46,12 +47,27 @@ DraftStore.__onDispatch = function (payload) {
       if (obj.draft.id === payload.data) { obj.minimize_set = !obj.minimize_set; }
     });
     DraftStore.__emitChange();
-  } else if (payload.actionType === DraftConstants.CLOSE) {
+  } else if (payload.actionType === DraftConstants.CLOSE_DRAFT) {
     DraftStore.__emitChange();
   } else if (payload.actionType === DraftConstants.UPDATE_ALL) {
     for (var i = 0; i < _emails.length; i++) {
       if (_drafts[i].id === payload.data.id) _emails[i] = payload.data;
     }
+    DraftStore.__emitChange();
+  } else if (payload.actionType === EmailConstants.SEND_EMAIL) {
+    var tempDraft = [];
+    var tempOpenDraft = [];
+
+    _drafts.forEach(function(draft) {
+      if (draft.id !== payload.data.id) tempDraft.push(draft);
+    });
+    _openDrafts.forEach(function(draft) {
+
+      if (draft.draft.id !== payload.data.id) tempOpenDraft.push(draft);
+    });
+    
+    _drafts = tempDraft;
+    _openDrafts = tempOpenDraft;
     DraftStore.__emitChange();
   }
 };

@@ -95,11 +95,15 @@ var ApiUtils = {
 			success: function(data) {
 
         if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
-
           EmailActions.updateSelect(data);
         } else if (typeOfUpdate === DraftConstants.CLOSE_DRAFT){
-					DraftActions.closeDraft(data);
-        } else {
+					DraftActions.closeDraft(data, typeOfUpdate);
+				} else if (typeOfUpdate === EmailConstants.SEND_EMAIL) {
+
+					DraftActions.closeDraft(data, typeOfUpdate);
+					EmailActions.sendEmail(data);
+
+				} else {
 					EmailActions.updateEmail(data);
 				}
       },

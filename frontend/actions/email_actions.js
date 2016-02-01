@@ -33,6 +33,12 @@ var EmailActions = {
 			data: data
 		});
 	},
+	sendEmail: function(data) {
+		Dispatcher.dispatch({
+			actionType: EmailConstants.SEND_EMAIL,
+			data: data
+		});
+	},
 	createView: function(data) {
 		Dispatcher.dispatch({
 			actionType: EmailConstants.CREATE_VIEW,

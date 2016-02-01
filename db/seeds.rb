@@ -8,14 +8,14 @@
 require 'faker'
 
 
-10.times do |i|
-  username = "guest#{i}"
+1.times do |i|
+  username = "terrypdignon"
   password = "guest#{i}"
   location = "United States of America"
   gender = "M"
   birthday= ["1987", "12", "1"]
-  fname = Faker::Name.first_name
-  lname = Faker::Name.last_name
+  fname = "Terence"
+  lname = "Dignon"
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
@@ -37,7 +37,7 @@ require 'faker'
       subject = Faker::Hipster.sentence
       body = Faker::Hipster.paragraph(5)
       Email.create!(sender: sender, user_id: user_id,
-      subject: subject, body: body, parent_email_id: parent_email_id, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, sent_set: true, read_set: read_set
+      subject: subject, body: body, parent_email_id: parent_email_id, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, read_set: read_set
       )
     end
     Email.all.each do |email|

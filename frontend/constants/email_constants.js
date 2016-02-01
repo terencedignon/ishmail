@@ -10,7 +10,8 @@ var EmailConstants = {
   GET_COMPOSE_SET: "GET_COMPOSE_SET",
   TYPE_SELECT: "TYPE_SELECT",
   TYPE_DELETE: "TYPE_DELETE",
-  UPDATE_READ: "UPDATE_READ"
+  UPDATE_READ: "UPDATE_READ",
+  SEND_EMAIL: "SEND_EMAIL"
 };
 
 module.exports = EmailConstants;

@@ -20,9 +20,9 @@ var DraftActions = {
       data: data
     });
   },
-  closeDraft: function(data) {
+  closeDraft: function(data, constant) {
     Dispatcher.dispatch({
-      actionType: DraftConstants.CLOSE_DRAFT,
+      actionType: constant,
       data: data
     });
   },
