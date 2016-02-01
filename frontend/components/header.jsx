@@ -12,10 +12,10 @@ var Header = React.createClass({
     return { indexToolbar: true, selectAll: SelectConstants.SELECT_ALL, checked: false };
   },
   componentDidMount: function() {
-    this.listener = SelectStore.addListener(this._selectOnChange);
+    this.selectListener = SelectStore.addListener(this._selectOnChange);
   },
   componentWillUnmount: function () {
-    this.listener.remove();
+    this.selectListener.remove();
   },
   _selectOnChange: function () {
     if (SelectStore.all().length > 0) {

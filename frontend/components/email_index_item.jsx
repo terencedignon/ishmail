@@ -10,10 +10,10 @@ var EmailIndexItem = React.createClass({
     return { email: this.props.email };
   },
   componentDidMount: function () {
-    this.eventListener = EmailStore.addListener(this._onChange);
+    this.emailListener = EmailStore.addListener(this._onChange);
   },
   componentWillUnmount: function () {
-    this.eventListener.remove();
+    this.emailListener.remove();
   },
   classList: function (email) {
     var classString = "email-index-item group";

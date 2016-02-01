@@ -95,15 +95,19 @@ EmailStore.__onDispatch = function (payload) {
       _compose = true;
       EmailStore.__emitChange();
     } else if (payload.actionType === "UPDATE_EMAIL") {
+
         if (!(payload.data instanceof Array)) {
           for (var i = 0; i < _emails.length; i++) {
             if (_emails[i].id === payload.data.id) _emails[i] = payload.data;
           }
+          if (_singleEmail.id === payload.data.id)
+            _singleEmail = payload.data;
         } else {
         for (var i = 0; i < _emails.length; i++) {
           if (_emails[i].id === payload.data[i].id)
             _emails[i] = payload.data[i];
         }
+
       }
       this.setUnread();
       EmailStore.__emitChange();

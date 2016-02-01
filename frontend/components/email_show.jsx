@@ -5,23 +5,29 @@ var ApiUtil = require('../util/api_util.js');
 var Sidebar = require('../components/sidebar.jsx');
 var EmailConstants = require('../constants/email_constants.js');
 var EmailStore = require('../stores/email_store.js');
+var EmailShowContact = require('../components/email_show_contact.jsx');
 
 var EmailShow = React.createClass({
   getInitialState: function () {
     return { draft: false, email: ""}
   },
   componentDidMount: function () {
-    this.listener = EmailStore.addListener(this._onChange);
+    this.emailListener = EmailStore.addListener(this._onEmailChange);
     ApiUtil.getEmail(this.props.params.id, this.ensureRead(this.props.params.id));
+  },
+  componentWillUnmount: function () {
+    this.emailListener.remove();
   },
   ensureRead: function (id) {
     ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
   },
-  componentWillUnmount: function () {
-    this.listener.remove();
+  starClickHandler: function () {
+    var starred_set = !(this.state.email.starred_set);
+    ApiUtil.updateEmail(this.state.email.id, { starred_set: starred_set});
   },
-  _onChange: function () {
+  _onEmailChange: function () {
     this.setState({ email: EmailStore.getEmail() });
+
   },
   timeElapsed: function () {
     if (typeof this.state.email === "object") {
@@ -94,12 +100,12 @@ var EmailShow = React.createClass({
         </div>
 
       <div className="email-show-header group">
-        <div className="email-show-icon">
 
+        <div className="email-show-icon">
         </div>
         <div className="email-show-sender-name">
           {this.state.email.sender}<br/>
-        to: me
+          to: me
         </div>
         <div className="email-show-sender-email">
           {"<" + this.state.email.sender + ">"}
@@ -107,7 +113,7 @@ var EmailShow = React.createClass({
         <div className="email-show-date">
           {createdAt} {"(" + timeElapsed + ")"}
         </div>
-        <div className={"show-star " + starredClass}>
+        <div onClick={this.starClickHandler} className={"show-star " + starredClass}>
 
         </div>
         <div className="icons">
@@ -118,11 +124,13 @@ var EmailShow = React.createClass({
           <i className="fa fa-sort-desc"></i>
           </div>
         </div>
+          <EmailShowContact email={this.state.email} />
       </div>
-
+    <div className="email-show-header">
       <div className="email-show-body">
         {this.state.email.body}
       </div>
+    </div>
     </div>
     );
   }

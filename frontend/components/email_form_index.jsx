@@ -11,12 +11,12 @@ var EmailFormIndex = React.createClass({
     return { openDrafts: [] };
   },
   componentDidMount: function () {
-    this.listener = DraftStore.addListener(this._onChange);
+    this.draftListener = DraftStore.addListener(this._onChange);
     // ApiUtil.getAllEmail();
     DraftStore.getOpenDrafts();
   },
   componentWillUnmount: function () {
-    this.listener.remove();
+    this.draftListener.remove();
   },
   _onChange: function () {
 

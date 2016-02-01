@@ -19,7 +19,7 @@ require 'faker'
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
-    50.times do |j|
+    100.times do |j|
       first_name = Faker::Name.first_name
       rand_num = rand(1..100)
       sender = "#{first_name}@gmail.com"
@@ -29,7 +29,7 @@ require 'faker'
       user_id = user.id
       draft_set = false
       parent_email_id = nil
-      if rand(1..100) % 3 === 0
+      if rand(1..100) % 2 === 0
         parent_email_id = nil
       else
         parent_email_id = rand(1..100)
