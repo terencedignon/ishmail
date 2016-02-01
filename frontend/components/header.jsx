@@ -67,10 +67,11 @@ var Header = React.createClass({
   },
   render: function () {
     var toolbar;
-    var checkClass = (this.state.checked ? "checked" : "");
+    var checkClass = (this.state.checked ? "select-all" : "");
     var checkClassName = "a fa-square-o ";
     var selector = <li onClick={this.toggleDropDown}>
-        <i onClick={this.updateAll.bind(this, this.state.selectAll)} className={checkClassName + checkClass}></i>
+      <div className={"square " + checkClass} onClick={this.updateAll.bind(this, this.state.selectAll)} />
+
         <div className="drop-down">
             <ul className="drop-down-ul group">
               <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_ALL)} href="#">All</a></li>
@@ -111,11 +112,12 @@ var Header = React.createClass({
         </div>
         <div className="header-bottom group">
           <div className="bottom-left">
-            &nbsp;
+
           </div>
           <div className="bottom-right">
             <ul className="header-nav group">
               {toolbar}
+            <li className="header-nav-settings"> <i className="fa fa-cog"></i> </li>
             </ul>
           </div>
       </div>

@@ -710,7 +710,7 @@ a.selected {
 
 
   /*padding: 10px;*/
-  padding: 6px 20px 4px 2px;
+  padding: 10px 20px 5px 2px;
 
 }
 
@@ -728,70 +728,73 @@ a.selected {
 }
 
 .header-nav i {
+
   font-size: 20px;
 
 }
 
 .header-nav i:hover {
-  color: #555;
+  color: #444;
+}
+
+.header-nav-settings {
+
+}
+
+.square {
+  padding: 6.5px;
+  border: 1px solid #c5c5c5;
+}
+
+.select-all {
+  background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat -5px;
+  /*background: gold;*/
 }
 
 .nav-holder {
   position: relative;
 }
-
 .drop-down {
+  position: relative;
+  display:none;
+}
+.drop-down-ul {
   position: absolute;
-
-  top: 35px;
-  left: 0px;
-  width: 120px;
-  border: 0px solid #ccc;
-  height: 120px;
+  top: 10px;
+  left: -30px;
+  margin: 0;
+  display: block;
+  list-style: none;
   background: #fff;
-  display: none;
+  width: 150px;
+  height: 150px;
+  padding: 0;
   box-shadow: 0px 0 2px 2px #ccc;
 }
 
-.drop-down-ul {
-  display: block;
-  list-style: none;
-  width: 50%;
-  padding: 5px;
-  padding: 0;
+.drop-down-ul li {
+  width: 60%;
+  margin-left: -1px;
+  background: #fff;
+
+  border: 0;
 }
 
-.header-nav .checked {
-  color: #555;
-  color: #ccc;
-  background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat center;
-  background-size: cover;
-  border: 0
-}
 
 .header-nav .refresh:hover {
   color: #333;
 }
 
-.drop-down-ul li {
-    /*display: block;*/
-    /*margin-left: 10px;*/
-    color: #000;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
-    background: #fff;
-
-}
 
 .drop-down ul a:visited {
   color: #000;
 }
 
 .drop-down-ul a {
+    font-size: 13px;
   /*padding: 10px 0;*/
-  padding: 30px 0;
+  /*padding: 30px 0;*/
+  padding: 0;
   text-decoration: none;
   text-align: left;
 }

@@ -16,7 +16,7 @@ var EmailIndex = React.createClass({
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.selectListener = SelectStore.addListener(this._onSelectChange);
-    this.draftListener = DraftStore.addListener(this._onDraftListener);
+    this.draftListener = DraftStore.addListener(this._onDraftChange);
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {
@@ -29,7 +29,6 @@ var EmailIndex = React.createClass({
   },
   _onSelectChange: function () {
     this.setState({ selectEmails: SelectStore.all() });
-    console.log(this.state.selectEmails);
   },
   _onDraftChange: function () {
     this.setState({ drafts: DraftStore.all() });
