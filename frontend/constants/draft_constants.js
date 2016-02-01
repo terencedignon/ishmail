@@ -3,7 +3,8 @@ var DraftConstants = {
   GET_DRAFTS:  "GET_DRAFTS",
   TOGGLE_SHOW: "TOGGLE_SHOW",
   CLOSE: "CLOSE",
-  DESTROY: "DESTROY"
+  DESTROY: "DESTROY",
+  CLOSE_DRAFT: "CLOSE_DRAFT"
 };
 
 module.exports = DraftConstants;

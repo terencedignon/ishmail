@@ -4,6 +4,7 @@ var ApiUtils = require('../util/api_util.js');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var DraftStore = require('../stores/draft_store.js');
 var DraftActions = require('../actions/draft_actions.js');
+var DraftConstants = require('../constants/draft_constants.js');
 
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
@@ -57,11 +58,8 @@ var EmailForm = React.createClass({
     //   this.state.
     // }
     // ApiUtil.updateEmail(params);
-    if (save_set) {
-      ApiUtil.updateEmail();
-    } else {
-      DraftActions.closeDraft();
-    }
+    ApiUtil.updateEmail(this.props.draft.id, {compose_set: false}, DraftConstants.CLOSE_DRAFT);
+
 
   },
   createEmail: function () {
@@ -81,15 +79,27 @@ var EmailForm = React.createClass({
 
     if (this.props.minimize) {
       display =
-      <div onClick={this.toggleShow} className="email-form minimize group">
-         <span>{this.state.title}</span> <i onClick={this.closeClickHandler} className="fa fa-times"></i>
-      </div>;
+      <div onClick={this.toggleShow} className="email-form-minimize">
+        <div className="email-form-minimize-title">
+         {this.state.title}
+       </div>
+       <div className="email-form-minimize-max">
+          <i className="fa fa-minus"></i>
+        </div>
+       <div className="email-form-minimize-close">
+         <i onClick={this.closeClickHandler} className="fa fa-times"></i>
+        </div>
+    </div>;
     } else {
       display = <div className="email-form group">
-          <div onClick={this.toggleShow} className="title">
-          {this.state.title} <i className="fa fa-minus toolbar"></i>
-        </div>
-
+        <div className="email-form-title-container">
+          <div onClick={this.toggleShow} className="email-form-title">
+            {this.state.title}
+          </div>
+          <div>
+            <i onClick={this.closeClickHandler} className="fa fa-times"></i>
+          </div>
+      </div>
         <div className="recipients">
           <input type="text" valueLink={this.linkState('recipients')}/>
         </div>

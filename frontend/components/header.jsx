@@ -55,7 +55,7 @@ var Header = React.createClass({
     console.log("howdy");
   },
   toggleRead: function(name) {
-    debugger
+
     var action = SelectConstants.SELECT_ALL_READ;
     if (name !== action) action = SelectConstants.SELECT_ALL_UNREAD;
     var params = (action === SelectConstants.SELECT_ALL_READ ? { read_set: true } : { read_set: false });
@@ -66,6 +66,14 @@ var Header = React.createClass({
     ApiUtil.destroyAll(SelectStore.all(), this.callback);
   },
   render: function () {
+
+    // <li onClick={ApiUtil.getAllEmail}>
+    //   <i className="fa fa-refresh refresh"></i>
+    // </li>
+  //   
+  // <li className="header-nav-settings"> <i className="fa fa-cog"></i> </li>
+
+
     var toolbar;
     var checkClass = (this.state.checked ? "select-all" : "");
     var checkClassName = "a fa-square-o ";
@@ -89,9 +97,7 @@ var Header = React.createClass({
       toolbar =
       <div className="nav-holder">
         {selector}
-        <li onClick={ApiUtil.getAllEmail}>
-          <i className="fa fa-refresh refresh"></i>
-        </li>
+
       </div>;
     } else {
       toolbar = <div className="nav-holder">
@@ -117,7 +123,6 @@ var Header = React.createClass({
           <div className="bottom-right">
             <ul className="header-nav group">
               {toolbar}
-            <li className="header-nav-settings"> <i className="fa fa-cog"></i> </li>
             </ul>
           </div>
       </div>

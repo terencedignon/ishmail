@@ -1,6 +1,7 @@
 var EmailActions = require('../actions/email_actions.js');
 var EmailConstants = require('../constants/email_constants.js');
 var DraftActions = require('../actions/draft_actions.js');
+var DraftConstants = require('../constants/draft_constants.js');
 
 var ApiUtils = {
 	getAllEmail: function () {
@@ -20,7 +21,7 @@ var ApiUtils = {
 			method: "GET",
 			url: "api/emails/" + id,
 			success: function(data) {
-			
+
 				EmailActions.receiveEmail(data);
 				callback && callback();
 			}
@@ -96,9 +97,11 @@ var ApiUtils = {
         if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
 
           EmailActions.updateSelect(data);
+        } else if (typeOfUpdate === DraftConstants.CLOSE_DRAFT){
+					DraftActions.closeDraft(data);
         } else {
-  				EmailActions.updateEmail(data);
-        }
+					EmailActions.updateEmail(data);
+				}
       },
 			error: function (e) {
 				console.log("error in updateEmail function");

@@ -16,7 +16,7 @@ var EmailFormIndex = React.createClass({
     DraftStore.getOpenDrafts();
   },
   componentWillUnmount: function () {
-    console.log("unmounting form_index");
+
     this.draftListener.remove();
   },
   _onDraftChange: function () {
@@ -26,10 +26,9 @@ var EmailFormIndex = React.createClass({
   render: function() {
 
     var formItems = this.state.openDrafts.map(function(data) {
-
+      
       return <li key={Math.random()}><EmailForm minimize={data.minimize_set} save_set={data.save_set} draft={data.draft} /></li>;
     });
-
     return (
       <ul className="form-holder">{formItems}</ul>
     );

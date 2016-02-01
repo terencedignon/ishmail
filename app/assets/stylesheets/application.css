@@ -267,6 +267,7 @@ header input {
 
 
 .main {
+
   padding-left: 16px;
   padding-top: 20px;
   /*margin-top: -20px;*/
@@ -311,6 +312,7 @@ header input {
 
 .email-index-item > .sender {
   min-width: 10%;
+  text-align: left;
   padding-left: 20px;
 }
 
@@ -464,9 +466,10 @@ form.sign-in button, form.demo-sign-in button {
 .form-holder {
   position: fixed;
   bottom: 0;
-  width: 100%;
+  /*width: 100%;*/
   height: auto;
   right: 30px;
+
 }
 
 .email-form {
@@ -496,18 +499,44 @@ form.sign-in button, form.demo-sign-in button {
 
 }
 
-.email-form .title {
+.email-form-title-container {
+  display: flex;
   background: #404040;
   cursor: pointer;
-  height: 40px;
+  height: 30px;
+  width: 100%;
+  padding: 10px 5px 5px 10px;
   overflow:hidden;
   /*height: 5%;
   min-height: 20px;*/
-  padding: 0;
-  color: #fff;
+
 
   border-bottom: 1px solid #e5e5e5;
 }
+.email-form-title {
+  color: #fff;
+  width: 100%;
+  margin-top: -8px;
+  text-align: left;
+  padding: 12px;
+}
+.email-form-title-container i {
+  color: #b2b2b2;
+  width: 50%;
+  line-height: 40px;
+  text-align: right;
+  /*padding-right: 30px;*/
+  padding: 5px;
+  font-size: 20px;
+  margin-top: -12px;
+  margin-right: -10% auto;
+}
+
+.email-form-title-container i:hover {
+  background: #737373;
+  color: #fff;
+}
+
 
 
 .email-form .recipients {
@@ -550,28 +579,49 @@ form.sign-in button, form.demo-sign-in button {
   text-align: right;
 }
 
-.minimize {
+.email-form-minimize {
   cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
   display: flex;
-  flex-flow: row wrap;
+  /*flex-flow: row wrap;*/
   /*box-sizing: padding-box;*/
-  float: right;
-  height: 33px;
-  width: 300px;
+  margin-left: auto;
+  max-height: 30px;
+  width: 250px;
   background: #404040;
-  color: #fff;
 }
 
-.minimize i {
-  float: right;
-  padding: 5px;
-  font-size: 20px;
-  color: #e5e5e5;
+.email-form-minimize-title {
+  display: block;
+  /*padding: 10px;*/
+  margin-top: 1px;
+  padding-left: 10px;
+  font-size: 15px;
+  width: 100%;
+  color: #fff;
+  text-align: left;
+}
+
+.email-form-minimize i {
+  text-align: right;
+  padding: 10px;
+  /*margin-right: -90%;*/
+  line-height: 0px;
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 12px;
+  color: #b2b2b2;
+}
+
+.email-form-minimize i:hover {
+  color: #fff;
+  background: #737373;
 }
 
 .footer button {
-  background: #4a8bf7;
-  border: 0;
+  background: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+  border: 1px solid #3079ed;
   font-weight: bold;
   font-size: 10px;
   display: block;

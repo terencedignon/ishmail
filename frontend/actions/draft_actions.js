@@ -20,6 +20,12 @@ var DraftActions = {
       data: data
     });
   },
+  closeDraft: function(data) {
+    Dispatcher.dispatch({
+      actionType: DraftConstants.CLOSE_DRAFT,
+      data: data
+    });
+  },
   toggleShow: function (id) {
     Dispatcher.dispatch({
       actionType: DraftConstants.TOGGLE_SHOW,

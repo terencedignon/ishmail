@@ -20,18 +20,22 @@ DraftStore.getOpenDrafts = function () {
 };
 
 DraftStore.__onDispatch = function (payload) {
-  openDraftParams = {draft: payload.data, minimize_set: false, save_set: false};
+  // openDraftParams = {minimize_set: false, save_set: false};
 
   if (payload.actionType === DraftConstants.NEW_DRAFT) {
     _drafts.push(payload.data);
-    _openDrafts.push(openDraftParams);
+    _openDrafts.push({draft: payload.data, minimize_set: false, save_set: false});
+    DraftStore.__emitChange();
+  } else if (payload.actionType === DraftConstants.CLOSE_DRAFT) {
+    _openDrafts.splice(_openDrafts.indexOf(payload.data), 1);
     DraftStore.__emitChange();
   } else if (payload.actionType === DraftConstants.GET_DRAFTS) {
     var drafts = [];
     var openDrafts = [];
       payload.data.forEach(function(email) {
+
         if (email.draft_set) drafts.push(email);
-        if (email.compose_set) openDrafts.push(openDraftParams);
+        if (email.compose_set) openDrafts.push({draft: email, minimize_set: false, save_set: false});
       });
       _drafts = drafts;
       _openDrafts = openDrafts;

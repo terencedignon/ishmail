@@ -29,6 +29,7 @@ var EmailIndexItem = React.createClass({
 
   },
   starClickHandler: function () {
+
     var starred_set = !(this.props.email.starred_set);
     ApiUtil.updateEmail(this.props.id, { starred_set: starred_set});
 
