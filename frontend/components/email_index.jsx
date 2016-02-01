@@ -57,7 +57,7 @@ var EmailIndex = React.createClass({
 
     var listedEmails = (this.state.view === "drafts" ? DraftStore.all() : this.state.emails);
 
-    var indexItems = <div></div>;
+    var indexItems = <div>LOADING</div>;
     if (!(typeof this.state.emails === "undefined")) {
       var indexItems = listedEmails.map(function(email) {
         if (this.state.selectEmails.indexOf(email.id) !== -1) {

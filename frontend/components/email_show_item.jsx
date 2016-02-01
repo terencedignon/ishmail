@@ -4,22 +4,10 @@ var ApiUtil = require('../util/api_util.js');
 var EmailConstants = require('../constants/email_constants.js');
 
 var EmailShowItem = React.createClass({
-
-
-  componentDidMount: function () {
-  },
-  componentWillUnmount: function () {
-
-  },
-
-  ensureRead: function (id) {
-    ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
-  },
   starClickHandler: function () {
     var starred_set = !(this.props.email.starred_set);
     ApiUtil.updateEmail(this.props.email.id, { starred_set: starred_set});
   },
-
   _onEmailChange: function () {
     this.setState({ email: EmailStore.getEmail() });
   },
@@ -86,25 +74,19 @@ var EmailShowItem = React.createClass({
     var createdAt = this.formatDate();
     var timeElapsed = this.timeElapsed();
     starredClass = this.props.email.starred_set ? "star-true" : "star-false";
+    var display;
 
     var subjectLine;
     if (!this.props.child) {
       subjectLine = <div className="email-show-subject">
         <h2>{this.props.email.subject}</h2>
       </div>;
-
-      contactDiv = <EmailShowContact email={this.props.email} />;
-
     } else {
        subjectLine = <div></div>;
-       contactDiv = <div></div>;
     }
 
-
-
-
-    return (
-      <div className="email-show">
+    if (this.props.max || (!this.props.email.read_set) || (this.props.email.read_set && (!this.props.child && !this.props.hasChildren) || this.props.index === this.props.length - 1)) {
+      display = <div onClick={this.props.clickHandler} id={this.props.email.id} className="email-show">
       {subjectLine}
       <div className="email-show-header group">
         <div className="email-show-icon">
@@ -133,14 +115,44 @@ var EmailShowItem = React.createClass({
           <i className="fa fa-sort-desc"></i>
           </div>
         </div>
-          {contactDiv}
+
       </div>
     <div className="email-show-header">
       <div className="email-show-body">
         {this.props.email.body}
       </div>
     </div>
-    </div>
+    </div>;
+  } else {
+    display =
+      <div onClick={this.props.clickHandler} id={this.props.email.id} className="email-show min">
+
+      <div className="email-show-header group">
+      <div className="email-show-icon">
+      </div>
+      <div className="email-show-sender-name-stub">
+      {this.props.email.sender}
+      </div>
+
+      <div className="email-show-body-stub">
+        {this.props.email.body.split(" ").slice(0, 10).join(" ")}
+      </div>
+      <div className="email-show-date">
+      {createdAt} {"(" + timeElapsed + ")"}
+      </div>
+
+
+      <div onClick={this.starClickHandler} className={"show-star " + starredClass}>
+      </div>
+      </div>
+      </div>;
+  }
+
+
+    return (
+      <div onClick={this.props.clickHandler} id={this.props.email.id}>
+      {display}
+      </div>
     );
   }
 });

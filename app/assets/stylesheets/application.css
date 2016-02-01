@@ -406,7 +406,7 @@ i.fa-square-o {
 
 .checked {
   color: #ccc;
-  background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat 7px -1px;
+  background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat 5px -1px;
 }
 
 .highlight {
@@ -861,6 +861,20 @@ a.selected {
 }
 
 
+.email-show-reply-form {
+  margin-top: 10px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  /*width: 100%;*/
+  height: 100px;
+  width: 75%;
+}
+
+.email-show-reply-form-recipient {
+  background: #fff;
+  padding: 10px;
+}
+
 
 .email-show {
   overflow: hidden;
@@ -873,7 +887,7 @@ a.selected {
 
 .email-show-holder {
   display: flex;
-  width: 50%;
+  width: 100%;
   float: right;
 }
 
@@ -895,11 +909,11 @@ a.selected {
 .email-show-icon {
   background: url(//ssl.gstatic.com/ui/v1/icons/mail/profile_mask2.png) no-repeat -4px -5px;
   /*padding: 6px 4px 0 0;*/
-  border: 1px solid #eee;
+  border: 1px solid #ddd;
   padding-right: 10px;
   width: 24px;
   height: 24px;
-  padding-right: 15px;
+  padding-right: 10px;
   margin-right: 10px;
 }
 
@@ -916,12 +930,32 @@ a.selected {
   padding: 4px 8px;
 }
 
+.min {
+  /*background: #f7f7f7;*/
+}
+
+.email-show-sender-name-stub {
+  font-weight: bold;
+  /*margin-right: ;*/
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.email-show-body-stub {
+  font-weight: normal;
+  padding-left: 20px;
+  line-height: 25px;
+  color: #555;
+  width: 100%;
+}
+
 .email-show-sender {
   font-weight: bold;
   color: #222;
   white-space: nowrap;
   display: inline;
 }
+
 
 .email-show-date {
   width: 100%;
@@ -935,6 +969,16 @@ a.selected {
 .icons {
   display: flex;
   height: 27px;
+}
+
+.email-show-form {
+  margin-top: 10px;
+  height: 64px;
+  min-width: 800px;
+  padding: 8px 0 0 12px;
+  color: #999;
+  /*border-color: #666666 #ccc #ccc #ccc;*/
+  border: 1px solid #ccc;
 }
 
 .email-show-reply {
@@ -990,7 +1034,8 @@ a.selected {
 
 .email-show-contact {
   /*width: 20%;*/
-
+  min-height: 600px;
+  min-width: 200px;
   padding-left: 50px;
   background: #fff;
 }

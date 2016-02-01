@@ -7,10 +7,11 @@ var EmailConstants = require('../constants/email_constants.js');
 var EmailStore = require('../stores/email_store.js');
 var EmailShowContact = require('../components/email_show_contact.jsx');
 var EmailShowItem = require('../components/email_show_item.jsx');
+var EmailShowForm = require('../components/email_show_form.jsx');
 
 var EmailShow = React.createClass({
   getInitialState: function () {
-    return { draft: false, email: ""}
+    return { draft: false, email: "", maxList: [], maxAll: false};
   },
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
@@ -18,6 +19,15 @@ var EmailShow = React.createClass({
   },
   componentWillUnmount: function () {
     this.emailListener.remove();
+  },
+  clickHandler: function (e) {
+    debugger
+    var list = this.state.maxList;
+    list.push(e.currentTarget.id);
+    this.setState({ maxList: list});
+    // debugger
+    // this.setState({maxAll: true});
+    // this.setState({ })
   },
   _onEmailChange: function () {
     this.setState({ email: EmailStore.getEmail() });
@@ -28,11 +38,13 @@ var EmailShow = React.createClass({
   render: function() {
     var renderedShow = [];
     var topEmail;
+
     if (typeof this.state.email === "object" && !(this.state.email instanceof Array)) {
-      topEmail = <EmailShowItem email={this.state.email} child={false}/>;
-      renderedShow = this.state.email.emails.map(function(childEmail) {
-        return <EmailShowItem email={childEmail} child={true}/>;
-      });
+
+      topEmail = <EmailShowItem clickHandler={this.clickHandler} max={this.state.maxAll || this.state.maxList.indexOf(this.state.email.id.toString()) !== -1} email={this.state.email} hasChildren={this.state.email.emails.length > 0} child={false}/>;
+      renderedShow = this.state.email.emails.map(function(childEmail, i) {
+        return <EmailShowItem key={childEmail.id} ensureRead={this.ensureRead} clickHandler={this.clickHandler} max={this.state.maxAll || this.state.maxList.indexOf(childEmail.id.toString()) !== -1} email={childEmail} ensureRead={this.ensureRead} length={this.state.email.emails.length} index={i} child={true}/>;
+      }.bind(this));
     } else {
       topEmail = <div></div>;
       renderedShow = <div></div>;
@@ -41,8 +53,11 @@ var EmailShow = React.createClass({
     return (
       <div class="email-show-holder">
       <ul class="email-show-ul">
+      <h1 className="find-me" onClick={this.clickHandler}>max all</h1>
       {topEmail}
       {renderedShow}
+      <EmailShowForm sender={this.state.email.sender} />
+      <EmailShowContact email={this.state.email} />
       </ul>
       </div>
     );
