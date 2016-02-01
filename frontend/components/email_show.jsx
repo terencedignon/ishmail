@@ -8,6 +8,7 @@ var EmailStore = require('../stores/email_store.js');
 var EmailShowContact = require('../components/email_show_contact.jsx');
 var EmailShowItem = require('../components/email_show_item.jsx');
 var EmailShowForm = require('../components/email_show_form.jsx');
+var EmailForm = require('../components/email_form.jsx');
 
 var EmailShow = React.createClass({
   getInitialState: function () {
@@ -21,7 +22,6 @@ var EmailShow = React.createClass({
     this.emailListener.remove();
   },
   clickHandler: function (e) {
-    debugger
     var list = this.state.maxList;
     list.push(e.currentTarget.id);
     this.setState({ maxList: list});
@@ -36,6 +36,8 @@ var EmailShow = React.createClass({
     ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
   },
   render: function() {
+
+    if (this.state.email) console.log("all read is" + this.state.email.all_read);
     var renderedShow = [];
     var topEmail;
 
@@ -53,7 +55,8 @@ var EmailShow = React.createClass({
     return (
       <div class="email-show-holder">
       <ul class="email-show-ul">
-      <h1 className="find-me" onClick={this.clickHandler}>max all</h1>
+
+
       {topEmail}
       {renderedShow}
       <EmailShowForm sender={this.state.email.sender} />

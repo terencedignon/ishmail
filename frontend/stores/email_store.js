@@ -70,10 +70,18 @@ EmailStore.getViewState = function () {
 };
 
 EmailStore.setUnread = function () {
+
   _unread = _emails.filter(function(email) {
-    console.log(email.read_set);
-    return email.read_set === false;
+    return email.all_read === false;
   }).length;
+  // _unread = 0;
+  // _emails.forEach(function(email) {
+  //   var read = false;
+  //   email.emails.forEach(function(childEmail) {
+  //     if (childEmail.read_set) read = true;
+  //   });
+  //   if (read || email.read_set) _unread += 1;
+  // });
 };
 
 EmailStore.getDisplay = function () {

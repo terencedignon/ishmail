@@ -19,21 +19,27 @@ require 'faker'
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
 
-    100.times do |j|
+    10.times do |j|
       first_name = Faker::Name.first_name
       rand_num = rand(1..100)
       sender = "#{first_name}@gmail.com"
       importance_set = rand(1..100) % 3 == 0 ? true : false
       starred_set = rand(1..100) % 3 == 0 ? true : false
-      read_set = rand(1..100) % 3 == 0 ? true : false
+
       user_id = user.id
       draft_set = false
       parent_email_id = nil
-      if rand(1..100) % 2 === 0
+      if (j+10) % 2 === 0
         parent_email_id = nil
-      else
-        parent_email_id = rand(1..100)
+      elsif (j+10) % 2 == 1
+        parent_email_id = Email.find(j)
       end
+      if parent_email_id
+        read_set = false
+      else
+        read_set = true
+      end
+
       subject = Faker::Hipster.sentence
       body = Faker::Hipster.paragraph(5)
       Email.create!(sender: sender, user_id: user_id,
@@ -44,4 +50,26 @@ require 'faker'
       email.update(created_at: Faker::Time.between(5.days.ago, Time.now, :all))
     end
 
+    # 100.times do |j|
+    #   first_name = Faker::Name.first_name
+    #   rand_num = rand(1..100)
+    #   sender = "#{first_name}@gmail.com"
+    #   importance_set = rand(1..100) % 3 == 0 ? true : false
+    #   starred_set = rand(1..100) % 3 == 0 ? true : false
+    #   read_set = rand(1..100) % 3 == 0 ? true : false
+    #   user_id = 1
+    #   draft_set = false
+    #   parent_email_id = (j == 0 ? nil : 1)
+    #
+    #   subject = Faker::Hipster.sentence
+    #   body = Faker::Hipster.paragraph(5)
+    #   Email.create!(sender: sender, user_id: user_id,
+    #   subject: subject, body: body, parent_email_id: parent_email_id, importance_set: importance_set, draft_set: draft_set, starred_set: starred_set, read_set: read_set
+    #   )
+    # end
+    # Email.all.each do |email|
+    #   email.update(created_at: Faker::Time.between(5.days.ago, Time.now, :all))
+    # end
+    #
+    # Email.last.update(created_at: Date.new())
 end

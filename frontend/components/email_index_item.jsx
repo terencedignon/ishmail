@@ -18,7 +18,7 @@ var EmailIndexItem = React.createClass({
   classList: function (email) {
     var classString = "email-index-item group";
     if (email.importance_set) classString += " important";
-    if (email.read_set) classString += " read";
+    if (email.all_read) classString += " read";
     if (email.starred_set) classString += " starred";
     if (this.props.checked === "true") classString += " highlight";
     return classString;
@@ -54,7 +54,8 @@ var EmailIndexItem = React.createClass({
     // currentDate.getTime() - ((currentDate.getHours() * 60 * 60 * 1000) + currentDate.getMinutes() * 60 * 1000);
 
 
-    var emailDate = new Date(this.state.email.created_at);
+    var emailDate = new Date(this.state.email.most_recent);
+
     if (currentDate.getMonth() !== emailDate.getMonth() || currentDate.getYear() !== emailDate.getYear()) {
 
       var year = emailDate.toLocaleDateString().split("/")[2].slice(2);
@@ -76,7 +77,7 @@ var EmailIndexItem = React.createClass({
     var sender = this.props.email.sender.match(/[a-zA-Z.-]+/)[0];
     var threadCount = "";
     if (this.state.email.emails && this.state.email.emails.length > 0) {
-      threadCount = "(" + this.state.email.emails.length + ")";
+      threadCount = "(" + (this.state.email.emails.length + 1) + ")";
     }
 
     return (

@@ -4,5 +4,10 @@ json.extract!(
     :created_at, :updated_at, :draft_set, :read_set, :compose_set, :sent_set, :select_set
 )
 
+query = email.subquery
 
-json.emails email.emails
+
+
+json.all_read query[0]
+json.most_recent query[1]
+json.emails query[2]

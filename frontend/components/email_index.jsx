@@ -61,9 +61,9 @@ var EmailIndex = React.createClass({
     if (!(typeof this.state.emails === "undefined")) {
       var indexItems = listedEmails.map(function(email) {
         if (this.state.selectEmails.indexOf(email.id) !== -1) {
-          return <EmailIndexItem key={email.id} id={email.id} email={email} checked="true"/>;
+          return <EmailIndexItem key={Math.random()} id={email.id} email={email} checked="true"/>;
         } else {
-          return <EmailIndexItem key={email.id} id={email.id} email={email} checked="false"/>;
+          return <EmailIndexItem key={Math.random()} id={email.id} email={email} checked="false"/>;
         }}.bind(this));
     }
     var email = this.state.emails;

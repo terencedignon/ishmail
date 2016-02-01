@@ -71,6 +71,7 @@ var EmailShowItem = React.createClass({
 },
 
   render: function () {
+
     var createdAt = this.formatDate();
     var timeElapsed = this.timeElapsed();
     starredClass = this.props.email.starred_set ? "star-true" : "star-false";

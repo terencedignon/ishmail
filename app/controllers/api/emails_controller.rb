@@ -1,7 +1,15 @@
 class Api::EmailsController < ApplicationController
 
   def index
-    @emails = Email.get_by_current_user(current_user.id).where(parent_email_id: nil).order(created_at: :desc).first(50)
+    # @emails = Email.select("parent_email_id").where(user_id: 1).order(created_at: :desc).limit(50)
+
+    ids = Email.select("parent_email_id, id").where(user_id: 1).order(created_at: :desc).map do |email|
+      email.parent_email_id ? email.parent_email_id : email.id
+    end
+
+    @emails = ids.map { |id| Email.find(id) }
+    @emails.sort_by(&:most_recent)
+    # @emails = Email.get_by_current_user(current_user.id).order(created_at: :desc).first(50)
   end
 
   def show
