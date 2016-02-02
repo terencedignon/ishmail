@@ -50,6 +50,8 @@ var EmailShow = React.createClass({
       renderedShow = <div></div>;
     }
 
+    // <EmailShowForm sender={this.state.email.sender} />
+    // <EmailShowContact email={this.state.email} />
     return (
       <div className="email-show-holder">
       <h2>{this.state.email.subject}</h2>
@@ -57,8 +59,6 @@ var EmailShow = React.createClass({
 
       {topEmail}
       {renderedShow}
-      <EmailShowForm sender={this.state.email.sender} />
-      <EmailShowContact email={this.state.email} />
       </ul>
       </div>
     );
