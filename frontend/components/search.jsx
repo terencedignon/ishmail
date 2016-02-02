@@ -41,22 +41,22 @@ var Search = React.createClass({
 
   render: function() {
 
-    var searchResults = SearchStore.all().map(function (searchResult) {
-      if (searchResult._type === "Email") {
-        return <EmailIndexItem user={searchResult} />;
-      }
-    });
+    var searchResults = SearchStore.all().map(function (email) {
+        return <li>{email.subject}</li>;
+        });
 
     return (
-      <div>
-        <h1 className="title">Search!</h1>
-        <input type="text" placeholder="wut u want" onKeyUp={ this.search } />
-        Displaying {SearchStore.all().length} of
-        {SearchStore.meta().totalCount}
-        <button onClick={this.nextPage}>Next ></button>
+          <div className="top-right">
+            <input type="text" placeholder="" onKeyUp={this.search} />
+            Displaying {SearchStore.all().length} of {SearchStore.meta().totalCount}
+            <button onClick={this.nextPage}>Next ></button>
+            <button><i className="fa fa-search"></i></button>
 
-        <ul className="users-index">{ searchResults }</ul>
+        </div>
+        {searchResults }
       </div>
+
+
     );
   },
 
