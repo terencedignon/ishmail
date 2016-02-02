@@ -18,7 +18,7 @@ require 'faker'
   lname = Faker::Name.last_name
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
-  debugger
+
     200.times do |j|
       first_name = Faker::Name.first_name
       rand_num = rand(1..100)

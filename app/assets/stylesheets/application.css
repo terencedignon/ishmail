@@ -1139,8 +1139,9 @@ ul.search-dropdown {
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 300px;
   height: auto;
+  width: auto;
+  padding: 30px;
   /*top: 500px;*/
 
   background: #f7f7f7;

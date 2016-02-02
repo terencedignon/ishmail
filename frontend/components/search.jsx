@@ -48,7 +48,6 @@ var Search = React.createClass({
 
     var searchResults = <div></div>;
     var display;
-    console.log(SearchStore.type() === this.state.type);
       if (SearchStore.type() === this.state.type) {
         searchResults = SearchStore.all().slice(0, 5).map(function (email) {
             return <li>{email.subject}</li>;
@@ -59,7 +58,7 @@ var Search = React.createClass({
                 <h1><a href="/#">Ishmael</a></h1>
             </div>
               <div className="top-right">
-                <input type="text" placeholder="" onKeyUp={this.search} />
+                <input type="text" placeholder="" onInput={this.search} />
                 <button><i className="fa fa-search"></i></button>
 
                 <ul className="search-dropdown">

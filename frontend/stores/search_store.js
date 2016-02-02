@@ -22,10 +22,12 @@ SearchStore.type = function () {
 };
 
 SearchStore.__onDispatch = function (payload) {
-  // debugger
+
+
   switch (payload.actionType) {
     case SearchConstants.RECEIVE_SEARCH_RESULTS:
-    _type = payload.type;
+    _type = payload.searchType;
+    console.log(_type);
     _searchResults = payload.searchResults;
 
       // _searchResults = payload.searchResults;

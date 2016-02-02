@@ -9,7 +9,7 @@ var SearchApiUtil = {
       dataType: 'json',
       data: {query: query, page: page},
       success: function (data) {
-
+        console.log(type);
         SearchActions.receiveResults(data, type);
       }
     });

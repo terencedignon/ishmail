@@ -21,7 +21,7 @@ var Search = React.createClass({
   },
 
   search: function (e) {
-    var query = e.target.value;
+    var query = e.target.value + " ";
     SearchApiUtil.search(query, 1, this.state.type);
 
     this.setState({page: 1, query: query});
@@ -49,7 +49,7 @@ var Search = React.createClass({
             return <li>{user.fname}</li>;
             });
       var display = <div className="contact-search">
-          <input type="text" onKeyUp={this.search} />
+          <input type="text" onInput={this.search} />
             <ul className="contact-search-results">
               {searchResults }
             </ul>
