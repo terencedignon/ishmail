@@ -45,9 +45,9 @@ var EmailIndex = React.createClass({
     for (var i = 0; i < tabs.length; i++) {
       var name = tabs[i][0].toUpperCase() + tabs[i].slice(1);
       if (tabs[i] === this.state.tabView) {
-        lis.push(<li className={tabs[i] + "selected"}><i className={icons[i]}/> {name} </li>);
+        lis.push(<li key={Math.random()} className={tabs[i] + "selected"}><i className={icons[i]}/> {name} </li>);
       } else {
-        lis.push(<li onClick={this.clickTabView.bind(this, tabs[i])} className={tabs[i]}><i className={icons[i]}/> {name} </li>);
+        lis.push(<li key={Math.random()} onClick={this.clickTabView.bind(this, tabs[i])} className={tabs[i]}><i className={icons[i]}/> {name} </li>);
       }
     }
 

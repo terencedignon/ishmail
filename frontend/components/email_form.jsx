@@ -21,7 +21,7 @@ var EmailForm = React.createClass({
     this.draftListener = DraftStore.addListener(this._onDraftChange);
   },
   componentWillUnmount: function() {
-      console.log("unmounting form");
+
     // this.emailListener.remove();
     this.draftListener.remove();
   },
@@ -30,7 +30,7 @@ var EmailForm = React.createClass({
     DraftActions.toggleShow(this.props.draft.id)
   },
   _onDraftChange: function () {
-    console.log("draft change");
+
   },
   _onEmailChange: function () {
     var subject = this.state.subject;
@@ -43,7 +43,7 @@ var EmailForm = React.createClass({
     };
     if (this.state.display && this.state.created === false) {
       ApiUtil.createEmail(params);
-      console.log("created");
+    
       this.setState({created: true});
     }
   },

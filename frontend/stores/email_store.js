@@ -71,7 +71,7 @@ EmailStore.getViewState = function () {
 
 EmailStore.setUnread = function () {
   _unread = _emails.filter(function(email) {
-    console.log(email.read_set);
+
     return email.read_set === false;
   }).length;
 };
@@ -121,7 +121,7 @@ EmailStore.__onDispatch = function (payload) {
         payload.data.forEach(function(email) {
 
           if (email.draft_set === false) {
-            console.log(email.draft_set);
+    
             emails.push(email);
           }
         });

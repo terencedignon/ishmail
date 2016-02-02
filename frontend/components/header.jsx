@@ -52,7 +52,7 @@ var Header = React.createClass({
   callback: function(){
     // ApiUtil.getAllEmail();
 
-    console.log("howdy");
+  
   },
   toggleRead: function(name) {
 
@@ -70,7 +70,7 @@ var Header = React.createClass({
     // <li onClick={ApiUtil.getAllEmail}>
     //   <i className="fa fa-refresh refresh"></i>
     // </li>
-  //   
+  //
   // <li className="header-nav-settings"> <i className="fa fa-cog"></i> </li>
 
 
@@ -109,7 +109,7 @@ var Header = React.createClass({
       <header>
         <div className="header-top group">
           <div className="top-left">
-            <h1><a href="/#">Ishmael</a></h1>
+              <h1><a href="/#">Ishmael</a></h1>
           </div>
             <div className="top-right">
               <input type="text"/>

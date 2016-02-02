@@ -7,10 +7,11 @@ var EmailShowItem = React.createClass({
   starClickHandler: function () {
     var starred_set = !(this.props.email.starred_set);
     ApiUtil.updateEmail(this.props.email.id, { starred_set: starred_set});
+
   },
-  _onEmailChange: function () {
-    this.setState({ email: EmailStore.getEmail() });
-  },
+  // _onEmailChange: function () {
+  //   this.setState({ email: EmailStore.getEmail() });
+  // },
 
   timeElapsed: function () {
     if (typeof this.props.email === "object") {
@@ -50,7 +51,7 @@ var EmailShowItem = React.createClass({
     if (typeof this.props.email === "object") {
       var currentDate = new Date();
       var lastDay = currentDate.getTime() - ((currentDate.getHours() * 60 * 60 * 1000) + currentDate.getMinutes() * 60 * 1000);
-      console.log(lastDay);
+    
 
     // var currentDate = new Date();
     // debugger
@@ -76,18 +77,9 @@ var EmailShowItem = React.createClass({
     starredClass = this.props.email.starred_set ? "star-true" : "star-false";
     var display;
 
-    var subjectLine;
-    if (!this.props.child) {
-      subjectLine = <div className="email-show-subject">
-        <h2>{this.props.email.subject}</h2>
-      </div>;
-    } else {
-       subjectLine = <div></div>;
-    }
-
     if (this.props.max || (!this.props.email.read_set) || (this.props.email.read_set && (!this.props.child && !this.props.hasChildren) || this.props.index === this.props.length - 1)) {
-      display = <div onClick={this.props.clickHandler} id={this.props.email.id} className="email-show">
-      {subjectLine}
+      display = <li onClick={this.props.clickHandler} id={this.props.email.id} className="email-show">
+
       <div className="email-show-header group">
         <div className="email-show-icon">
         </div>
@@ -122,7 +114,7 @@ var EmailShowItem = React.createClass({
         {this.props.email.body}
       </div>
     </div>
-    </div>;
+  </li>;
   } else {
     display =
       <div onClick={this.props.clickHandler} id={this.props.email.id} className="email-show min">

@@ -51,9 +51,10 @@ var EmailShow = React.createClass({
     }
 
     return (
-      <div class="email-show-holder">
-      <ul class="email-show-ul">
-      <h1 className="find-me" onClick={this.clickHandler}>max all</h1>
+      <div className="email-show-holder">
+      <h2>{this.state.email.subject}</h2>
+      <ul className="email-show-ul">
+
       {topEmail}
       {renderedShow}
       <EmailShowForm sender={this.state.email.sender} />

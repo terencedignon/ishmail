@@ -39,18 +39,18 @@ var Sidebar = React.createClass({
     var lens = this.state.viewState;
     var emailUnread = (EmailStore.unread() > 0 ? "(" + EmailStore.unread() + ")" : "");
     var drafts = (DraftStore.all().length > 0 ? "(" + DraftStore.all().length + ")" : "");
-    console.log(lens);
+
     var lis = links.map(function(link) {
 
       if (lens === link.toLowerCase()) {
 
         if (lens === "inbox") {
-          return <div className="select-holder"><div className="red-highlight"></div><li key={Math.random()}>
+          return <div key={Math.random()} className="select-holder"><div className="red-highlight"></div><li>
             <a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">
               {link} {emailUnread}
             </a></li></div>;
         } else if (lens == "drafts") {
-          return <div className="select-holder"><div className="red-highlight"></div><li key={Math.random()}>
+          return <div key={Math.random()} className="select-holder"><div className="red-highlight"></div><li key={Math.random()}>
           <a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">
             {link} {drafts}
           </a></li></div>;
@@ -81,7 +81,7 @@ var Sidebar = React.createClass({
   },
   render: function() {
     sidebarView = this.generateSidebar();
-    console.log(sidebarView);
+
 
     return(
       <div className="sidebar">
