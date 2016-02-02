@@ -6,6 +6,7 @@ var EmailConstants = require('../constants/email_constants');
 var SelectActions = require('../actions/select_actions.js');
 var SelectConstants = require('../constants/select_constants.js');
 var SelectStore = require('../stores/select_store.js');
+var Search = require('./search.jsx');
 
 var Header = React.createClass({
   getInitialState: function() {
@@ -52,7 +53,7 @@ var Header = React.createClass({
   callback: function(){
     // ApiUtil.getAllEmail();
 
-  
+
   },
   toggleRead: function(name) {
 
@@ -107,15 +108,7 @@ var Header = React.createClass({
 
     return (
       <header>
-        <div className="header-top group">
-          <div className="top-left">
-              <h1><a href="/#">Ishmael</a></h1>
-          </div>
-            <div className="top-right">
-              <input type="text"/>
-              <button><i className ="fa fa-search"></i></button>
-          </div>
-        </div>
+        <Search />
         <div className="header-bottom group">
           <div className="bottom-left">
 

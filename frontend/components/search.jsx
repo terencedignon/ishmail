@@ -35,25 +35,31 @@ var Search = React.createClass({
     this.setState({page: nextPage});
   },
 
+
   componentWillUnmount: function() {
     this.listener.remove();
   },
 
   render: function() {
 
-    var searchResults = SearchStore.all().map(function (email) {
+    var searchResults = SearchStore.all().slice(0, 5).map(function (email) {
         return <li>{email.subject}</li>;
         });
+        // Displaying {SearchStore.all().length} of {SearchStore.meta().totalCount}
 
     return (
+      <div className="header-top group">
+        <div className="top-left">
+            <h1><a href="/#">Ishmael</a></h1>
+        </div>
           <div className="top-right">
             <input type="text" placeholder="" onKeyUp={this.search} />
-            Displaying {SearchStore.all().length} of {SearchStore.meta().totalCount}
-            <button onClick={this.nextPage}>Next ></button>
             <button><i className="fa fa-search"></i></button>
 
+            <ul className="search-dropdown">
+              {searchResults }
+            </ul>
         </div>
-        {searchResults }
       </div>
 
 
