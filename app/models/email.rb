@@ -1,5 +1,6 @@
 class Email < ActiveRecord::Base
-
+  include PgSearch
+  multisearchable :against => [:subject, :body]
   # validates :sender, :user_id, presence: true
   belongs_to :user
   has_many(

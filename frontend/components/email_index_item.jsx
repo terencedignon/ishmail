@@ -5,6 +5,7 @@ var EmailConstants = require('../constants/email_constants.js');
 var SelectActions = require('../actions/select_actions.js');
 var SelectConstants = require('../constants/select_constants.js');
 
+
 var EmailIndexItem = React.createClass({
   getInitialState: function () {
     return { email: this.props.email };

@@ -10,10 +10,12 @@ var Sidebar = require('./components/sidebar.jsx');
 var Header = require('./components/header.jsx');
 var EmailForm = require('./components/email_form.jsx');
 ApiUtil = require('./util/api_util.js');
+var Search = require('./components/search.jsx');
 EmailStore = require('./stores/email_store.js');
 SelectStore = require('./stores/select_store.js');
 var EmailShow = require('./components/email_show.jsx');
 DraftStore = require('./stores/draft_store.js');
+SearchStore = require('./stores/search_store.js');
 
 var App = React.createClass({
   render: function() {
@@ -32,6 +34,7 @@ var App = React.createClass({
 
 var routes = (<Route path="/" component={App}>
                 <IndexRoute component={EmailIndex}/>
+                <Route path="search" component={Search}/>
                 <Route path="inbox/:id" component={EmailShow}/>
               </Route>
             );

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         delete 'mass_destroy'
       end
     end
+    get "search", to: "utils#search"
     resources :users, only: [:index, :show, :create, :update]
     resources :chats, only: [:show, :create]
     resources :lines, only: [:create, :show, :index]
