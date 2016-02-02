@@ -2,6 +2,7 @@ var React = require('react');
 var EmailActions = require('../actions/email_actions.js');
 var EmailStore = require('../stores/email_store.js');
 var DraftStore = require('../stores/draft_store.js');
+var Contact = require('./contact.jsx');
 
 var Sidebar = React.createClass({
   getInitialState: function() {
@@ -88,7 +89,9 @@ var Sidebar = React.createClass({
         <button onClick={this.composeClickHandler}>Compose</button>
         <ul className="group">
           {sidebarView}
+          <Contact />
         </ul>
+
       </div>
 
       );

@@ -920,13 +920,13 @@ a.selected {
 }
 
 .email-show-icon {
-  background: url(//ssl.gstatic.com/ui/v1/icons/mail/profile_mask2.png) no-repeat -4px -5px;
+  background: url(//ssl.gstatic.com/ui/v1/icons/mail/profile_mask.png) no-repeat -4px -5px;
   /*padding: 6px 4px 0 0;*/
-  border: 1px solid #ddd;
+  /*border: 1px solid #777;*/
   padding-right: 10px;
   width: 24px;
   height: 24px;
-  padding-right: 10px;
+  padding-right: 2px;
   margin-right: 10px;
 }
 
@@ -1085,4 +1085,52 @@ ul.search-dropdown {
 .search-dropdown li:hover {
   cursor: pointer;
   background: #f7f7f7;
+}
+
+.contact-holder {
+  border-top: 1px solid #ccc;
+  /*border: 1px solid #f7f7f7;*/
+  padding: 5px;
+  padding-top: 20px;
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-header {
+  height: 50px;
+  width: 60%;
+  /*background: green;*/
+  margin-left: 20px;
+}
+
+.green {
+
+  font-size: 14px;
+  margin-left: 40px;
+  margin-top: 5px;
+  color: green;
+  line-height: 10px;
+  opacity: 0.5;
+}
+
+.contact-search {
+  color: #919191;
+  margin-top: 5px;
+
+  margin-bottom: 5px;
+}
+
+.contact-search input {
+  padding: 2px;
+  font-size: 12px;
+  font-family: arial;
+}
+
+.contact-li {
+  cursor: pointer;
+  font-size: 13px;
+  padding: 3px;
+  color: #222;
+  font-family: arial;
 }

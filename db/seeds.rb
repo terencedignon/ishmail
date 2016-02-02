@@ -8,17 +8,17 @@
 require 'faker'
 
 
-1.times do |i|
+10.times do |i|
   username = "terrypdignon"
   password = "guest#{i}"
   location = "United States of America"
   gender = "M"
   birthday= ["1987", "12", "1"]
-  fname = "Terence"
-  lname = "Dignon"
+  fname = Faker::Name.first_name
+  lname = Faker::Name.last_name
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
-
+  debugger
     200.times do |j|
       first_name = Faker::Name.first_name
       rand_num = rand(1..100)
@@ -44,4 +44,10 @@ require 'faker'
       email.update(created_at: Faker::Time.between(5.days.ago, Time.now, :all))
     end
 
+end
+
+terry = User.find(1)
+
+(2..10).each do |n|
+  Contact.create!(user_id: 1, contact_id: n)
 end

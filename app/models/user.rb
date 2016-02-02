@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-
+  include PgSearch
   attr_reader :password
 
   validates :username, :fname, :lname, :password_digest, :birthday, :gender, :location, presence: true
@@ -11,8 +11,11 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
-  has_many :emails 
+  multisearchable :against => [:fname, :lname, :username, :location]
 
+  has_many :emails
+  has_many :contacts
+  # , through: :contacts, source: :contact_id
 
   def self.find_by_credentials(username, password)
     user = User.find_by_username(username)

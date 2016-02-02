@@ -108,7 +108,7 @@ var Header = React.createClass({
 
     return (
       <header>
-        <Search />
+        <Search useCase="email" />
         <div className="header-bottom group">
           <div className="bottom-left">
 

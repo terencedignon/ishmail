@@ -2,6 +2,7 @@ var EmailActions = require('../actions/email_actions.js');
 var EmailConstants = require('../constants/email_constants.js');
 var DraftActions = require('../actions/draft_actions.js');
 var DraftConstants = require('../constants/draft_constants.js');
+var ContactActions = require('../actions/contact_actions.js');
 
 var ApiUtils = {
 	getAllEmail: function () {
@@ -127,6 +128,21 @@ var ApiUtils = {
 	// 	});
 	//
 	// },
+
+  getContacts: function() {
+    $.ajax({
+      method: "GET",
+      url: "api/users/1",
+      success: function(data) {
+      
+          ContactActions.receiveContacts(data);
+
+      },
+      error: function () {
+        console.log("error in getContacts function");
+      },
+    });
+  },
 
 	destroyEmail: function(id) {
 		$.ajax({
