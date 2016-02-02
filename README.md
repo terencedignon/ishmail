@@ -4,7 +4,7 @@ Ishmael is a web application inspired by Gmail, built using Ruby on Rails and Re
 
 [Heroku link][heroku]
 
-[heroku]: http://www.ishmael-app.herokuapp.com
+[heroku]: http://ishmael-app.herokuapp.com
 
 
 [A more detailed look at the project][project]
