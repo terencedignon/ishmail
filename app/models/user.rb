@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
+  # pg_search_scope :tasty_search, :associated_against => {
+  #   :contacts => [:fname, :lname]
+  # }
+
   multisearchable :against => [:fname, :lname, :username, :location]
 
   has_many :emails

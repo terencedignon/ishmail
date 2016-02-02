@@ -5,6 +5,8 @@ json.results do
 
     if result.class == Email
       json.partial!("api/emails/email", email: result)
+    elsif result.class == User
+      json.partial!("api/users/user", user: result)
     end
     json._type result.class.to_s
   end

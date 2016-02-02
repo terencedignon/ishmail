@@ -2,7 +2,7 @@ var React = require('react');
 var ContactStore = require('../stores/contact_store.js');
 var ApiUtil = require('../util/api_util.js');
 var ContactConstants = require('../constants/contact_constants.js');
-var Search = require('./search.jsx');
+var ContactSearch = require('./contact_search.jsx');
 
 
 var Contact = React.createClass({
@@ -40,7 +40,7 @@ var Contact = React.createClass({
 
           <i className="green fa fa-circle"></i>
           </div>
-            <Search useCase="contacts" />
+            <ContactSearch />
         </div>
         <ul>
           {contactList}

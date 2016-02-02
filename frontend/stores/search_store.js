@@ -4,6 +4,7 @@ var SearchConstants = require('../constants/search_constants');
 
 var _searchResults = [];
 var _meta = {};
+var _type = "";
 
 var SearchStore = new Store(AppDispatcher);
 
@@ -16,10 +17,15 @@ SearchStore.meta = function () {
   return _meta;
 };
 
+SearchStore.type = function () {
+  return _type;
+};
+
 SearchStore.__onDispatch = function (payload) {
   // debugger
   switch (payload.actionType) {
     case SearchConstants.RECEIVE_SEARCH_RESULTS:
+    _type = payload.type;
     _searchResults = payload.searchResults;
 
       // _searchResults = payload.searchResults;

@@ -1,4 +1,3 @@
-
 var React = require('react');
 var SearchStore = require('../stores/search_store.js');
 var SearchApiUtil = require('../util/search_api_util');
@@ -14,7 +13,7 @@ var Search = React.createClass({
     this.listener.remove();
   },
   getInitialState: function () {
-    return {page: 1, query: "", type: "email"};
+    return {page: 1, query: "", type: "contacts"};
   },
 
   _onChange: function() {
@@ -46,27 +45,16 @@ var Search = React.createClass({
     //     // Displaying {SearchStore.all().length} of {SearchStore.meta().totalCount}
     //
 
-    var searchResults = <div></div>;
-    var display;
-    console.log(SearchStore.type() === this.state.type);
-      if (SearchStore.type() === this.state.type) {
-        searchResults = SearchStore.all().slice(0, 5).map(function (email) {
-            return <li>{email.subject}</li>;
+      var searchResults = SearchStore.all().slice(0, 5).map(function (user) {
+            return <li>{user.fname}</li>;
             });
-        }
-        display = <div className="header-top group">
-            <div className="top-left">
-                <h1><a href="/#">Ishmael</a></h1>
-            </div>
-              <div className="top-right">
-                <input type="text" placeholder="" onKeyUp={this.search} />
-                <button><i className="fa fa-search"></i></button>
+      var display = <div className="contact-search">
+          <input type="text" onKeyUp={this.search} />
+            <ul className="contact-search-results">
+              {searchResults }
+            </ul>
+        </div>;
 
-                <ul className="search-dropdown">
-                  { searchResults }
-                </ul>
-            </div>
-          </div>;
     return (
       <div>{display}</div>
     );

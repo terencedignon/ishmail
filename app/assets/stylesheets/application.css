@@ -1134,3 +1134,20 @@ ul.search-dropdown {
   color: #222;
   font-family: arial;
 }
+
+.contact-search-results {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: auto;
+  /*top: 500px;*/
+
+  background: #f7f7f7;
+}
+
+.contact-search-results li {
+  font-size: 20px;
+  font-family: arial;
+  color: #222;
+}
