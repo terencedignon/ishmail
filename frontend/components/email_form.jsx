@@ -43,7 +43,7 @@ var EmailForm = React.createClass({
     };
     if (this.state.display && this.state.created === false) {
       ApiUtil.createEmail(params);
-    
+
       this.setState({created: true});
     }
   },
@@ -73,6 +73,15 @@ var EmailForm = React.createClass({
       draft_set: false
     };
     ApiUtil.updateEmail(this.props.draft.id, params, EmailConstants.SEND_EMAIL);
+    // 
+    // findContact = ContactsStore.all().find(function(recipient) {
+    //   return recipient.username === recipient_username;
+    // });
+    //
+    // if (typeof findContact === "undefined") {
+    //
+    // }
+
   },
   render: function () {
     var display;
