@@ -38,7 +38,7 @@ var EmailShowItem = React.createClass({
       else if (weeksElapsed >= 1)
           return (weeksElapsed === 1 ? weeksElapsed + " weeks ago" : weeksElapsed + " weeks ago");
       else if (daysElapsed >= 1)
-          return (daysElapsed === 1 ? daysElapsed + " days ago" : daysElapsed + " days ago");
+          return (daysElapsed === 1 ? daysElapsed + " day ago" : daysElapsed + " days ago");
       else if (hoursElapsed >= 1 )
           return (hoursElapsed === 1 ? hoursElapsed + " hour ago" : hoursElapsed + " hours ago");
       else if (minutesElapsed >= 1)
@@ -51,7 +51,7 @@ var EmailShowItem = React.createClass({
     if (typeof this.props.email === "object") {
       var currentDate = new Date();
       var lastDay = currentDate.getTime() - ((currentDate.getHours() * 60 * 60 * 1000) + currentDate.getMinutes() * 60 * 1000);
-    
+
 
     // var currentDate = new Date();
     // debugger
@@ -81,11 +81,10 @@ var EmailShowItem = React.createClass({
       display = <li onClick={this.props.clickHandler} id={this.props.email.id} className="email-show">
 
       <div className="email-show-header group">
-        <div className="email-show-icon">
-        </div>
+
         <div className="email-show-sender-name">
-          {this.props.email.sender}<br/>
-          to: me
+          <h3>{this.props.email.sender}<br/>
+          to: me</h3>
         </div>
         <div className="email-show-sender-email">
           {"<" + this.props.email.sender + ">"}

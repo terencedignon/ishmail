@@ -897,7 +897,7 @@ a.selected {
   display: block;
   width: 50%;
   padding-top: 5px;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 30px;
   color: #222;
   padding-bottom: 5px;
@@ -913,7 +913,7 @@ a.selected {
   text-align: left;
   /*font-family: 'open sans';*/
   color: #222;
-  font-size: 18px;
+  font-size: 15px;
   /*font-weight: bold;*/
   padding-bottom: 10px;
   border-bottom: 1px solid #c5c5c5;
@@ -931,8 +931,10 @@ a.selected {
 }
 
 .email-show-header {
-  padding-top: 20 px;
+  border-top: 1px solid #f7f7f7;
+  /*padding-top: 5px;*/
   display: flex;
+  border-top: 5px;
   width: 70%;
 
 
@@ -940,11 +942,13 @@ a.selected {
 
 .email-show-sender-email {
   font-size: 12px;
-  color: #555;
+  color: #444;
   padding: 4px 8px;
 }
 
 .min {
+  border: 1px solid #f7f7f7;
+  padding: 5px;
   /*background: #f7f7f7;*/
 }
 
@@ -969,7 +973,7 @@ a.selected {
 
 .email-show-date {
   width: 30%;
-  line-height: 18px;
+  line-height: 20px;
   text-align: right;
   padding-right: 10px;
   /*text-align: right;
@@ -1027,6 +1031,8 @@ a.selected {
 
 .email-show-body {
   margin-top: 0px;
+  font-size: 15px;
+  font-family: arial;
   padding: 10px 0;
   width: 80%;
   border-bottom: 1px solid #ddd;
