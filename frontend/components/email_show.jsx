@@ -21,7 +21,6 @@ var EmailShow = React.createClass({
     this.emailListener.remove();
   },
   clickHandler: function (e) {
-    debugger
     var list = this.state.maxList;
     list.push(e.currentTarget.id);
     this.setState({ maxList: list});
