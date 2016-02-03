@@ -13,12 +13,11 @@ var EmailShowForm = React.createClass({
 
     if (this.state.show) {
       display =
-        <div className="email-show-reply-form">
-
-          <div className="email-show-reply-form-recipient">
+        <div className="show-form">
+          <div className="show-form-recipient">
             {this.props.sender}
           </div>
-          <div className="email-show-reply-form-body">
+          <div className="show-form-body">
             <textarea rows="10" cols="50">hello</textarea>
           </div>
         </div>;

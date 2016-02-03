@@ -3,10 +3,11 @@ var React = require('react');
 var SearchStore = require('../stores/search_store.js');
 var SearchApiUtil = require('../util/search_api_util');
 var EmailIndexItem = require('./email_index_item');
+var History = require('react-router').History;
 // var PostIndexItem = require('./posts/post_index_item');
 
 var Search = React.createClass({
-
+  mixins: [History],
   componentDidMount: function() {
     this.listener = SearchStore.addListener(this._onChange);
   },
@@ -20,7 +21,10 @@ var Search = React.createClass({
   _onChange: function() {
     this.forceUpdate();
   },
-
+  clickHandler: function (e) {
+    var newID = e.currentTarget.id;
+    this.history.pushState(null, "inbox/" + newID, {});
+  },
   search: function (e) {
     var query = e.target.value;
     SearchApiUtil.search(query, 1, this.state.type);
@@ -50,8 +54,8 @@ var Search = React.createClass({
     var display;
       if (SearchStore.type() === this.state.type) {
         searchResults = SearchStore.all().slice(0, 5).map(function (email) {
-            return <li>{email.subject}</li>;
-            });
+            return <li key={Math.random()} id={email.id} onClick={this.clickHandler}>{email.subject}</li>;
+            }.bind(this));
         }
         display = <div className="header-top group">
             <div className="top-left">
