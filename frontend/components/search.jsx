@@ -20,7 +20,11 @@ var Search = React.createClass({
   },
 
   _onChange: function() {
-    
+      if (SearchStore.type() === this.state.type) {
+          this.searchResults = SearchStore.all().slice(0, 5).map(function (email) {
+                return <li key={Math.random()} id={email.id} onClick={this.clickHandler}><i className="fa fa-envelope envelope"></i> {email.subject}</li>;
+          }.bind(this));
+            }
     this.forceUpdate();
   },
   clickHandler: function (e) {
@@ -53,13 +57,13 @@ var Search = React.createClass({
     //     // Displaying {SearchStore.all().length} of {SearchStore.meta().totalCount}
     //
 
-    var searchResults = <div></div>;
+    this.searchResults = this.searchResults || <div></div>;
     var display;
-      if (SearchStore.type() === this.state.type) {
-        searchResults = SearchStore.all().slice(0, 5).map(function (email) {
-            return <li key={Math.random()} id={email.id} onClick={this.clickHandler}><i className="fa fa-envelope envelope"></i> {email.subject}</li>;
-            }.bind(this));
-        }
+      // if (SearchStore.type() === this.state.type) {
+      //   searchResults = SearchStore.all().slice(0, 5).map(function (email) {
+      //       return <li key={Math.random()} id={email.id} onClick={this.clickHandler}><i className="fa fa-envelope envelope"></i> {email.subject}</li>;
+      //       }.bind(this));
+      //   }
         display = <div className="header-top group">
 
             <div className="top-left">
@@ -70,7 +74,7 @@ var Search = React.createClass({
                 <button><i className="fa fa-search"></i></button>
 
                 <ul className="search-dropdown">
-                  { searchResults }
+                  { this.searchResults }
                 </ul>
             </div>
           </div>;
