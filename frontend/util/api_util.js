@@ -134,7 +134,7 @@ var ApiUtils = {
       method: "GET",
       url: "api/users/1",
       success: function(data) {
-      
+
           ContactActions.receiveContacts(data);
 
       },
@@ -143,6 +143,20 @@ var ApiUtils = {
       },
     });
   },
+
+	autoUpdate: function (start, finish) {
+		$.ajax({
+			method: "GET",
+			url: "api/emails",
+			success: function(data) {
+				EmailActions.autoUpdate(data);
+			},
+			error: function() {
+				console.log("error in function autoUpdate");
+			}
+		});
+
+	},
 
 	destroyEmail: function(id) {
 		$.ajax({
@@ -156,11 +170,8 @@ var ApiUtils = {
 			}
 		});
 	},
-
 	createDraft: function(id) {
-
 	}
-
 };
 
 module.exports = ApiUtils;

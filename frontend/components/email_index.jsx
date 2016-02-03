@@ -17,6 +17,7 @@ var EmailIndex = React.createClass({
     this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.selectListener = SelectStore.addListener(this._onSelectChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
+    ///seteventlistenerhere
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {
@@ -39,8 +40,9 @@ var EmailIndex = React.createClass({
   render: function() {
     var tabs = ["primary", "social", "promotions", "updates", "forums"];
     var icons = ["fa fa-inbox", "fa fa-user", "fa fa-tags", "fa fa-info-circle", "fa fa-comments"];
-
     var lis = [];
+    var display;
+    var indexHeaderLabels;
 
     for (var i = 0; i < tabs.length; i++) {
       var name = tabs[i][0].toUpperCase() + tabs[i].slice(1);
@@ -51,13 +53,10 @@ var EmailIndex = React.createClass({
       }
     }
 
-    var headerNav = <ul className="index-header group">
-    {lis}
-    </ul>;
 
     var listedEmails = (this.state.view === "drafts" ? DraftStore.all() : this.state.emails);
 
-    var indexItems = <div>LOADING</div>;
+
     if (!(typeof this.state.emails === "undefined")) {
       var indexItems = listedEmails.map(function(email) {
         if (this.state.selectEmails.indexOf(email.id) !== -1) {
@@ -71,21 +70,32 @@ var EmailIndex = React.createClass({
     var mainContent = (typeof this.props.params.id === "undefined" ?
       <ul>{indexItems}</ul> : <EmailShow />);
 
-    if (this.state.view !== "inbox") {
-      headerNav = <div></div>;
+    if (this.state.view === "inbox") {
+      indexHeaderLabels = <ul className="index-header group">{lis}</ul>;
+    } else {
+      indexHeaderLabels = <div></div>;
     }
-    if (indexItems.length <= 0) {
-      indexItems = <div className="index-header group">There are no conversations with this label</div>;
-    }
-    return (
-      <div className="content-container group">
+    // if (indexItems.length <= 0) {
+    //   indexItems = <div className="index-header group">There are no conversations with this label</div>;
+    // }
 
+    if (lis.length === 5 && this.state.emails.length > 0) {
+      display = <div className="content-container group">
         <EmailFormIndex />
         {this.props.children}
         <div className="main group">
-          {headerNav}
+          {indexHeaderLabels}
           {mainContent}
         </div>
+      </div>;
+    } else {
+      display = <div></div>;
+    }
+
+
+    return (
+      <div>
+        {display}
       </div>
     );
   }

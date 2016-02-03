@@ -22,8 +22,6 @@ SearchStore.type = function () {
 };
 
 SearchStore.__onDispatch = function (payload) {
-
-
   switch (payload.actionType) {
     case SearchConstants.RECEIVE_SEARCH_RESULTS:
     _type = payload.searchType;
@@ -34,7 +32,12 @@ SearchStore.__onDispatch = function (payload) {
       _meta = payload.meta;
       SearchStore.__emitChange();
       break;
-
+    case SearchConstants.CLEAR_SEARCH:
+  
+      _searchResults = [];
+      _meta = {};
+      SearchStore.__emitChange();
+      break;
   }
 };
 

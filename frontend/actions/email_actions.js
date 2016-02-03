@@ -85,6 +85,13 @@ var EmailActions = {
   //   });
   // },
 
+	autoUpdate: function (data) {
+		Dispatcher.dispatch({
+			actionType: EmailConstants.AUTO_UPDATE,
+			payload: data
+		});
+	},
+
 	composeEmail: function() {
 		Dispatcher.dispatch({
 			actionType: EmailConstants.COMPOSE_EMAIL,

@@ -121,7 +121,7 @@ EmailStore.__onDispatch = function (payload) {
         payload.data.forEach(function(email) {
 
           if (email.draft_set === false) {
-    
+
             emails.push(email);
           }
         });
@@ -137,8 +137,11 @@ EmailStore.__onDispatch = function (payload) {
     } else if (payload.actionType === "SEND_EMAIL") {
         _emails.unshift(payload.data);
         EmailStore.__emitChange();
-
+    } else if (payload.actionType === EmailConstants.AUTO_UPDATE) {
+        _emails.unshift(payload.data);
+      EmailStore.__emitChange();
     }
+
   };
 
 module.exports = EmailStore;

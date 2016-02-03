@@ -35,22 +35,45 @@ var EmailShow = React.createClass({
     ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
   },
   render: function() {
+
     var renderedShow = [];
+    var display;
     var topEmail;
     if (typeof this.state.email === "object" && !(this.state.email instanceof Array)) {
       topEmail = <EmailShowItem email={this.state.email}/>;
       renderedShow = this.state.email.emails.map(function(childEmail, i) {
         return <EmailShowItem key={childEmail.id} email={childEmail} child={true}/>;
           }.bind(this));
+      renderedShow.unshift(topEmail);
     } else {
         topEmail = <div/>;
         renderedShow = <div/>;
       }
+
       //     return <EmailShowItem key={childEmail.id} ensureRead={this.ensureRead} clickHandler={this.clickHandler} max={this.state.maxAll || this.state.maxList.indexOf(childEmail.id.toString()) !== -1} email={childEmail} ensureRead={this.ensureRead} length={this.state.email.emails.length} index={i} child={true}/>;
       //   }.bind(this));
 
 
 
+    if (this.state.email instanceof Object && renderedShow.length == this.state.email.emails.length + 1) {
+      display =
+        <div className="main-show-holder">
+        <div className="email-show-holder">
+          <h2>{this.state.email.subject}</h2>
+            <ul className="email-show-ul">
+              {topEmail}
+              {renderedShow}
+          </ul>
+          </div>
+        <div className="show-reply-holder">
+          <h2>Reply</h2>
+          <EmailShowForm/>
+        </div>
+      </div>
+  ;
+  } else {
+    display = <div></div>;
+  }
 
     //
     //   topEmail = <EmailShowItem clickHandler={this.clickHandler} max={this.state.maxAll || this.state.maxList.indexOf(this.state.email.id.toString()) !== -1} email={this.state.email} hasChildren={this.state.email.emails.length > 0} child={false}/>;
@@ -63,23 +86,11 @@ var EmailShow = React.createClass({
     // }
 
     // <EmailShowForm sender={this.state.email.sender} />
-    // <EmailShowContact email={this.state.email} />
+
     return (
-          <div className="main group">
-            <div className="main-show-holder">
-            <div className="email-show-holder">
-              <h2>{this.state.email.subject}</h2>
-                <ul className="email-show-ul">
-                  {topEmail}
-                  {renderedShow}
-              </ul>
-              </div>
-            <div className="show-reply-holder">
-              <h2>Reply</h2>
-              <EmailShowForm/>
-            </div>
-          </div>
-        </div>
+       <div className="main group">
+         {display}
+       </div>
     );
   }
 });

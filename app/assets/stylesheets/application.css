@@ -1074,7 +1074,7 @@ ul.search-dropdown {
 }
 .search-dropdown li {
   padding: 5px 10px 5px 10px;
-  border-bottom: 1px solid #ccc;
+  /*border-bottom: 1px solid #ccc;*/
 }
 .search-dropdown li:hover {
   cursor: pointer;
@@ -1180,4 +1180,9 @@ ul.search-dropdown {
 
 .show-form-body textarea {
   padding: 20px;
+}
+
+.envelope {
+  color: #777;
+  margin-right: 10px;
 }
