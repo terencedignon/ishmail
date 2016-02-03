@@ -19,14 +19,14 @@ var EmailIndex = React.createClass({
     this.draftListener = DraftStore.addListener(this._onDraftChange);
     ///seteventlistenerhere
 
-    // this.autoUpdate = setInterval(ApiUtil.autoUpdate, 10000);
+    this.autoUpdate = setInterval(ApiUtil.autoUpdate, 10000);
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {
     this.emailListener.remove();
     this.selectListener.remove();
     this.draftListener.remove();
-    // clearInterval(this.autoUpdate);
+    clearInterval(this.autoUpdate);
   },
   _onEmailChange: function () {
       this.setState({ emails: EmailStore.setFilterEmails(), view: EmailStore.getViewState()});

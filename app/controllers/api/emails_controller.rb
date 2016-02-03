@@ -38,8 +38,8 @@ class Api::EmailsController < ApplicationController
 
     end
 
+
     @email = Email.find(params[:id])
-    
     @email.update(email_params)
     render :show
 

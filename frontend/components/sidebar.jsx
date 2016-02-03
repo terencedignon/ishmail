@@ -19,7 +19,7 @@ var Sidebar = React.createClass({
   },
   composeClickHandler: function() {
     if (DraftStore.getOpenDrafts().length <= 2) {
-    ApiUtil.createEmail({compose_set: true, sender: "helloyou", draft_set: true, read_set: true, subject: "New Message"});
+    ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, read_set: true, subject: "(no subject)"});
     EmailActions.getComposeSet();
   }
   },

@@ -868,7 +868,7 @@ a.selected {
   margin-bottom: 20px;
   /*padding-top: 18px;*/
   color: #222;
-  width: 500px;
+  width: 600px;
   /*margin: 0 auto;*/
   font-size: 13px;
   font-family: sans-serif;
@@ -885,7 +885,7 @@ a.selected {
 }
 .email-show-holder > h2 {
   display: block;
-  width: 75%;
+  width: 100%;
   margin-top: -15px;
   /*padding-top: 5px;*/
   font-size: 18px;
@@ -1179,6 +1179,7 @@ ul.search-dropdown {
 }
 
 .show-form-body textarea {
+  margin-top: 40px;
   padding: 10px;
   border: 1px solid #ccc;
   width: 100%;

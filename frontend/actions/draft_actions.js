@@ -21,6 +21,7 @@ var DraftActions = {
     });
   },
   closeDraft: function(data, constant) {
+    debugger
     Dispatcher.dispatch({
       actionType: constant,
       data: data
@@ -37,7 +38,14 @@ var DraftActions = {
       actionType: type,
       data: data
     });
-  }
+  },
+    autoDraft: function(data) {
+      Dispatcher.dispatch({
+        action: DraftConstants.AUTO_UPDATE,
+        data: data
+      });
+    }
+
 
 };
 

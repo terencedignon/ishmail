@@ -8,6 +8,7 @@ var EmailStore = require('../stores/email_store.js');
 var EmailShowContact = require('../components/email_show_contact.jsx');
 var EmailShowItem = require('../components/email_show_item.jsx');
 var EmailShowForm = require('../components/email_show_form.jsx');
+var DraftStore = require('../stores/draft_store.js');
 
 var EmailShow = React.createClass({
   getInitialState: function () {
@@ -15,11 +16,12 @@ var EmailShow = React.createClass({
   },
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
-
+    this.draftListener = DraftStore.addListener(this._onDraftChange);
     ApiUtil.getEmail(this.props.params.id, this.ensureRead(this.props.params.id));
   },
   componentWillUnmount: function () {
     this.emailListener.remove();
+    this.draftListener.remove();
   },
   importanceClickHandler: function () {
     var importance_set = !(this.state.email.importance_set);
@@ -36,8 +38,10 @@ var EmailShow = React.createClass({
   },
   _onEmailChange: function () {
     var receivedEmail = EmailStore.getEmail();
-
     if (receivedEmail.id == this.props.params.id) this.setState({ email: receivedEmail });
+  },
+  _onDraftChange: function () {
+    var receivedDraft = EmailStore.getDraft();
   },
   ensureRead: function (id) {
     ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
@@ -72,11 +76,10 @@ var EmailShow = React.createClass({
 
               {renderedShow}
           </ul>
-          <div className="show-reply-holder">
-        
-            <EmailShowForm sender={this.state.email.sender} email={this.state.email}/>
-          </div>
-          </div>
+        </div>
+        <div className="show-reply-holder">
+          <EmailShowForm sender={this.state.email.sender} email={this.state.email}/>
+        </div>
       </div>
   ;
   } else {

@@ -18,6 +18,21 @@ var ApiUtils = {
 			}
 		});
 	},
+  autoDraft: function (id, params) {
+
+    $.ajax({
+      method: "PUT",
+      url: "api/emails/" + id,
+      data: {email: params},
+      success: function(data) {
+        DraftActions.autoDraft(data);
+      },
+      error: function() {
+        console.log("error in autoDraft function");
+      }
+    });
+
+  },
   autoUpdate: function () {
     $.ajax({
       url: "api/emails",
@@ -109,14 +124,13 @@ var ApiUtils = {
 			url: "api/emails/" + id,
 			data: {email: data},
 			success: function(data) {
-
         if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
           EmailActions.updateSelect(data);
         } else if (typeOfUpdate === DraftConstants.CLOSE_DRAFT){
 					DraftActions.closeDraft(data, typeOfUpdate);
 				} else if (typeOfUpdate === EmailConstants.SEND_EMAIL) {
-
 					DraftActions.closeDraft(data, typeOfUpdate);
+
 					EmailActions.sendEmail(data);
 
 				} else if (typeOfUpdate === DraftConstants.UPDATE_ALL) {

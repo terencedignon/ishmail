@@ -12,25 +12,30 @@ var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
     return {
-      title: "New Message", recipient: "", subject: "", body: "",
+      title: "New Message", recipient: this.props.draft.recipient, subject: this.props.draft.subject, body: this.props.draft.body,
       created: false, display: false, minimize: false, save_set: false};
   },
-  componentDidMount: function() {
 
+  componentDidMount: function() {
     // this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
+    this.autoUpdateListener = setInterval(this.autoUpdate, 5000);
   },
   componentWillUnmount: function() {
-
     // this.emailListener.remove();
     this.draftListener.remove();
+    clearInterval(this.autoUpdateListener);
   },
   toggleShow: function () {
-
-    DraftActions.toggleShow(this.props.draft.id)
+    DraftActions.toggleShow(this.props.draft.id);
   },
   _onDraftChange: function () {
 
+  },
+
+  autoUpdate: function () {
+    var params = {body: this.state.body, subject: this.state.subject, recipient: this.state.recipient};
+    ApiUtil.autoDraft(this.props.draft.id, params);
   },
   _onEmailChange: function () {
     var subject = this.state.subject;
@@ -43,7 +48,6 @@ var EmailForm = React.createClass({
     };
     if (this.state.display && this.state.created === false) {
       ApiUtil.createEmail(params);
-
       this.setState({created: true});
     }
   },
@@ -88,6 +92,7 @@ var EmailForm = React.createClass({
 
   },
   render: function () {
+
     var display;
 
 
@@ -95,7 +100,7 @@ var EmailForm = React.createClass({
       display =
       <div onClick={this.toggleShow} className="email-form-minimize">
         <div className="email-form-minimize-title">
-         {this.state.title}
+         {this.props.title}
        </div>
        <div className="email-form-minimize-max">
           <i className="fa fa-minus"></i>
