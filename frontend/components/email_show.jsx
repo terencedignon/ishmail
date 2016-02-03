@@ -20,6 +20,11 @@ var EmailShow = React.createClass({
   componentWillUnmount: function () {
     this.emailListener.remove();
   },
+  importanceClickHandler: function () {
+    var importance_set = !(this.state.email.importance_set);
+    ApiUtil.updateEmail(this.state.email.id, { importance_set: importance_set});
+
+  },
   clickHandler: function (e) {
     var list = this.state.maxList;
     list.push(e.currentTarget.id);
@@ -40,7 +45,7 @@ var EmailShow = React.createClass({
     var display;
     var topEmail;
     if (typeof this.state.email === "object" && !(this.state.email instanceof Array)) {
-      topEmail = <EmailShowItem email={this.state.email}/>;
+      topEmail = <EmailShowItem key={this.state.email.id} child={false} email={this.state.email}/>;
       renderedShow = this.state.email.emails.map(function(childEmail, i) {
         return <EmailShowItem key={childEmail.id} email={childEmail} child={true}/>;
           }.bind(this));
@@ -54,14 +59,14 @@ var EmailShow = React.createClass({
       //   }.bind(this));
 
 
-
     if (this.state.email instanceof Object && renderedShow.length == this.state.email.emails.length + 1) {
+      var importanceDisplay = (this.state.email.importance_set ? "fa fa-square important" : "");
       display =
         <div className="main-show-holder">
         <div className="email-show-holder">
-          <h2>{this.state.email.subject}</h2>
+          <h2>{this.state.email.subject} <i onClick={this.importanceClickHandler} className={importanceDisplay}></i> </h2>
             <ul className="email-show-ul">
-              {topEmail}
+
               {renderedShow}
           </ul>
           </div>

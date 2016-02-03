@@ -74,7 +74,13 @@ var EmailShowItem = React.createClass({
   render: function () {
     var createdAt = this.formatDate();
     var timeElapsed = this.timeElapsed();
-    starredClass = this.props.email.starred_set ? "star-true" : "star-false";
+    var starredClass;
+    if (this.props.child) {
+      starredClass = "show-star"
+    } else {
+      starredClass = this.props.email.starred_set ? "show-star star-true" : "show-star star-false";
+    }
+
     var display;
     //
     // if (this.props.max || (!this.props.email.read_set) || (this.props.email.read_set && (!this.props.child && !this.props.hasChildren) || this.props.index === this.props.length - 1)) {
@@ -118,7 +124,7 @@ var EmailShowItem = React.createClass({
       </div>
 
 
-      <div onClick={this.starClickHandler} className={"show-star " + starredClass}>
+      <div onClick={this.starClickHandler} className={starredClass}>
 
       </div>
     </div>
