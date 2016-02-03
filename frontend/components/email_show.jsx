@@ -60,7 +60,7 @@ var EmailShow = React.createClass({
 
 
     if (this.state.email instanceof Object && renderedShow.length == this.state.email.emails.length + 1) {
-      var importanceDisplay = (this.state.email.importance_set ? "fa fa-square important" : "");
+      var importanceDisplay = (this.state.email.importance_set ? "fa fa-square important" : "fa fa-square not-important");
       display =
         <div className="main-show-holder">
         <div className="email-show-holder">
@@ -71,8 +71,8 @@ var EmailShow = React.createClass({
           </ul>
           </div>
         <div className="show-reply-holder">
-          <h2>Reply</h2>
-          <EmailShowForm/>
+          <h2>Reply to {this.state.email.sender}</h2>
+          <EmailShowForm sender={this.state.email.sender}/>
         </div>
       </div>
   ;
