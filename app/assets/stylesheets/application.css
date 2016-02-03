@@ -1148,10 +1148,10 @@ ul.search-dropdown {
   font-family: arial;
   color: #222;
 }
-/*
-.email-show:nth-child(2n+1) {
+
+.email-show li:nth-child(2n+1) {
   background: #f7f7f7;
-}*/
+}
 
 .main-show-holder {
   display: flex;
