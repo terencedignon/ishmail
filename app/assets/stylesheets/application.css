@@ -1179,7 +1179,7 @@ ul.search-dropdown {
 }
 
 .envelope {
-  color: #222;
+  color: #777;
   margin-right: 10px;
 }
 
@@ -1188,9 +1188,9 @@ h2 i.important {
   color: gold!important;
 }
 
-
-
 h2 i.not-important {
   margin-left: 5px;
-  color: #222;
+  color: #f7f7f7;
+  /*border: 1px solid black;*/
+  /*border-radius: 5px;*/
 }
