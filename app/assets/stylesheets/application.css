@@ -1149,7 +1149,7 @@ ul.search-dropdown {
   color: #222;
 }
 
-.email-show li:nth-child(2n+1) {
+.email-show-ul li:nth-child(2n+1) {
   background: #f7f7f7;
 }
 
