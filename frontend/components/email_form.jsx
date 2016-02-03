@@ -34,7 +34,7 @@ var EmailForm = React.createClass({
   },
   _onEmailChange: function () {
     var subject = this.state.subject;
-    if (subject === "") subject = "New Message";
+    if (subject === "") subject = "(no subject)";
     this.setState({ display: EmailStore.getDisplay() });
     var params = {
       subject: subject,
@@ -65,7 +65,6 @@ var EmailForm = React.createClass({
 
   },
   createEmail: function () {
-
     var params = {
       recipient: this.state.recipient,
       title: this.state.title,

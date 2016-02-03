@@ -48,6 +48,7 @@ var ApiUtils = {
 			url: "api/emails",
 			data: {email: params},
 			success: function(data) {
+
 				DraftActions.createDraft(data);
 
 				// EmailActions.createEmail(data);
@@ -102,7 +103,7 @@ var ApiUtils = {
       });
   },
 	updateEmail: function(id, data, typeOfUpdate) {
-    debugger
+
 		$.ajax({
 			method: "PUT",
 			url: "api/emails/" + id,
@@ -118,7 +119,7 @@ var ApiUtils = {
 					DraftActions.closeDraft(data, typeOfUpdate);
 					EmailActions.sendEmail(data);
 
-				} else if (typeOfUpdate === DraftConstants.UPDATE_EMAIL) {
+				} else if (typeOfUpdate === DraftConstants.UPDATE_ALL) {
             DraftActions.updateDraft(data, typeOfUpdate);
         } else {
 					EmailActions.updateEmail(data);

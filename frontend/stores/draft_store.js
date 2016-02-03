@@ -21,7 +21,7 @@ DraftStore.getOpenDrafts = function () {
 };
 
 DraftStore.__onDispatch = function (payload) {
-  debugger
+
   // openDraftParams = {minimize_set: false, save_set: false};
   if (payload.actionType === DraftConstants.NEW_DRAFT) {
     _drafts.push(payload.data);
@@ -46,6 +46,7 @@ DraftStore.__onDispatch = function (payload) {
       if (obj.draft.id === payload.data) { obj.minimize_set = !obj.minimize_set; }
     });
     DraftStore.__emitChange();
+
   } else if (payload.actionType === DraftConstants.CLOSE_DRAFT) {
     DraftStore.__emitChange();
   } else if (payload.actionType === DraftConstants.UPDATE_ALL) {

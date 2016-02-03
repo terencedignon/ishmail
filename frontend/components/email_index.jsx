@@ -11,7 +11,7 @@ var DraftStore = require('../stores/draft_store.js');
 
 var EmailIndex = React.createClass({
   getInitialState: function () {
-    return { emails: EmailStore.all(), drafts: DraftStore.all(), eview: "inbox", selectEmails: SelectStore.all(), tabView: "primary"};
+    return { emails: EmailStore.all(), drafts: DraftStore.all(), view: "inbox", selectEmails: SelectStore.all(), tabView: "primary"};
   },
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
@@ -63,13 +63,12 @@ var EmailIndex = React.createClass({
     if (!(typeof this.state.emails === "undefined")) {
       var indexItems = listedEmails.map(function(email) {
         if (this.state.selectEmails.indexOf(email.id) !== -1) {
-          return <EmailIndexItem key={email.id} id={email.id} email={email} checked="true"/>;
+          return <EmailIndexItem view={this.state.view} key={email.id} id={email.id} email={email} checked="true"/>;
         } else {
-          return <EmailIndexItem key={email.id} id={email.id} email={email} checked="false"/>;
+          return <EmailIndexItem view={this.state.view} key={email.id} id={email.id} email={email} checked="false"/>;
         }}.bind(this));
     }
     var email = this.state.emails;
-
 
     if (this.state.view === "inbox") {
       indexHeaderLabels = <ul className="index-header group">{lis}</ul>;

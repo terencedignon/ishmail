@@ -80,6 +80,20 @@ var EmailIndexItem = React.createClass({
       threadCount = "(" + this.state.email.emails.length + ")";
     }
 
+    var senderRender;
+
+    if (this.props.view !== "drafts") {
+      senderRender = <li className="sender">
+        {sender[0].toUpperCase() + sender.slice(1)} {threadCount}
+      </li>;
+    } else {
+
+      senderRender = <li className="sender draft">
+        Draft
+      </li>;
+    }
+
+
     return (
       <ul className={classString}>
       <li className="ellipse">
@@ -94,9 +108,7 @@ var EmailIndexItem = React.createClass({
        <li className="importance">
        <i onClick={this.importanceClickHandler} className={importantClass}></i>
        </li>
-       <li className="sender">
-         {sender[0].toUpperCase() + sender.slice(1)} {threadCount}
-       </li>
+        {senderRender}
        <li className="subject">
           <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a>
       </li>

@@ -29,15 +29,17 @@ class Api::EmailsController < ApplicationController
         else
           @email = Email.find(params[:id])
           @email.update(email_params)
-          debugger
+
           send_params = email_params.merge({"user_id" => current_user.id, "sender" => User.find(1).username, "sent_set" => false,
             "parent_email_id" => params[:id], "read_set" => false, "body" => "Delivery to #{username} failed"})
           recip_email = Email.create!(send_params)
         end
       end
+
     end
 
     @email = Email.find(params[:id])
+    
     @email.update(email_params)
     render :show
 
@@ -75,7 +77,7 @@ class Api::EmailsController < ApplicationController
 
   private
   def email_params
-    params.require(:email).permit(:emails, :recipient, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :compose_set)
+    params.require(:email).permit(:emails, :recipient, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
   end
 
   def user?(username)

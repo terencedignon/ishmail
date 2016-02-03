@@ -20,11 +20,12 @@ var EmailShowForm = React.createClass({
   },
   textHandler: function (e) {
 
-    this.setState({body: e.currentTarget.value});
+    // this.setState({body: e.currentTarget.value});
     if (this.state.email instanceof Object) {
-      ApiUtil.updateEmail(this.state.email.id, {body: this.state.body}, DraftConstants.UPDATE_EMAIL);
+      ApiUtil.updateEmail(this.state.email.id, {body: this.state.body}, DraftConstants.UPDATE_ALL);
       this.setState({body: e.currentTarget.value});
     } else {
+    
       ApiUtil.createEmail({
         parent_email_id: this.props.email.id,
         subject: this.props.email.subject,
@@ -32,7 +33,7 @@ var EmailShowForm = React.createClass({
         recipient: this.props.email.sender,
         compose_set: false
       });
-      this.setState({body: e.currentTarget.value, email: DraftStore.all().slice(-1)});
+      this.setState({body: e.currentTarget.value, email: DraftStore.all().slice(-1)[0]});
       console.log(this.state.email);
     }
 
@@ -48,7 +49,7 @@ var EmailShowForm = React.createClass({
 
         </div>
         <div className="show-form-body">
-          <textarea rows="10" cols="40" onInput={this.textHandler}/>
+          <textarea rows="10" cols="40" onKeyUp={this.textHandler}/>
         </div>
         <div className="show-form footer">
           <button onClick={this.sendReply}>Send</button>
