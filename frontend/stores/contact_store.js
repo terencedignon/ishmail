@@ -11,7 +11,7 @@ ContactStore.all = function () {
 
 ContactStore.__onDispatch = function (payload) {
   if (payload.actionType === ContactConstants.RECEIVE_CONTACTS) {
-    _contacts = payload.data.contacts;
+    _contacts = payload.data;
     console.log(payload);
     ContactStore.__emitChange();
   }

@@ -86,9 +86,10 @@ var EmailActions = {
   // },
 
 	autoUpdate: function (data) {
+
 		Dispatcher.dispatch({
-			actionType: EmailConstants.AUTO_UPDATE,
-			payload: data
+			actionType: EmailConstants.GET_ALL_EMAIL,
+			data: data
 		});
 	},
 

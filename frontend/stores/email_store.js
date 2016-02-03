@@ -81,6 +81,7 @@ EmailStore.getDisplay = function () {
 };
 
 EmailStore.__onDispatch = function (payload) {
+
   	// if (payload.actionType === "CREATE_EMAIL") console.log("create email");
 		// if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
 

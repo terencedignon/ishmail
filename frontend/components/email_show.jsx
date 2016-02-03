@@ -15,6 +15,7 @@ var EmailShow = React.createClass({
   },
   componentDidMount: function () {
     this.emailListener = EmailStore.addListener(this._onEmailChange);
+
     ApiUtil.getEmail(this.props.params.id, this.ensureRead(this.props.params.id));
   },
   componentWillUnmount: function () {
@@ -34,7 +35,9 @@ var EmailShow = React.createClass({
     // this.setState({ })
   },
   _onEmailChange: function () {
-    this.setState({ email: EmailStore.getEmail() });
+    var receivedEmail = EmailStore.getEmail();
+
+    if (receivedEmail.id == this.props.params.id) this.setState({ email: receivedEmail });
   },
   ensureRead: function (id) {
     ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);

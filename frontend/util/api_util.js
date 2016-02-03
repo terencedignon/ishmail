@@ -9,14 +9,27 @@ var ApiUtils = {
 		$.ajax({
 			url: "api/emails",
 			success: function(data) {
-				EmailActions.receiveAllEmail(data);
-				DraftActions.receiveAllDrafts(data);
+
+        EmailActions.receiveAllEmail(data);
+        DraftActions.receiveAllDrafts(data);
 			},
 			error: function() {
 				console.log("error in fetchEmails function");
 			}
 		});
 	},
+  autoUpdate: function () {
+    $.ajax({
+      url: "api/emails",
+      success: function(data) {
+
+        EmailActions.receiveAllEmail(data);
+        },
+      error: function() {
+        console.log("error in fetchEmails function");
+      }
+    });
+  },
 	getEmail: function (id, callback) {
 		$.ajax({
 			method: "GET",
@@ -134,8 +147,7 @@ var ApiUtils = {
       method: "GET",
       url: "api/users/1",
       success: function(data) {
-
-          ContactActions.receiveContacts(data);
+          ContactActions.receiveContacts(data.contacts);
 
       },
       error: function () {

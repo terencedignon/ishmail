@@ -15,10 +15,11 @@ class User < ActiveRecord::Base
   #   :contacts => [:fname, :lname]
   # }
 
-  multisearchable :against => [:fname, :lname, :username, :location]
+  multisearchable :against => [:fname]
 
   has_many :emails
   has_many :contacts
+  has_many :contact_users, through: :contacts, source: :subject
   # , through: :contacts, source: :contact_id
 
   def self.find_by_credentials(username, password)

@@ -16,6 +16,7 @@ SelectStore = require('./stores/select_store.js');
 var EmailShow = require('./components/email_show.jsx');
 DraftStore = require('./stores/draft_store.js');
 SearchStore = require('./stores/search_store.js');
+EmailFormIndex = require('./components/email_form_index.jsx');
 ContactStore = require('./stores/contact_store.js');
 
 var App = React.createClass({
@@ -25,6 +26,7 @@ var App = React.createClass({
       <div>
       <Header />
       <Sidebar />
+      <EmailFormIndex />
       {this.props.children}
     </div>
     );

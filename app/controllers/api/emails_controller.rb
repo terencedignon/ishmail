@@ -11,9 +11,36 @@ class Api::EmailsController < ApplicationController
   end
 
   def update
+    recipient = nil
+    recip_email = nil
+    if params["email"]["sending_now"]
+      recip = email_params["recipient"]
+
+      if recip.include?("@ishmael.com") || !recip.include?("@")
+        username = email_params["recipient"].match(/[^\@]*/).to_s
+        recipient = User.find_by_username(username)
+
+        if recipient
+          send_params = email_params.merge({"user_id" => recipient.id, "sender" => current_user.username, "sent_set" => false})
+          recip_email = Email.create!(send_params)
+
+          Contact.create(user_id: current_user.id, contact_id: recipient.id) unless
+            current_user.contacts.map{ |contact| contact.subject}.include?(recipient)
+        else
+          @email = Email.find(params[:id])
+          @email.update(email_params)
+          debugger
+          send_params = email_params.merge({"user_id" => current_user.id, "sender" => User.find(1).username, "sent_set" => false,
+            "parent_email_id" => params[:id], "read_set" => false, "body" => "Delivery to #{username} failed"})
+          recip_email = Email.create!(send_params)
+        end
+      end
+    end
+
     @email = Email.find(params[:id])
     @email.update(email_params)
     render :show
+
   end
 
   def mass_destroy
@@ -42,13 +69,17 @@ class Api::EmailsController < ApplicationController
     @email = Email.new(email_params)
     @email.user_id = current_user.id
     @email.sender = "#{current_user.username}@ishmael.com"
-
     @email.save
     render :show
   end
 
   private
   def email_params
-    params.require(:email).permit(:emails, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :compose_set)
+    params.require(:email).permit(:emails, :recipient, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :compose_set)
   end
+
+  def user?(username)
+    User.find_by_username(user)
+  end
+
 end

@@ -56,7 +56,7 @@ var Sidebar = React.createClass({
             {link} {drafts}
           </a></li></div>;
         } else {
-          return <div className="select-holder"><div className="red-highlight"></div><li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li></div>;
+          return <div key={Math.random()} className="select-holder"><div className="red-highlight"></div><li key={Math.random()}><a className="selected" onClick={this.hrefClickHandler.bind(this, link.toLowerCase())} href="#">{link}</a></li></div>;
         }
       }
       else if (link === "Drafts") {

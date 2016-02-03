@@ -10,7 +10,7 @@ class Api::UtilsController < ApplicationController
     else
       @search_results = PgSearch
        .multisearch(params[:query])
-       .includes(:searchable)
+       .includes(searchable: :contact_users)
        .page(params[:page])
        .limit(5)
     end

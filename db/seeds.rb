@@ -7,14 +7,50 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'faker'
 
+username = "mailer-daemon"
+password = "guest0"
+location = "United States of America"
+gender = "M"
+birthday= ["1987", "12", "1"]
+fname = "Mail Delivery"
+lname = "Subsystem"
+user = User.create!(username: username, password: password, location: location,
+  gender: gender, birthday: birthday, fname: fname, lname: lname)
 
-10.times do |i|
+
   username = "terrypdignon"
-  password = "guest#{i}"
+  password = "guest0"
   location = "United States of America"
   gender = "M"
   birthday= ["1987", "12", "1"]
   fname = Faker::Name.first_name
+  lname = Faker::Name.last_name
+  user = User.create!(username: username, password: password, location: location,
+    gender: gender, birthday: birthday, fname: fname, lname: lname)
+
+  #
+  # username = "dignonpterry"
+  # password = "guest0"
+  # location = "United States of America"
+  # gender = "M"
+  # birthday= ["1987", "12", "1"]
+  # fname = Faker::Name.first_name
+  # lname = Faker::Name.last_name
+  # user = User.create!(username: username, password: password, location: location,
+  #   gender: gender, birthday: birthday, fname: fname, lname: lname)
+  #
+  #
+  #   User.all.each do |user|
+  #     Email.create!(sender: "heybud", draft_set: false, user_id: user.id, subject: "Welcome to Ishmail", body: "wakka wakka")
+  #   end
+
+10.times do |i|
+  username = "terry#{i}"
+  password = "guest#{i}"
+  location = "United States of America"
+  gender = "M"
+  birthday= ["1987", "12", "1"]
+  fname = "Terry#{i}"
   lname = Faker::Name.last_name
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
@@ -26,7 +62,7 @@ require 'faker'
       importance_set = rand(1..100) % 3 == 0 ? true : false
       starred_set = rand(1..100) % 3 == 0 ? true : false
       read_set = rand(1..100) % 3 == 0 ? true : false
-      user_id = user.id
+      user_id = 2
       draft_set = false
       parent_email_id = nil
       if rand(1..100) % 2 === 0
@@ -46,8 +82,8 @@ require 'faker'
 
 end
 
-terry = User.find(1)
+# terry = User.find(2)
 
-(2..10).each do |n|
-  Contact.create!(user_id: 1, contact_id: n)
-end
+# (2..10).each do |n|
+#   Contact.create!(user_id: 1, contact_id: n)
+# end

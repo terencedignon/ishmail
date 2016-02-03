@@ -18,12 +18,15 @@ var EmailIndex = React.createClass({
     this.selectListener = SelectStore.addListener(this._onSelectChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
     ///seteventlistenerhere
+
+    // this.autoUpdate = setInterval(ApiUtil.autoUpdate, 10000);
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {
     this.emailListener.remove();
     this.selectListener.remove();
     this.draftListener.remove();
+    // clearInterval(this.autoUpdate);
   },
   _onEmailChange: function () {
       this.setState({ emails: EmailStore.setFilterEmails(), view: EmailStore.getViewState()});
@@ -67,8 +70,6 @@ var EmailIndex = React.createClass({
     }
     var email = this.state.emails;
 
-    var mainContent = (typeof this.props.params.id === "undefined" ?
-      <ul>{indexItems}</ul> : <EmailShow />);
 
     if (this.state.view === "inbox") {
       indexHeaderLabels = <ul className="index-header group">{lis}</ul>;
@@ -81,17 +82,16 @@ var EmailIndex = React.createClass({
 
     if (lis.length === 5 && this.state.emails.length > 0) {
       display = <div className="content-container group">
-        <EmailFormIndex />
+
         {this.props.children}
         <div className="main group">
           {indexHeaderLabels}
-          {mainContent}
+          <ul>{indexItems}</ul>
         </div>
       </div>;
     } else {
       display = <div></div>;
     }
-
 
     return (
       <div>

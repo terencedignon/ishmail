@@ -76,7 +76,7 @@ var EmailShowItem = React.createClass({
     var timeElapsed = this.timeElapsed();
     var starredClass;
     if (this.props.child) {
-      starredClass = "show-star"
+      starredClass = "show-star";
     } else {
       starredClass = this.props.email.starred_set ? "show-star star-true" : "show-star star-false";
     }
@@ -110,19 +110,17 @@ var EmailShowItem = React.createClass({
   //     </div>;
   // }
 
-
-    return (<li onClick={this.props.clickHandler} id={this.props.email.id} className="email-show">
-    <div className="email-show-header">
+    display =
+    <div><div className="email-show-header">
       <div className="email-show-sender-name">
         <h3>{this.props.email.sender.split("@")[0]}</h3>
       </div>
       <div className="email-show-sender-email">
-        {"<" + this.props.email.sender + ">"}
+        {"<" + this.props.email.sender + "@ishmael.com>"}
       </div>
       <div className="email-show-date">
         {createdAt} {"(" + timeElapsed + ")"}
       </div>
-
 
       <div onClick={this.starClickHandler} className={starredClass}>
 
@@ -130,13 +128,16 @@ var EmailShowItem = React.createClass({
     </div>
       <div className="body holder">
 
-
     <div className="email-show-body">
       {this.props.email.body}
     </div>
-  </div>
-</li>
+  </div></div>;
 
+
+
+    return (<li onClick={this.props.clickHandler} id={this.props.email.id} className="email-show">
+    {display}
+</li>
   );
   }
 });

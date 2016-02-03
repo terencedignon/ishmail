@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202225152) do
+ActiveRecord::Schema.define(version: 20160203141323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160202225152) do
     t.boolean  "compose_set",     default: false
     t.boolean  "select_set",      default: false
     t.boolean  "draft_set",       default: true
+    t.string   "recipient",       default: ""
   end
 
   create_table "lines", force: :cascade do |t|

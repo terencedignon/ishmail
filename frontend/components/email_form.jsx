@@ -12,7 +12,7 @@ var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
     return {
-      title: "New Message", recipients: "", subject: "", body: "",
+      title: "New Message", recipient: "", subject: "", body: "",
       created: false, display: false, minimize: false, save_set: false};
   },
   componentDidMount: function() {
@@ -47,13 +47,13 @@ var EmailForm = React.createClass({
       this.setState({created: true});
     }
   },
-  recipientsChangeHandler: function (e) {
-    if (e.currentTarget.value === "") {
-      this.setState({ recipients: "Recipients"});
-    } else {
-      this.setState({ recipients: e.currentTarget.value });
-    }
-  },
+  // recipientsChangeHandler: function (e) {
+  //   if (e.currentTarget.value === "") {
+  //     this.setState({ recipients: "Recipients"});
+  //   } else {
+  //     this.setState({ recipients: e.currentTarget.value });
+  //   }
+  // },
   closeClickHandler: function () {
     // var params = {
     //   compose_set = false;
@@ -65,15 +65,20 @@ var EmailForm = React.createClass({
 
   },
   createEmail: function () {
+
     var params = {
+      recipient: this.state.recipient,
       title: this.state.title,
+      subject: this.state.subject,
       body: this.state.body,
       compose_set: false,
       sent_set: true,
-      draft_set: false
+      draft_set: false,
+      sending_now: true
     };
     ApiUtil.updateEmail(this.props.draft.id, params, EmailConstants.SEND_EMAIL);
-    // 
+    ApiUtil.getContacts();
+    //
     // findContact = ContactsStore.all().find(function(recipient) {
     //   return recipient.username === recipient_username;
     // });
@@ -111,7 +116,7 @@ var EmailForm = React.createClass({
           </div>
       </div>
         <div className="recipients">
-          <input type="text" valueLink={this.linkState('recipients')}/>
+          <input type="text" valueLink={this.linkState('recipient')}/>
         </div>
         <div className="subject">
           <input type="text" valueLink={this.linkState('subject')}/>
