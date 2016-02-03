@@ -21,10 +21,11 @@ DraftStore.getOpenDrafts = function () {
 };
 
 DraftStore.__onDispatch = function (payload) {
+  debugger
   // openDraftParams = {minimize_set: false, save_set: false};
   if (payload.actionType === DraftConstants.NEW_DRAFT) {
     _drafts.push(payload.data);
-    _openDrafts.push({draft: payload.data, minimize_set: false, save_set: false});
+    if (payload.data.compose_set) _openDrafts.push({draft: payload.data, minimize_set: false, save_set: false});
     DraftStore.__emitChange();
   } else if (payload.actionType === DraftConstants.CLOSE_DRAFT) {
     _openDrafts.splice(_openDrafts.indexOf(payload.data), 1);

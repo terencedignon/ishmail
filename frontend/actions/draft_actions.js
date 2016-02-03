@@ -31,6 +31,12 @@ var DraftActions = {
       actionType: DraftConstants.TOGGLE_SHOW,
       data: id
     });
+  },
+  updateDraft: function (data, type) {
+    Dispatcher.dispatch({
+      actionType: type,
+      data: data
+    });
   }
 
 };

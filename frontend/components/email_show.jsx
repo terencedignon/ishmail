@@ -72,11 +72,11 @@ var EmailShow = React.createClass({
 
               {renderedShow}
           </ul>
+          <div className="show-reply-holder">
+        
+            <EmailShowForm sender={this.state.email.sender} email={this.state.email}/>
           </div>
-        <div className="show-reply-holder">
-          <h2>Reply to {this.state.email.sender}</h2>
-          <EmailShowForm sender={this.state.email.sender}/>
-        </div>
+          </div>
       </div>
   ;
   } else {

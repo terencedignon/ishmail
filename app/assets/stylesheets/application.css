@@ -1159,23 +1159,27 @@ ul.search-dropdown {
 }
 
 .show-reply-holder {
-  width: 50%;
-  float: left;
+  width: 400px;
+  margin-left: 20px;
+  /*border: 1px solid #ccc;*/
 }
 
 .show-form {
-  margin-left: 50px;
+  /*margin-left: 50px;*/
 }
 
 .show-form-body {
-  width: 50%;
+  width: 100%;
   display: fixed;
   top: 0px;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
 }
 
 .show-form-body textarea {
-  padding: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-shadow: 10px 10px 2px 2px #f7f7f7;
 }
 
 .envelope {
@@ -1193,4 +1197,14 @@ h2 i.not-important {
   color: #f7f7f7;
   /*border: 1px solid black;*/
   /*border-radius: 5px;*/
+}
+
+.show-form > .footer {
+  width: 100%;
+}
+
+.show-form button {
+  line-height: 30px;
+  margin-top: 10px;
+  margin-left: 85%;
 }
