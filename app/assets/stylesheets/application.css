@@ -866,7 +866,7 @@ a.selected {
   margin-bottom: 20px;
   /*padding-top: 18px;*/
   color: #222;
-  width: 400px;
+  width: 500px;
   /*margin: 0 auto;*/
   font-size: 13px;
   font-family: sans-serif;
@@ -883,7 +883,7 @@ a.selected {
 }
 .email-show-holder > h2 {
   display: block;
-  width: 100%;
+  width: 75%;
   margin-top: -15px;
   /*padding-top: 5px;*/
   font-size: 18px;
@@ -1085,7 +1085,9 @@ ul.search-dropdown {
   border-top: 1px solid #ccc;
   /*border: 1px solid #f7f7f7;*/
   padding: 5px;
-  padding-top: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  /*padding-top: 20px;*/
   margin-top: 200px;
   display: flex;
   flex-direction: column;
@@ -1094,29 +1096,33 @@ ul.search-dropdown {
 .contact-header {
   height: 50px;
   width: 60%;
+  font-size: 16px;
+  font-family: arial;
   /*background: green;*/
   margin-left: 20px;
 }
 
 .green {
-
+  display: inline;
   font-size: 14px;
-  margin-left: 40px;
-  margin-top: 5px;
+  margin-left: 60px;
   color: green;
-  line-height: 10px;
+  /*line-height: -px;*/
   opacity: 0.5;
 }
 
 .contact-search {
-  color: #919191;
+  font-size: 14px;
+  font-weight: bold;
+  /*color: #919191;*/
   margin-top: 5px;
 
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .contact-search input {
-  padding: 2px;
+  padding-left: 10px;
+  height: 20px;
   font-size: 12px;
   font-family: arial;
 }
@@ -1149,4 +1155,29 @@ ul.search-dropdown {
 
 .email-show:nth-child(2n+1) {
   background: #f7f7f7;
+}
+
+.main-show-holder {
+  display: flex;
+  width: 100%;
+}
+
+.show-reply-holder {
+  width: 50%;
+  float: left;
+}
+
+.show-form {
+  margin-left: 50px;
+}
+
+.show-form-body {
+  width: 50%;
+  display: fixed;
+  top: 0px;
+  border: 1px solid #ccc;
+}
+
+.show-form-body textarea {
+  padding: 20px;
 }

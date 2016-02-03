@@ -67,18 +67,20 @@ var EmailShow = React.createClass({
     // <EmailShowContact email={this.state.email} />
     return (
           <div className="main group">
-      <div className="email-show-holder">
-      <h2>{this.state.email.subject}</h2>
-      <ul className="email-show-ul">
-
-      {topEmail}
-      {renderedShow}
-      </ul>
-      </div>
-      <div className="show-reply-holder">
-        <h2>Reply</h2>
-      </div>
-    </div>
+            <div className="main-show-holder">
+            <div className="email-show-holder">
+              <h2>{this.state.email.subject}</h2>
+                <ul className="email-show-ul">
+                  {topEmail}
+                  {renderedShow}
+              </ul>
+              </div>
+            <div className="show-reply-holder">
+              <h2>Reply</h2>
+              <EmailShowForm/>
+            </div>
+          </div>
+        </div>
     );
   }
 });

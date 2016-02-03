@@ -2,34 +2,22 @@ var React = require('react');
 
 var EmailShowForm = React.createClass({
   getInitialState: function () {
-    return { show: false };
+    return { test: "test"};
   },
-  clickHandler: function () {
-    var toggleShow = !this.state.show;
-    this.setState({ show: toggleShow });
-  },
-  render: function () {
-    var display;
 
-    if (this.state.show) {
-      display =
+  render: function () {
+
+    return (
         <div className="show-form">
           <div className="show-form-recipient">
             {this.props.sender}
           </div>
           <div className="show-form-body">
-            <textarea rows="10" cols="50">hello</textarea>
+            <textarea rows="10" cols="50"/>
+          
           </div>
-        </div>;
-    } else {
-      display = <li><input onClick={this.clickHandler} type="text" className="email-show-form" value="Click here to Reply, Reply To All, or Forward"/></li>;
-    }
-
-    return (
-      <div>
-      {display}
-      </div>
-    );
+        </div>
+      );
   }
 });
 

@@ -34,12 +34,9 @@ var Contact = React.createClass({
     return(
       <div className="contact-holder">
         <div className="contact-header">
-          <div className="email-show-icon">
 
+      
 
-
-          <i className="green fa fa-circle"></i>
-          </div>
             <ContactSearch />
         </div>
         <ul>
