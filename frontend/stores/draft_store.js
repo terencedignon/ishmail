@@ -27,7 +27,7 @@ DraftStore.__onDispatch = function (payload) {
       if (payload.data.compose_set) _openDrafts.push({draft: payload.data, minimize_set: false, save_set: false});
       DraftStore.__emitChange();
 
-  } else if (payload.actionType === DraftConstants.CLOSE_DRAFT) {
+  } else if (payload.actionType === EmailConstants.SEND_MAIL) {
     _openDrafts.splice(_openDrafts.indexOf(payload.data), 1);
     DraftStore.__emitChange();
 

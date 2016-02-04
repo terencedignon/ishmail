@@ -20,13 +20,18 @@ var Contact = React.createClass({
   _onContactChange: function () {
     this.setState({ contacts: ContactStore.all() });
   },
+  composeEmail: function (e) {
+    debugger
+    ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, recipient: e.currentTarget.outerText, read_set: true, subject: "(no subject)"});
+    EmailActions.getComposeSet();
+  },
   render: function () {
 
     var contactList;
     if (this.state.contacts.length > 0 ) {
       contactList = this.state.contacts.map(function(contact) {
 
-        return <li className="contact-li" key={Math.random()}>{contact.fname} {contact.lname}</li>;
+        return <li onClick={this.composeEmail} className="contact-li" key={Math.random()}>{contact.fname} {contact.lname}</li>;
       }.bind(this));
     } else {
       contactList = <li>Add contacts</li>;
@@ -35,11 +40,11 @@ var Contact = React.createClass({
       <div className="contact-holder">
         <div className="contact-header">
 
-      
+
 
             <ContactSearch />
         </div>
-        <ul>
+        <ul className="contact-holder-list">
           {contactList}
         </ul>
       </div>);

@@ -3,6 +3,7 @@ var EmailActions = require('../actions/email_actions.js');
 var EmailStore = require('../stores/email_store.js');
 var DraftStore = require('../stores/draft_store.js');
 var Contact = require('./contact.jsx');
+var SpamStore = require('../stores/spam_store.js');
 
 var Sidebar = React.createClass({
   getInitialState: function() {
@@ -12,16 +13,19 @@ var Sidebar = React.createClass({
     ApiUtil.getAllEmail();
     this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
+    this.spamListener = SpamStore.addListener(this._onSpamChange);
   },
   componentWillUnmount: function() {
     this.emailListener.remove();
     this.draftListener.remove();
+    this.spamListener.remove();
   },
   composeClickHandler: function() {
-    if (DraftStore.getOpenDrafts().length <= 2) {
     ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, read_set: true, subject: "(no subject)"});
     EmailActions.getComposeSet();
-  }
+  },
+  _onSpamChange: function () {
+
   },
   _onDraftChange: function () {
     this.setState({ unreadDrafts: DraftStore.unreadCount() });
@@ -36,7 +40,7 @@ var Sidebar = React.createClass({
   generateSidebar: function () {
 
     // this.state.viewState === "drafts"
-    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links"];
+    var links = ["Inbox", "Starred", "Important", "Sent", "Drafts", "Links", "Spam"];
     var lens = this.state.viewState;
     var emailUnread = (EmailStore.unread() > 0 ? "(" + EmailStore.unread() + ")" : "");
     var drafts = (DraftStore.all().length > 0 ? "(" + DraftStore.all().length + ")" : "");
@@ -87,7 +91,7 @@ var Sidebar = React.createClass({
     return(
       <div className="sidebar">
         <button onClick={this.composeClickHandler}>Compose</button>
-        <ul className="group">
+        <ul className="sidebar-list">
           {sidebarView}
           <Contact />
         </ul>

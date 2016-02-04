@@ -18,6 +18,8 @@ DraftStore = require('./stores/draft_store.js');
 SearchStore = require('./stores/search_store.js');
 EmailFormIndex = require('./components/email_form_index.jsx');
 ContactStore = require('./stores/contact_store.js');
+SpamStore = require('./stores/spam_store.js');
+
 
 var App = React.createClass({
   render: function() {

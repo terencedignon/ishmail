@@ -9,6 +9,7 @@ var SelectStore = require('../stores/select_store.js');
 var Search = require('./search.jsx');
 var History = require('react-router').History;
 var EmailStore = require('../stores/email_store.js');
+var SpamConstants = require('../constants/spam_constants.js');
 
 var Header = React.createClass({
   mixins: [History],
@@ -24,9 +25,12 @@ var Header = React.createClass({
     this.emailListener.remove();
   },
   _onEmailChange: function() {
+
     var view = EmailStore.getViewState();
     if (view === "show") {
       this.setState({ show: true, view: view, indexToolbar: false});
+    } else if (SelectStore.all().length > 0) {
+      this.setState({ show: false, view: view, indexToolbar: false});
     } else {
       this.setState({ show: false, view: view, indexToolbar: true});
     }
@@ -73,13 +77,26 @@ var Header = React.createClass({
     window.history.back();
 
   },
+
+  spamHandler: function () {
+    var spamOn = { spam_set: true }
+    if (!this.state.show) return ApiUtil.updateAll(
+      SelectStore.all(), spamOn, SpamConstants.GET_SPAM )
+    ApiUtil.updateEmail([ EmailStore.getCurrentID() ], spamOn )
+    return this.history.pushState( null, "/", {} );
+  },
+
   trashHandler: function () {
-      if (this.state.show) {
-        ApiUtil.destroyAll([EmailStore.getCurrentID()]);
-        this.history.pushState(null, "/", {});
-      } else {
-        ApiUtil.destroyAll(SelectStore.all());
-      }
+      if (!this.state.show) return ApiUtil.destroyAll( SelectStore.all() )
+      ApiUtil.destroyAll( [ EmailStore.getCurrentID() ] )
+      return this.history.pushState( null, "/", {} );
+      // if (this.state.show) {
+      //
+      //   ApiUtil.destroyAll([EmailStore.getCurrentID()]);
+      //   this.history.pushState(null, "/", {});
+      // } else {
+      //   ApiUtil.destroyAll(SelectStore.all());
+      // }
   },
   toggleRead: function(name) {
 
@@ -89,15 +106,15 @@ var Header = React.createClass({
     ApiUtil.updateAll(SelectStore.all(), params, action, this.callback);
     // ApiUtil.updateAll(SelectStore.all(), { read_set: });
   },
-  destroyEmail: function() {
-    if (this.state.show) {
-      var id = this.props.params.id;
-    }
-
-    ApiUtil.destroyAll(SelectStore.all(), this.callback);
-  },
+  // destroyEmail: function() {
+  //   if (this.state.show) {
+  //     var id = this.props.params.id;
+  //   }
+  //
+  //   ApiUtil.destroyAll(SelectStore.all(), this.callback);
+  // },
   render: function () {
-    console.log(this.state.view);
+
     // <li onClick={ApiUtil.getAllEmail}>
     //   <i className="fa fa-refresh refresh"></i>
     // </li>
@@ -141,7 +158,7 @@ var Header = React.createClass({
       toolbar = <div className="nav-holder">
         {selector}
         <li className="nav-archive"><i className="fa fa-archive"></i></li>
-        <li className="nav-spam"><i className="fa fa-exclamation-triangle"></i></li>
+        <li onClick={this.spamHandler} className="nav-spam"><i className="fa fa-exclamation-triangle"></i></li>
         <li onClick={this.trashHandler} className="nav-delete"><i className="fa fa-trash"></i></li>
         <li className="more">More</li>
 

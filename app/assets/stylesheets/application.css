@@ -260,7 +260,7 @@ header input {
 }
 
 
-.sidebar li:hover {
+.sidebar-list li:hover {
   padding-left: 30px;
   background: #eee;
   width: 150px;
@@ -1037,6 +1037,7 @@ a.selected {
   /*line-height: 27px;*/
 }
 
+
 .email-show-body {
   margin-top: 0px;
   font-size: 13px;
@@ -1103,7 +1104,8 @@ ul.search-dropdown {
 
 .contact-holder {
   border-top: 1px solid #f7f7f7;
-  background: #f7f7f7;
+  background: #fff;
+  opacity: 0.9;
 
   padding: 5px;
   overflow-x: hidden;
@@ -1148,13 +1150,10 @@ ul.search-dropdown {
   font-family: arial;
 }
 
-.contact-li {
-  cursor: pointer;
-  font-size: 12px;
-  padding: 2px;
-  color: #222;
-  font-family: arial;
+.contact-holder ul {
+
 }
+
 
 .contact-search-results {
   position: absolute;
@@ -1215,6 +1214,10 @@ h2 i.important {
   color: gold!important;
 }
 
+h2 i:hover {
+  opacity: 0.5;
+}
+
 h2 i.not-important {
   margin-left: 5px;
   color: #f7f7f7;
@@ -1235,4 +1238,26 @@ h2 i.not-important {
 .draft {
   line-height: 20px;
   color: red!important;
+}
+
+.contact-holder li {
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  font-size: 14px;
+  padding: 4px;
+  color: #222;
+  background: #fff;
+  font-family: arial;
+}
+
+.contact-holder li:hover {
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  font-size: 14px;
+  padding: 4px;
+  color: #222;
+  background: #fff;
+  font-family: arial;
 }

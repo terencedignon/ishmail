@@ -49,6 +49,7 @@ class Api::EmailsController < ApplicationController
     # debugger
     emails = params["email"]
     Email.where(id: emails).delete_all
+    debugger
     # email_objects = []
     # emails.each do |id|
     #   email = Email.find(id)
@@ -81,7 +82,7 @@ class Api::EmailsController < ApplicationController
 
   private
   def email_params
-    params.require(:email).permit(:emails, :archive_set, :recipient, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
+    params.require(:email).permit(:emails, :archive_set, :recipient, :starred_set, :delete_set, :spam_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
   end
 
   def user?(username)

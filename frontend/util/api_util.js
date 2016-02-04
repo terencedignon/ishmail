@@ -3,23 +3,25 @@ var EmailConstants = require('../constants/email_constants.js');
 var DraftActions = require('../actions/draft_actions.js');
 var DraftConstants = require('../constants/draft_constants.js');
 var ContactActions = require('../actions/contact_actions.js');
+var SpamActions = require('../actions/spam_actions.js');
+var SpamConstants = require('../constants/spam_constants.js');
 
 var ApiUtils = {
+
 	getAllEmail: function () {
 		$.ajax({
 			url: "api/emails",
 			success: function(data) {
-
         EmailActions.receiveAllEmail(data);
         DraftActions.receiveAllDrafts(data);
+				SpamActions.receiveAllSpam(data);
 			},
 			error: function() {
-				console.log("error in fetchEmails function");
 			}
 		});
 	},
-  autoDraft: function (id, params) {
 
+  autoDraft: function (id, params) {
     $.ajax({
       method: "PUT",
       url: "api/emails/" + id,
@@ -28,11 +30,10 @@ var ApiUtils = {
         DraftActions.autoDraft(data);
       },
       error: function() {
-        console.log("error in autoDraft function");
       }
     });
-
   },
+
   autoUpdate: function () {
     $.ajax({
       url: "api/emails",
@@ -45,6 +46,7 @@ var ApiUtils = {
       }
     });
   },
+
 	getEmail: function (id, callback) {
 		$.ajax({
 			method: "GET",
@@ -74,16 +76,6 @@ var ApiUtils = {
 			}
 		});
 	},
-
-	// getComposeSet: function (params) {
-	// 	$.ajax({
-	// 		method: "POST",
-	// 		url: "api/emails",
-	// 		data:
-	//
-	// 	});
-	//
-	// }.
 
   destroyAll: function(emails, callback) {
     $.ajax({
@@ -118,20 +110,21 @@ var ApiUtils = {
       });
   },
 	updateEmail: function(id, data, typeOfUpdate) {
-
 		$.ajax({
 			method: "PUT",
 			url: "api/emails/" + id,
 			data: {email: data},
 			success: function(data) {
-        if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
-          EmailActions.updateSelect(data);
-        } else if (typeOfUpdate === DraftConstants.CLOSE_DRAFT){
+        // if (typeOfUpdate === EmailConstants.TYPE_SELECT) {
+        //   EmailActions.updateSelect(data);
+        // } else
+				if (typeOfUpdate === DraftConstants.CLOSE_DRAFT){
 					DraftActions.closeDraft(data, typeOfUpdate);
 				} else if (typeOfUpdate === EmailConstants.SEND_EMAIL) {
 					DraftActions.closeDraft(data, typeOfUpdate);
-
 					EmailActions.sendEmail(data);
+				} else if (typeOfUpdate === SpamConstants.GET_SPAM) {
+					SpamActions.receiveAllSpam(data);
 
 				} else if (typeOfUpdate === DraftConstants.UPDATE_ALL) {
             DraftActions.updateDraft(data, typeOfUpdate);

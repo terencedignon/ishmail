@@ -50,7 +50,7 @@ user = User.create!(username: username, password: password, location: location,
   location = "United States of America"
   gender = "M"
   birthday= ["1987", "12", "1"]
-  fname = "Terry#{i}"
+  fname = Faker::Name.first_name
   lname = Faker::Name.last_name
   user = User.create!(username: username, password: password, location: location,
     gender: gender, birthday: birthday, fname: fname, lname: lname)
@@ -84,6 +84,6 @@ end
 
 # terry = User.find(2)
 
-# (2..10).each do |n|
-#   Contact.create!(user_id: 1, contact_id: n)
-# end
+(2..10).each do |n|
+  Contact.create!(user_id: 2, contact_id: n)
+end

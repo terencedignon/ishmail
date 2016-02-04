@@ -60,11 +60,11 @@ EmailStore.setFilterEmails = function () {
   if (_viewState === "show") _viewState = "inbox";
   _filterEmails = EmailStore.all().filter(function(email) {
     if (_viewState === "inbox") return email.compose_set === false && email.draft_set === false &&
-      email.sent_set === false;
+      email.sent_set === false && email.spam_set === false;
     if (_viewState === "starred") return email.starred_set === true;
     if (_viewState === "important") return email.importance_set === true;
     if (_viewState === "sent") return email.sent_set;
-    if (_viewState === "drafts") return email.sent_set === false ;
+    if (_viewState === "drafts") return email.sent_set === false;
   });
   this.setUnread();
 
@@ -88,7 +88,8 @@ EmailStore.getDisplay = function () {
 };
 
 EmailStore.__onDispatch = function (payload) {
-
+  debugger
+  console.log(_viewState);
   	// if (payload.actionType === "CREATE_EMAIL") console.log("create email");
 		// if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
 
@@ -130,7 +131,7 @@ EmailStore.__onDispatch = function (payload) {
       var emails = [];
         payload.data.forEach(function(email) {
 
-          if (email.draft_set === false) {
+          if (email.draft_set === false && email.spam_set === false) {
 
             emails.push(email);
           }
@@ -141,6 +142,7 @@ EmailStore.__onDispatch = function (payload) {
       // EmailStore.__emitChange();
       EmailStore.__emitChange();
     } else if (payload.actionType === "DESTROY_EMAIL") {
+      debugger
       var mappedIndexes = _emails.map(function(email) { return email.id; });
       payload.data.forEach(function(id) {
         var removeIndex = mappedIndexes.indexOf(id);

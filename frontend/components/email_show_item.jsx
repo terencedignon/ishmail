@@ -109,7 +109,7 @@ var EmailShowItem = React.createClass({
   //     </div>
   //     </div>;
   // }
-
+debugger
     display =
     <div><div className="email-show-header">
       <div className="email-show-sender-name">
