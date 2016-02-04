@@ -1104,12 +1104,12 @@ ul.search-dropdown {
 }
 
 .contact-holder {
-  border-top: 1px solid #f7f7f7;
+  /*border: 1px solid #000;*/
   background: #fff;
   cursor: pointer;
   padding: 2px;
     /*padding-top: 20px;*/
-  margin-top: 100px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 }
@@ -1134,10 +1134,10 @@ ul.search-dropdown {
   margin-bottom: 2px;
 }
 
-.contact-search input {
+.contact-search > input {
   padding-left: 10px;
-  height: 20px;
-  font-size: 12px;
+  height: 25px;
+  font-size: 13px;
   font-family: arial;
 }
 
@@ -1232,7 +1232,13 @@ h2 i.not-important {
 }
 
 
+.contact-holder input {
+  height: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 3px 5px 5px 1px;
 
+}
 
 .contact-holder-li {
   position: relative;
@@ -1245,7 +1251,7 @@ h2 i.not-important {
   color: #222;
   background: #fff;
   font-family: arial;
-  background: white;
+  /*background: #f7f7f7;*/
   border: 1px solid white;
 }
 

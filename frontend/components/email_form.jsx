@@ -75,8 +75,15 @@ var EmailForm = React.createClass({
     ApiUtil.updateEmail(this.props.draft.id, {compose_set: false}, DraftConstants.CLOSE_DRAFT);
 
   },
+  subjectChange: function (e) {
+    this.setState({subject: e.currentTarget.value});
+    DraftActions.updateValue(this.props.draft.id, {subject: e.currentTarget.value});
+  },
+  recipientChange: function (e) {
+    this.setState({recipient: e.currentTarget.value});
+    DraftActions.updateValue(this.props.draft.id, {recipient: e.currentTarget.value});
+  },
   bodyChange: function (e) {
-
     this.setState({body: e.currentTarget.value});
     DraftActions.updateValue(this.props.draft.id, {body: e.currentTarget.value});
   },
@@ -133,10 +140,10 @@ var EmailForm = React.createClass({
           </div>
       </div>
         <div className="recipients">
-          <input type="text" placeholder="Recipient" valueLink={this.linkState('recipient')}/>
+          <input type="text" placeholder="Recipient" onChange={this.recipientChange} value={this.state.recipient}/>
         </div>
         <div className="subject">
-          <input placeholder="Subject" type="text" valueLink={this.linkState('subject')}/>
+          <input placeholder="Subject" type="text" onChange={this.subjectChange} value={this.state.subject}/>
         </div>
         <div className="body">
         <textarea onChange={this.bodyChange} value={this.state.body}/>

@@ -21,7 +21,7 @@ var Sidebar = React.createClass({
     this.spamListener.remove();
   },
   composeClickHandler: function() {
-    ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, read_set: true, subject: "(no subject)"});
+    ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, read_set: true, subject: ""});
     EmailActions.getComposeSet();
   },
   _onDraftChange: function () {
