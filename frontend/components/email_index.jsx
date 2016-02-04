@@ -23,7 +23,7 @@ var EmailIndex = React.createClass({
     this.draftListener = DraftStore.addListener(this._onDraftChange);
     this.spamListener = SpamStore.addListener(this._onSpamChange);
     ///seteventlistenerhere
-    this.autoUpdate = setInterval(ApiUtil.autoUpdate, 20000);
+    this.autoUpdate = setInterval(ApiUtil.autoUpdate, 60000);
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {
@@ -73,7 +73,6 @@ var EmailIndex = React.createClass({
   },
   render: function() {
 
-    console.log(this.state.spam);
     var lis = this.fetchHeaderTags();
     var emailList = this.fetchEmailList();
     var display;
@@ -83,15 +82,15 @@ var EmailIndex = React.createClass({
       var indexItems = emailList.map(function(email) {
 
         if (this.state.selectEmails.indexOf(email.id) !== -1) {
-          return <EmailIndexItem view={this.state.view} key={email.id} id={email.id} email={email} checked="true"/>;
+          return <EmailIndexItem view={this.state.view} key={Math.random()} id={email.id} email={email} checked="true"/>;
         } else {
-          return <EmailIndexItem view={this.state.view} key={email.id} id={email.id} email={email} checked="false"/>;
+          return <EmailIndexItem view={this.state.view} key={Math.random()} id={email.id} email={email} checked="false"/>;
         }}.bind(this));
     }
 
 
     if (this.state.view === "inbox") {
-      indexHeaderLabels = <ul className="index-header group">{lis}</ul>;
+      indexHeaderLabels = <ul key={Math.random()} className="index-header group">{lis}</ul>;
     } else {
       indexHeaderLabels = <div></div>;
     }
@@ -99,7 +98,7 @@ var EmailIndex = React.createClass({
     //   indexItems = <div className="index-header group">There are no conversations with this label</div>;
     // }
 
-    if (lis.length === 5 && this.state.emails.length > 0) {
+    if (lis.length === 5 && indexItems.length > 0) {
       display = <div className="content-container group">
 
         {this.props.children}
@@ -109,6 +108,7 @@ var EmailIndex = React.createClass({
         </div>
       </div>;
     } else {
+
       display = <div></div>;
     }
 

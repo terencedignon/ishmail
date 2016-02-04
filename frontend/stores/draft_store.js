@@ -5,6 +5,7 @@ var DraftStore = new Store(AppDispatcher);
 var EmailConstants = require('../constants/email_constants.js');
 
 _drafts = [];
+_currentDraft = [];
 _unreadCount = 0;
 _openDrafts = [];
 
@@ -16,11 +17,17 @@ DraftStore.unreadCount = function () {
   return _unreadCount;
 };
 
+
+DraftStore.getCurrentDraft = function () {
+  return _currentDraft;
+};
+
 DraftStore.getOpenDrafts = function () {
   return _openDrafts;
 };
 
 DraftStore.__onDispatch = function (payload) {
+
   // openDraftParams = {minimize_set: false, save_set: false};
   if (payload.actionType === DraftConstants.NEW_DRAFT) {
     _drafts.push(payload.data);
@@ -28,6 +35,7 @@ DraftStore.__onDispatch = function (payload) {
       DraftStore.__emitChange();
 
   } else if (payload.actionType === EmailConstants.SEND_MAIL) {
+
     _openDrafts.splice(_openDrafts.indexOf(payload.data), 1);
     DraftStore.__emitChange();
 
@@ -48,16 +56,17 @@ DraftStore.__onDispatch = function (payload) {
     });
     DraftStore.__emitChange();
 
-  } else if (payload.actionType === DraftConstants.UPDATE_ALL || DraftConstants.AUTO_UPDATE) {
+  } else if (payload.actionType === DraftConstants.UPDATE_ALL || payload.actionType === DraftConstants.AUTO_UPDATE) {
     for (var i = 0; i < _drafts.length; i++) {
 
-      if (payload.data.length === 1) payload.data = payload.data[0];
+      if (payload.data && payload.data.length === 1) payload.data = payload.data[0];
 
-      if (_drafts[i].id === payload.data.id) _drafts[i] = payload.data;
+      if (payload.data && _drafts[i].id === payload.data.id) _drafts[i] = payload.data;
       if (typeof _openDrafts[i] !== "undefined" && _openDrafts[i].draft.id === payload.data.id) _openDrafts[i].data = payload.data;
     }
-      console.log(_openDrafts);
-
+      if (payload.actionType === DraftConstants.AUTO_UPDATE) {
+        _currentDraft = payload.data[0];
+      }
 
     if (payload.actionType === DraftConstants.UPDATE_ALL) DraftStore.__emitChange();
   } else if (payload.actionType === EmailConstants.SEND_EMAIL) {

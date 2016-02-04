@@ -143,13 +143,14 @@ header {
 
 header h1 {
   color: #000;
-  opacity: 0.75;
+  /*opacity: 0.75;*/
   padding: 20px 30px;
   display: block;
   text-decoration: none;
   padding-top: 19px;
+  font-family: arial;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
 }
 
 h1 a, a:visited, a:hover, a:active {
@@ -260,7 +261,7 @@ header input {
 }
 
 
-.sidebar-list li:hover {
+.sidebar-list > li:hover {
   padding-left: 30px;
   background: #eee;
   width: 150px;
@@ -478,12 +479,12 @@ form.sign-in button, form.demo-sign-in button {
 .email-form {
   float: right;
   font-size: 14px;
-  border: 1px solid #e5e5e5;
-  border-left: 2px solid #e5e5e5;
+  /*border: 1px solid #e5e5e5;*/
+  /*border-left: 2px solid #e5e5e5;*/
   background: #fff;
   padding-right: 30px;
 
-  width: 500px;
+  width: 400px;
   /*width: 40%;
   height: 65%;*/
   box-shadow: 0px 0 2px 2px #f7f7f7;
@@ -491,13 +492,13 @@ form.sign-in button, form.demo-sign-in button {
 
 .email-form input, textarea {
   padding-left: 6px;
-  border: 1px solid #f7f7f7;
+  border: 1px solid #000;
   outline-width: 0;
   border: 0;
   /*background: pink;*/
   font-size: 14px;
   font-family: arial;
-  width: 100%;
+  width: 400px;
   height:100%;
 
   /*border-bottom: 1px solid #e5e5e5;*/
@@ -508,9 +509,9 @@ form.sign-in button, form.demo-sign-in button {
   display: flex;
   background: #404040;
   cursor: pointer;
-  height: 30px;
+  height: 20px;
   width: 100%;
-  padding: 10px 6px 6px 14px;
+  padding: 5px 2px 12px 5px;
   overflow:hidden;
   /*height: 5%;
   min-height: 20px;*/
@@ -520,7 +521,7 @@ form.sign-in button, form.demo-sign-in button {
 }
 .email-form-title {
   color: #fff;
-  width: 100%;
+  width: 300px;
   font-family: arial;
   margin-top: -8px;
   text-align: left;
@@ -549,7 +550,7 @@ form.sign-in button, form.demo-sign-in button {
   width: 100%;
   /*width: 600px;*/
   /*padding: 0 10px;*/
-  height: 40px;
+  height: 30px;
   padding: 0 20px;
 
   overflow: hidden;
@@ -564,7 +565,7 @@ form.sign-in button, form.demo-sign-in button {
 .email-form .subject {
   padding: 0 20px;
   width: 100%;
-  height: 40px;
+  height: 30px;
   overflow: hidden;
   border-bottom: 1px solid #e5e5e5;
 }
@@ -572,12 +573,12 @@ form.sign-in button, form.demo-sign-in button {
 .email-form .body {
   width: 100%;
   padding: 20px;
-  height: 250px;
+  height: 300px;
   border-bottom: 1px solid #e5e5e5;
 }
 
 .email-form .footer {
-  height: 40px;
+  height: 30px;
   padding-top: 10px;
   padding-left: 10px;
   background: #f5f5f5;
@@ -1105,9 +1106,8 @@ ul.search-dropdown {
 .contact-holder {
   border-top: 1px solid #f7f7f7;
   background: #fff;
-  opacity: 0.9;
-
-  padding: 5px;
+  cursor: pointer;
+  padding: 2px;
   overflow-x: hidden;
   overflow-y: scroll;
   /*padding-top: 20px;*/
@@ -1125,14 +1125,7 @@ ul.search-dropdown {
   margin-left: 20px;
 }
 
-.green {
-  display: inline;
-  font-size: 14px;
-  margin-left: 60px;
-  color: green;
-  /*line-height: -px;*/
-  opacity: 0.5;
-}
+
 
 .contact-search {
   font-size: 14px;
@@ -1240,18 +1233,80 @@ h2 i.not-important {
   color: red!important;
 }
 
-.contact-holder li {
+
+
+
+.contact-holder-li {
+  position: relative;
   cursor: pointer;
+  margin-top: 5px;
   display: block;
-  margin: 0 auto;
-  font-size: 14px;
-  padding: 4px;
+
+  font-size: 13px;
+
   color: #222;
   background: #fff;
   font-family: arial;
+  background: white;
+  border: 1px solid white;
 }
 
-.contact-holder li:hover {
+.hidden-contact {
+  position: fixed;
+  padding-top: 20px;
+  padding-left: 20px;
+  display: none;
+  opacity: 1;
+  left: 150px;
+  height: 100px;
+  width: 200px;
+  background: #fff;
+  box-shadow: 2px 0 2px 2px #ccc;
+
+}
+
+.hidden-contact-details {
+  float: left;
+  width: 90px;
+  /*display: flex;
+  flex-direction: column;*/
+    /*display: flex;
+  flex-direction: column;*/
+}
+
+.hidden-contact h3 {
+  color: #1155cc;
+  font-size: 16px;
+}
+
+.hidden-contact h4 {
+  color: #777;
+  margin-top: -15px;
+
+  font-family: arial;
+  font-size: 13px;
+}
+
+.hidden-contact-photo {
+  float: right;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+
+}
+
+.hidden-contact img {
+  width: 100px;
+  height: 100px;
+  background: #9bf;
+  float: right;
+  height: auto;
+  margin-top: -10px;
+  margin-left: -10px;
+  /*margin: 0 auto;*/
+}
+
+/*.contact-holder-li:hover {
   cursor: pointer;
   display: block;
   margin: 0 auto;
@@ -1260,4 +1315,4 @@ h2 i.not-important {
   color: #222;
   background: #fff;
   font-family: arial;
-}
+}*/

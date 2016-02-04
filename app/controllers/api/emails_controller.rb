@@ -46,14 +46,14 @@ class Api::EmailsController < ApplicationController
   end
 
   def mass_destroy
-    # debugger
+
     emails = params["email"]
-    Email.where(id: emails).delete_all
-    debugger
+    @emails = Email.where(id: emails)
+    @emails.destroy_all
+  
     # email_objects = []
     # emails.each do |id|
     #   email = Email.find(id)
-    #   debugger
     #   email.destroy if email
     # end
     render :index

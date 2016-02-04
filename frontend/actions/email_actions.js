@@ -65,11 +65,11 @@ var EmailActions = {
   //   });
   // },
 
-  destroyAll: function(length) {
+  destroyAll: function(data) {
 
     Dispatcher.dispatch({
       actionType: EmailConstants.DESTROY_EMAIL,
-      data: length
+      data: data
     });
   },
 

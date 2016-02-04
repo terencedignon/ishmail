@@ -11,15 +11,29 @@ SpamStore.all = function () {
 };
 
 SpamStore.__onDispatch = function (payload) {
-  if (payload.data.length === 1) payload.data = [payload.data];
+  if (payload.data && payload.data.length === 1) payload.data = [payload.data];
+  var _newSpam = [];
 
   if (payload.actionType === SpamConstants.GET_SPAM) {
     payload.data.forEach(function(email) {
-
-      if (email.spam_set === true) _spam.push(email);
+      if (email.spam_set === true) _newSpam.push(email);
     });
+    _spam = _newSpam;
 
     SpamStore.__emitChange();
+
+  } else if (payload.actionType === SpamConstants.DESTROY_SPAM) {
+
+    var mappedIndexes = _spam.map(function(email) { return email.id; });
+    _spam.forEach(function(email) {
+      if (payload.data.indexOf(email.id) == -1) {
+        _newSpam.push(email);
+      }
+    });
+
+    _spam = _newSpam;
+    SpamStore.__emitChange();
+
   }
 };
 

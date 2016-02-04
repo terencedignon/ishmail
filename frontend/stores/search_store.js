@@ -1,5 +1,5 @@
 var Store = require('flux/utils').Store;
-var AppDispatcher = require('../dispatcher/dispatcher');
+var AppDispatcher = require('../dispatcher/dispatcher.js');
 var SearchConstants = require('../constants/search_constants');
 
 var _searchResults = [];
@@ -22,6 +22,7 @@ SearchStore.type = function () {
 };
 
 SearchStore.__onDispatch = function (payload) {
+  // debugger
   switch (payload.actionType) {
     case SearchConstants.RECEIVE_SEARCH_RESULTS:
     _type = payload.searchType;
@@ -33,7 +34,7 @@ SearchStore.__onDispatch = function (payload) {
       SearchStore.__emitChange();
       break;
     case SearchConstants.CLEAR_SEARCH:
-  
+
       _searchResults = [];
       _meta = {};
       SearchStore.__emitChange();

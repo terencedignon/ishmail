@@ -88,7 +88,7 @@ EmailStore.getDisplay = function () {
 };
 
 EmailStore.__onDispatch = function (payload) {
-  debugger
+
   console.log(_viewState);
   	// if (payload.actionType === "CREATE_EMAIL") console.log("create email");
 		// if (payload.actionType === "DESTROY_EMAIL") console.log("destroy email");
@@ -141,14 +141,20 @@ EmailStore.__onDispatch = function (payload) {
     } else if (payload.actionType === "GET_COMPOSE_SET") {
       // EmailStore.__emitChange();
       EmailStore.__emitChange();
+
     } else if (payload.actionType === "DESTROY_EMAIL") {
-      debugger
+
       var mappedIndexes = _emails.map(function(email) { return email.id; });
-      payload.data.forEach(function(id) {
-        var removeIndex = mappedIndexes.indexOf(id);
-        if (removeIndex !== -1) _emails.splice(removeIndex, 1);
+      var _newEmails = [];
+      _emails.forEach(function(email) {
+        if (payload.data.indexOf(email.id) == -1) {
+          _newEmails.push(email);
+        }
       });
+
+      _emails = _newEmails;
       EmailStore.__emitChange();
+
     } else if (payload.actionType === "TYPE_SELECT") {
         EmailStore.__emitChange();
     } else if (payload.actionType === "SEND_EMAIL") {

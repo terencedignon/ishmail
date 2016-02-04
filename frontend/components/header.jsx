@@ -51,6 +51,8 @@ var Header = React.createClass({
         value = EmailStore.all();
       } else if (view === "drafts") {
         value = DraftStore.all();
+      } else if (view === "spam") {
+        value = SpamStore.all();
       } else {
         value = EmailStore.getFilterEmails();
       }
@@ -78,18 +80,24 @@ var Header = React.createClass({
 
   },
 
-  spamHandler: function () {
-    var spamOn = { spam_set: true }
-    if (!this.state.show) return ApiUtil.updateAll(
-      SelectStore.all(), spamOn, SpamConstants.GET_SPAM )
-    ApiUtil.updateEmail([ EmailStore.getCurrentID() ], spamOn )
-    return this.history.pushState( null, "/", {} );
+  spamHandler: function (name) {
+    var spamOn = { spam_set: true };
+    if (!this.state.show) {
+      ApiUtil.updateAll( SelectStore.all(), spamOn, SpamConstants.GET_SPAM );
+    } else {
+    ApiUtil.updateEmail([ EmailStore.getCurrentID() ], spamOn );
+    this.history.pushState( null, "/", {} );
+  }
   },
 
   trashHandler: function () {
-      if (!this.state.show) return ApiUtil.destroyAll( SelectStore.all() )
-      ApiUtil.destroyAll( [ EmailStore.getCurrentID() ] )
-      return this.history.pushState( null, "/", {} );
+      if (!this.state.show) {
+        debugger
+        ApiUtil.destroyAll( SelectStore.all() );
+      } else {
+      ApiUtil.destroyAll( [ EmailStore.getCurrentID() ] );
+      this.history.pushState( null, "/", {} );
+    }
       // if (this.state.show) {
       //
       //   ApiUtil.destroyAll([EmailStore.getCurrentID()]);
@@ -141,6 +149,12 @@ var Header = React.createClass({
       </li>
       ;
 
+    var spamButton = <li onClick={this.spamHandler} className="nav-spam"><i className="fa fa-exclamation-triangle"></i></li>;
+
+    if (EmailStore.getViewState() === "spam") {
+      spamButton = <li onClick={this.unSpamHandler} className="nav-spam">Not Spam</li>;
+    }
+
       if (this.state.show) {
         selector = <li onClick={this.pushBack}>
           <div className="nav-back">
@@ -148,6 +162,7 @@ var Header = React.createClass({
           </div>
         </li>;
       }
+
 
     if (this.state.indexToolbar) {
       toolbar =
@@ -158,7 +173,7 @@ var Header = React.createClass({
       toolbar = <div className="nav-holder">
         {selector}
         <li className="nav-archive"><i className="fa fa-archive"></i></li>
-        <li onClick={this.spamHandler} className="nav-spam"><i className="fa fa-exclamation-triangle"></i></li>
+        {spamButton}
         <li onClick={this.trashHandler} className="nav-delete"><i className="fa fa-trash"></i></li>
         <li className="more">More</li>
 

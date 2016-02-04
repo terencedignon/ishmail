@@ -8,6 +8,12 @@ var SpamActions = {
       actionType: SpamConstants.GET_SPAM,
       data: data
     });
+},
+destroyAll: function (data) {
+  Dispatcher.dispatch({
+    actionType: SpamConstants.DESTROY_SPAM,
+    data: data
+  });
 }
 
 };

@@ -85,9 +85,8 @@ var Sidebar = React.createClass({
     this.setState({ viewState: name});
   },
   render: function() {
+
     sidebarView = this.generateSidebar();
-
-
     return(
       <div className="sidebar">
         <button onClick={this.composeClickHandler}>Compose</button>

@@ -53,8 +53,6 @@ var EmailIndexItem = React.createClass({
     var currentDate = new Date();
 
     // currentDate.getTime() - ((currentDate.getHours() * 60 * 60 * 1000) + currentDate.getMinutes() * 60 * 1000);
-
-
     var emailDate = new Date(this.state.email.created_at);
     if (currentDate.getMonth() !== emailDate.getMonth() || currentDate.getYear() !== emailDate.getYear()) {
 
@@ -87,7 +85,6 @@ var EmailIndexItem = React.createClass({
         {sender[0].toUpperCase() + sender.slice(1)} {threadCount}
       </li>;
     } else {
-
       senderRender = <li className="sender draft">
         Draft
       </li>;

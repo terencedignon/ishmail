@@ -20,22 +20,22 @@ var EmailShowForm = React.createClass({
   },
   textHandler: function (e) {
 
-    // this.setState({body: e.currentTarget.value});
-    if (this.state.email instanceof Object) {
-      ApiUtil.updateEmail(this.state.email.id, {body: this.state.body}, DraftConstants.UPDATE_ALL);
-      this.setState({body: e.currentTarget.value});
-    } else {
-    
-      ApiUtil.createEmail({
-        parent_email_id: this.props.email.id,
-        subject: this.props.email.subject,
-        body: e.currentTarget.value,
-        recipient: this.props.email.sender,
-        compose_set: false
-      });
-      this.setState({body: e.currentTarget.value, email: DraftStore.all().slice(-1)[0]});
-      console.log(this.state.email);
-    }
+    // // this.setState({body: e.currentTarget.value});
+    // if (this.state.email instanceof Object) {
+    //   ApiUtil.updateEmail(this.state.email.id, {body: this.state.body}, DraftConstants.UPDATE_ALL);
+    //   this.setState({body: e.currentTarget.value});
+    // } else {
+    //
+    //   ApiUtil.createEmail({
+    //     parent_email_id: this.props.email.id,
+    //     subject: this.props.email.subject,
+    //     body: e.currentTarget.value,
+    //     recipient: this.props.email.sender,
+    //     compose_set: false
+    //   });
+    //   this.setState({body: e.currentTarget.value, email: DraftStore.all().slice(-1)[0]});
+    //   console.log(this.state.email);
+    // }
 
   },
   submitHandler: function () {

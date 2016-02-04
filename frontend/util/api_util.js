@@ -27,6 +27,7 @@ var ApiUtils = {
       url: "api/emails/" + id,
       data: {email: params},
       success: function(data) {
+      
         DraftActions.autoDraft(data);
       },
       error: function() {
@@ -83,8 +84,8 @@ var ApiUtils = {
       url: "api/emails/mass_destroy",
       data: {email: emails},
       success: function(data) {
-
         EmailActions.destroyAll(emails);
+        SpamActions.destroyAll(emails);
         callback && callback();
       },
       error: function() {

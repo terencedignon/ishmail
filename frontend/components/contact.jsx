@@ -3,7 +3,7 @@ var ContactStore = require('../stores/contact_store.js');
 var ApiUtil = require('../util/api_util.js');
 var ContactConstants = require('../constants/contact_constants.js');
 var ContactSearch = require('./contact_search.jsx');
-
+var EmailActions = require('../actions/email_actions.js');
 
 var Contact = React.createClass({
 
@@ -20,8 +20,17 @@ var Contact = React.createClass({
   _onContactChange: function () {
     this.setState({ contacts: ContactStore.all() });
   },
+  onMouseOver: function (e) {
+    // debugger
+    $(e.currentTarget).find('div').css("display", "block");
+
+  },
+
+  onMouseLeave: function (e) {
+    $(e.currentTarget).find('div').css("display", "none");
+  },
   composeEmail: function (e) {
-    debugger
+
     ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, recipient: e.currentTarget.outerText, read_set: true, subject: "(no subject)"});
     EmailActions.getComposeSet();
   },
@@ -31,7 +40,18 @@ var Contact = React.createClass({
     if (this.state.contacts.length > 0 ) {
       contactList = this.state.contacts.map(function(contact) {
 
-        return <li onClick={this.composeEmail} className="contact-li" key={Math.random()}>{contact.fname} {contact.lname}</li>;
+        return <li onClick={this.composeEmail} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave} className="contact-holder-li" key={contact.id}>
+          {contact.fname} {contact.lname}
+          <div className="hidden-contact">
+            <div className="hidden-contact-details">
+              <h3>{contact.fname} {contact.lname}</h3><p/>
+              <h4>{contact.username + "@ishmael.com"}</h4>
+            </div>
+            <div className="hidden-contact-photo">
+              &nbsp;
+            </div>
+        </div>
+        </li>;
       }.bind(this));
     } else {
       contactList = <li>Add contacts</li>;

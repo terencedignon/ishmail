@@ -21,7 +21,7 @@ var DraftActions = {
     });
   },
   closeDraft: function(data, constant) {
-    
+
     Dispatcher.dispatch({
       actionType: constant,
       data: data
@@ -41,7 +41,7 @@ var DraftActions = {
   },
     autoDraft: function(data) {
       Dispatcher.dispatch({
-        action: DraftConstants.AUTO_UPDATE,
+        actionType: DraftConstants.AUTO_UPDATE,
         data: data
       });
     }

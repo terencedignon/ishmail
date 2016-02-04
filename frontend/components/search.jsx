@@ -37,7 +37,7 @@ var Search = React.createClass({
   },
   search: function (e) {
     var query = e.target.value;
-    if (e.target.value.length > 3) { }
+
       SearchApiUtil.search(query, 1, this.state.type);
       this.setState({page: 1, query: query});
 

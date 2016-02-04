@@ -19,7 +19,7 @@ var EmailForm = React.createClass({
   componentDidMount: function() {
     // this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
-    this.autoUpdateListener = setInterval(this.autoUpdate, 5000);
+    this.autoUpdateListener = setInterval(this.autoUpdate, 1000);
   },
   componentWillUnmount: function() {
     // this.emailListener.remove();

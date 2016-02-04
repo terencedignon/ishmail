@@ -10,7 +10,6 @@ var EmailShowItem = require('../components/email_show_item.jsx');
 var EmailShowForm = require('../components/email_show_form.jsx');
 var DraftStore = require('../stores/draft_store.js');
 var EmailActions = require('../actions/email_actions.js');
-
 var EmailShow = React.createClass({
   getInitialState: function () {
     return { draft: false, email: "", maxList: [], maxAll: false};
@@ -44,7 +43,9 @@ var EmailShow = React.createClass({
     if (receivedEmail.id == this.props.params.id) this.setState({ email: receivedEmail });
   },
   _onDraftChange: function () {
-    var receivedDraft = EmailStore.getDraft();
+  
+    this.setState({ email: DraftStore.getCurrentDraft() });
+    // var receivedDraft = DraftStore.getDraft();
   },
   ensureRead: function (id) {
     ApiUtil.updateEmail(id, {read_set: true}, EmailConstants.UPDATE_EMAIL);
