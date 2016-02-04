@@ -21,7 +21,7 @@ var DraftActions = {
     });
   },
   closeDraft: function(data, constant) {
-    debugger
+    
     Dispatcher.dispatch({
       actionType: constant,
       data: data

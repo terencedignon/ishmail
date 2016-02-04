@@ -92,7 +92,7 @@ var ApiUtils = {
       data: {email: emails},
       success: function(data) {
 
-        EmailActions.destroyAll(emails.length);
+        EmailActions.destroyAll(emails);
         callback && callback();
       },
       error: function() {

@@ -9,12 +9,15 @@ var EmailShowContact = require('../components/email_show_contact.jsx');
 var EmailShowItem = require('../components/email_show_item.jsx');
 var EmailShowForm = require('../components/email_show_form.jsx');
 var DraftStore = require('../stores/draft_store.js');
+var EmailActions = require('../actions/email_actions.js');
 
 var EmailShow = React.createClass({
   getInitialState: function () {
     return { draft: false, email: "", maxList: [], maxAll: false};
   },
   componentDidMount: function () {
+    EmailActions.createView("show");
+    EmailActions.sendID(this.props.params.id);
     this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
     ApiUtil.getEmail(this.props.params.id, this.ensureRead(this.props.params.id));

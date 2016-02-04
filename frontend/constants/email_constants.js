@@ -12,7 +12,9 @@ var EmailConstants = {
   TYPE_DELETE: "TYPE_DELETE",
   UPDATE_READ: "UPDATE_READ",
   SEND_EMAIL: "SEND_EMAIL",
-  AUTO_UPDATE: "AUTO_UPDATE"
+  AUTO_UPDATE: "AUTO_UPDATE",
+  DESTROY_EMAIL: "DESTROY_EMAIL",
+  SEND_ID: "SEND_ID"
 };
 
 module.exports = EmailConstants;

@@ -142,7 +142,8 @@ header {
 }
 
 header h1 {
-  color: #777;
+  color: #000;
+  opacity: 0.75;
   padding: 20px 30px;
   display: block;
   text-decoration: none;
@@ -153,7 +154,7 @@ header h1 {
 
 h1 a, a:visited, a:hover, a:active {
   text-decoration: none;
-  color: #777;
+  color: #777
 }
 
 
@@ -778,8 +779,8 @@ a.selected {
   text-align: center;
   float: left;
   background: #f7f7f7;
-  margin-right: 20px;
-  font-size: 20px;
+  margin-right: 10px;
+  font-size: 15px;
 
   color: #ddd;
   border: 1px solid #e5e5e5;
@@ -788,7 +789,7 @@ a.selected {
 
 .header-nav i {
 
-  font-size: 20px;
+  font-size: 16px;
 
 }
 
@@ -811,7 +812,11 @@ a.selected {
 }
 
 .nav-holder {
+  color: #000;
+  opacity: 0.75;
   position: relative;
+  display: flex;
+  margin-top: -4px;
 }
 .drop-down {
   position: relative;
@@ -862,8 +867,22 @@ a.selected {
   background: #f7f7f7;
 }
 
+.nav-holder i {
+  opacity: 0.75;
+  color: #222;
+}
 
+.nav-holder li:hover {
+  border: 1px solid #ccc;
+  color: #000;
+}
 
+/*border: 1px solid #000;*/
+
+.nav-holder li:hover i {
+  color: #000;
+  opacity: 1;
+}
 .email-show {
   margin-bottom: 20px;
   /*padding-top: 18px;*/

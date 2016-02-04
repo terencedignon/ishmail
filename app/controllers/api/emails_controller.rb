@@ -46,11 +46,15 @@ class Api::EmailsController < ApplicationController
   end
 
   def mass_destroy
+    # debugger
     emails = params["email"]
-    email_objects = []
-    emails.each do |id|
-      Email.find(id).destroy
-    end
+    Email.where(id: emails).delete_all
+    # email_objects = []
+    # emails.each do |id|
+    #   email = Email.find(id)
+    #   debugger
+    #   email.destroy if email
+    # end
     render :index
   end
 
@@ -77,7 +81,7 @@ class Api::EmailsController < ApplicationController
 
   private
   def email_params
-    params.require(:email).permit(:emails, :recipient, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
+    params.require(:email).permit(:emails, :archive_set, :recipient, :starred_set, :delete_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
   end
 
   def user?(username)

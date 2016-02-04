@@ -66,6 +66,7 @@ var EmailActions = {
   // },
 
   destroyAll: function(length) {
+
     Dispatcher.dispatch({
       actionType: EmailConstants.DESTROY_EMAIL,
       data: length
@@ -92,7 +93,12 @@ var EmailActions = {
 			data: data
 		});
 	},
-
+  sendID: function (id) {
+    Dispatcher.dispatch({
+      actionType: EmailConstants.SEND_ID,
+      data: id
+    });
+  },
 	composeEmail: function() {
 		Dispatcher.dispatch({
 			actionType: EmailConstants.COMPOSE_EMAIL,
