@@ -13,7 +13,7 @@ var Sidebar = React.createClass({
     ApiUtil.getAllEmail();
     this.emailListener = EmailStore.addListener(this._onEmailChange);
     this.draftListener = DraftStore.addListener(this._onDraftChange);
-    this.spamListener = SpamStore.addListener(this._onSpamChange);
+    this.spamListener = SpamStore.addListener(this._onEmailChange);
   },
   componentWillUnmount: function() {
     this.emailListener.remove();
@@ -24,18 +24,16 @@ var Sidebar = React.createClass({
     ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, read_set: true, subject: "(no subject)"});
     EmailActions.getComposeSet();
   },
-  _onSpamChange: function () {
-
-  },
   _onDraftChange: function () {
     this.setState({ unreadDrafts: DraftStore.unreadCount() });
   },
   _onEmailChange: function() {
+    console.log("hello");
     this.setState({
       viewState: EmailStore.getViewState(),
-      unread: EmailStore.unread(),
-      unreadDrafts: EmailStore.unreadDrafts()
+      unread: EmailStore.unread()
     });
+    // unreadDrafts: EmailStore.unreadDrafts()
   },
   generateSidebar: function () {
 

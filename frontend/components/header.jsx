@@ -82,17 +82,21 @@ var Header = React.createClass({
 
   spamHandler: function (name) {
     var spamOn = { spam_set: true };
+    callback = function (data) {
+      EmailActions.destroyAll(data);
+    }.bind(this);
+
     if (!this.state.show) {
-      ApiUtil.updateAll( SelectStore.all(), spamOn, SpamConstants.GET_SPAM );
+      ApiUtil.updateAll( SelectStore.all(), spamOn, SpamConstants.GET_SPAM, callback );
     } else {
-    ApiUtil.updateEmail([ EmailStore.getCurrentID() ], spamOn );
+    ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamOn, EmailConstants.DESTROY_EMAIL, callback );
     this.history.pushState( null, "/", {} );
   }
   },
 
   trashHandler: function () {
       if (!this.state.show) {
-        debugger
+
         ApiUtil.destroyAll( SelectStore.all() );
       } else {
       ApiUtil.destroyAll( [ EmailStore.getCurrentID() ] );

@@ -24,7 +24,7 @@ var EmailFormIndex = React.createClass({
     this.setState({ openDrafts: DraftStore.getOpenDrafts() });
   },
   render: function() {
-    
+
     var formItems = this.state.openDrafts.map(function(data) {
       return <li key={Math.random()}><EmailForm minimize={data.minimize_set} save_set={data.save_set} draft={data.draft} /></li>;
     });

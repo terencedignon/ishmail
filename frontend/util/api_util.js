@@ -27,7 +27,7 @@ var ApiUtils = {
       url: "api/emails/" + id,
       data: {email: params},
       success: function(data) {
-      
+
         DraftActions.autoDraft(data);
       },
       error: function() {
@@ -86,6 +86,7 @@ var ApiUtils = {
       success: function(data) {
         EmailActions.destroyAll(emails);
         SpamActions.destroyAll(emails);
+        SelectActions.unselectAll();
         callback && callback();
       },
       error: function() {
@@ -99,11 +100,16 @@ var ApiUtils = {
         method: "POST",
         url: "api/emails/mass_update",
         data: {email: emails, data: data},
-        success: function(payload) {
+        success: function(data) {
+          SelectActions.unselectAll();
+          if (typeOfUpdate === "DESTROY_EMAIL" || typeOfUpdate === "GET_SPAM") {
+            callback && callback(data.map(function(email) { return email.id; }));
+          } else {
+            EmailActions.updateAll(data, typeOfUpdate);
+            DraftActions.updateAll(data, typeOfUpdate);
+            callback && callback();
+          }
 
-          EmailActions.updateAll(payload, typeOfUpdate);
-					DraftActions.updateAll(payload, typeOfUpdate);
-          callback && callback();
         },
         error: function (e) {
           console.log("error in updateAllfunction");

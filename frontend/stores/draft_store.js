@@ -28,8 +28,12 @@ DraftStore.getOpenDrafts = function () {
 
 DraftStore.__onDispatch = function (payload) {
 
-  // openDraftParams = {minimize_set: false, save_set: false};
-  if (payload.actionType === DraftConstants.NEW_DRAFT) {
+  if (payload.actionType === DraftConstants.UPDATE_VALUE) {
+    var draft = _openDrafts.find(function(obj) { return obj.draft.id === payload.id });
+    $.extend(draft.draft, payload.data);
+
+    _currentDraft = draft;
+  } else if (payload.actionType === DraftConstants.NEW_DRAFT) {
     _drafts.push(payload.data);
       if (payload.data.compose_set) _openDrafts.push({draft: payload.data, minimize_set: false, save_set: false});
       DraftStore.__emitChange();

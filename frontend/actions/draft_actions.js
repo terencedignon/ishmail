@@ -14,6 +14,14 @@ var DraftActions = {
       data: array
     });
   },
+  updateValue: function (id, params) {
+
+    Dispatcher.dispatch({
+      actionType: DraftConstants.UPDATE_VALUE,
+      data: params,
+      id: id
+    });
+  },
   createDraft: function (data) {
     Dispatcher.dispatch({
       actionType: DraftConstants.NEW_DRAFT,
@@ -21,7 +29,6 @@ var DraftActions = {
     });
   },
   closeDraft: function(data, constant) {
-
     Dispatcher.dispatch({
       actionType: constant,
       data: data

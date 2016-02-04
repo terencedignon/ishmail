@@ -34,7 +34,7 @@ SelectStore.__onDispatch = function (payload) {
       _selectedEmails = _selectedEmails.concat(selectedIDs).uniq();
       SelectStore.__emitChange();
   } else if (payload.actionType === SelectConstants.SELECT_NONE) {
-    _selectedEmails = payload.data;
+    _selectedEmails = [];
     SelectStore.__emitChange();
   }
 };

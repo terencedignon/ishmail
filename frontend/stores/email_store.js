@@ -143,7 +143,7 @@ EmailStore.__onDispatch = function (payload) {
       EmailStore.__emitChange();
 
     } else if (payload.actionType === "DESTROY_EMAIL") {
-
+      
       var mappedIndexes = _emails.map(function(email) { return email.id; });
       var _newEmails = [];
       _emails.forEach(function(email) {
@@ -153,6 +153,7 @@ EmailStore.__onDispatch = function (payload) {
       });
 
       _emails = _newEmails;
+      this.setUnread();
       EmailStore.__emitChange();
 
     } else if (payload.actionType === "TYPE_SELECT") {

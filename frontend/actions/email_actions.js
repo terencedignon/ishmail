@@ -66,7 +66,7 @@ var EmailActions = {
   // },
 
   destroyAll: function(data) {
-
+    
     Dispatcher.dispatch({
       actionType: EmailConstants.DESTROY_EMAIL,
       data: data
