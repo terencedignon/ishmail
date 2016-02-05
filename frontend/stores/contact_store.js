@@ -39,7 +39,7 @@ ContactStore.__onDispatch = function (payload) {
     ContactStore.__emitChange();
   } else if (payload.actionType === ContactConstants.SEARCH) {
     this.mapContacts();
-    this.search(payload.data.toLowerCase());
+    this.search(payload.data.split(" ").join("").toLowerCase());
     ContactStore.__emitChange();
   }
 };

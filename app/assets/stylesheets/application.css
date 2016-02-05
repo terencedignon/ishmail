@@ -250,6 +250,7 @@ header input {
 }
 
 .sidebar li {
+  margin-left: 2px;
   padding-left: 30px;
   padding-right: 10px;
   padding-top: 1px;
@@ -814,7 +815,7 @@ a.selected {
 
 .nav-holder {
   color: #000;
-  opacity: 0.75;
+  opacity: 1;
   position: relative;
   display: flex;
   margin-top: -4px;
@@ -828,6 +829,7 @@ a.selected {
   top: 10px;
   left: -30px;
   margin: 0;
+  opacity: 1;
   display: block;
   list-style: none;
   background: #fff;
@@ -838,6 +840,7 @@ a.selected {
 }
 
 .drop-down-ul li {
+  opacity: 1;
   width: 60%;
   margin-left: -1px;
   background: #fff;
@@ -1233,26 +1236,43 @@ h2 i.not-important {
 
 
 .contact-holder input {
-  height: 25px;
+  height: 20px;
+  width: 100%;
+  border: 1px solid #dd4b39;
+  margin-left: 5px;
+  font-family: arial;
   font-size: 14px;
-  font-weight: bold;
-  padding: 3px 5px 5px 1px;
+  /*font-weight: bold;*/
+  padding-left: 10px;
 
+}
+
+.contact-holder ul {
+  width: 185px;
+  margin-left: -5px;
+  margin-top: -20px;
 }
 
 .contact-holder-li {
   position: relative;
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 2px;
   display: block;
-
+  padding-top: 5px;
+  padding-bottom: 5px;
   font-size: 13px;
-
+  margin-left: 10px;
   color: #222;
-  background: #fff;
+  /*background: #f7f7f7;*/
   font-family: arial;
   /*background: #f7f7f7;*/
-  border: 1px solid white;
+  /*box-shadow: 1px 0 1px 1px #eee;*/
+
+}
+
+.contact-holder-li:hover {
+  background: #eee;
+  width: 125px;
 }
 
 .hidden-contact {
@@ -1285,7 +1305,7 @@ h2 i.not-important {
 
 .hidden-contact h4 {
   color: #777;
-  margin-top: -15px;
+  margin-top: -50px;
 
   font-family: arial;
   font-size: 13px;

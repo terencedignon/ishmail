@@ -27,7 +27,7 @@ DraftStore.getOpenDrafts = function () {
 };
 
 DraftStore.__onDispatch = function (payload) {
-
+  
   if (payload.actionType === DraftConstants.UPDATE_VALUE) {
     var draft = _openDrafts.find(function(obj) { return obj.draft.id === payload.id });
     $.extend(draft.draft, payload.data);
@@ -73,6 +73,16 @@ DraftStore.__onDispatch = function (payload) {
       }
 
     if (payload.actionType === DraftConstants.UPDATE_ALL) DraftStore.__emitChange();
+
+
+  } else if (payload.actionType === DraftConstants.CLOSE_DRAFT) {
+    var _tempOpen = [];
+    _openDrafts.forEach(function(draft) {
+      if (draft.draft.id !== payload.data.id) _tempOpen.push(draft);
+    });
+
+    _openDrafts = _tempOpen;
+    DraftStore.__emitChange();
   } else if (payload.actionType === EmailConstants.SEND_EMAIL) {
     var tempDraft = [];
     var tempOpenDraft = [];

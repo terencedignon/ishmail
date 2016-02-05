@@ -20,7 +20,10 @@ var Contact = React.createClass({
     this.contactListener.remove();
   },
   _onContactChange: function () {
-    this.setState({ contacts: ContactStore.filteredContacts() });
+    var contacts = (ContactStore.filteredContacts().length > 0 ?
+      ContactStore.filteredContacts() : ContactStore.all());
+
+    this.setState({ contacts: contacts });
   },
   onMouseOver: function (e) {
     // debugger
@@ -64,7 +67,7 @@ var Contact = React.createClass({
     return(
       <div className="contact-holder">
         <div className="contact-header">
-          <input type="text" onChange={this.searchChange}/>
+          <input type="text" onChange={this.searchChange} preload="Search people..." />
 
         </div>
         <ul className="contact-holder-list">

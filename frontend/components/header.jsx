@@ -80,6 +80,19 @@ var Header = React.createClass({
 
   },
 
+  archiveHandler: function () {
+    callback = function (data) {
+      EmailActions.destroyAll(data);
+    }.bind(this);
+
+    if (!this.state.show) {
+      ApiUtil.updateAll( SelectStore.all(), {archive_set: true} );
+    } else {
+    ApiUtil.updateAll( [ EmailStore.getCurrentID() ], {archive_set: true}, EmailConstants.DESTROY_EMAIL, callback );
+    this.history.pushState( null, "/", {} );
+    }
+  },
+
   spamHandler: function (name) {
     var spamOn = { spam_set: true };
     callback = function (data) {
@@ -141,7 +154,7 @@ var Header = React.createClass({
       <div className={"square " + checkClass} onClick={this.updateAll.bind(this, this.state.selectAll)} />
 
         <div className="drop-down">
-            <ul className="drop-down-ul group">
+            <ul className="drop-down-ul">
               <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_ALL)} href="#">All</a></li>
               <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_NONE)} href="#">None</a></li>
               <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_READ)}  href="#">Read</a></li>
@@ -176,7 +189,7 @@ var Header = React.createClass({
     } else {
       toolbar = <div className="nav-holder">
         {selector}
-        <li className="nav-archive"><i className="fa fa-archive"></i></li>
+        <li className="nav-archive" onClick={this.archiveHandler  }><i className="fa fa-archive"></i></li>
         {spamButton}
         <li onClick={this.trashHandler} className="nav-delete"><i className="fa fa-trash"></i></li>
         <li className="more">More</li>
