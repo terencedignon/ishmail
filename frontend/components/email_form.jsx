@@ -11,39 +11,32 @@ var EmailConstants = require('../constants/email_constants.js');
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
-    debugger
     return {
-      title: this.props.subject, recipient: this.props.draft.recipient, subject: this.props.draft.subject, body: this.props.draft.body,
+      title: "New Message", recipient: this.props.draft.recipient, subject: this.props.draft.subject, body: this.props.draft.body,
       created: false, display: false, minimize: false, save_set: false};
   },
 
   componentDidMount: function() {
     // this.emailListener = EmailStore.addListener(this._onEmailChange);
-    // this.draftListener = DraftStore.addListener(this._onDraftChange);
+    this.draftListener = DraftStore.addListener(this._onDraftChange);
+    this.autoUpdateListener = setInterval(this.autoUpdate, 5000);
+    // if (this.state.subject = "no subject") this.setState("");
   },
   componentWillUnmount: function() {
     // this.emailListener.remove();
-    // this.draftListener.remove();
+    this.draftListener.remove();
     clearInterval(this.autoUpdateListener);
   },
   toggleShow: function () {
     DraftActions.toggleShow(this.props.draft.id);
   },
   _onDraftChange: function () {
-  },
 
-  componentWillUpdate: function () {
-    if (this.autoUpdateListener !== "undefined") {
-      clearInterval(this.autoUpdateListener);
-    }
-    this.autoUpdateListener = setInterval(this.autoUpdate, 2000);
   },
 
   autoUpdate: function () {
-    console.log("saving");
     var params = {body: this.state.body, subject: this.state.subject, recipient: this.state.recipient};
     ApiUtil.autoDraft(this.props.draft.id, params);
-    clearInterval(this.autoUpdateListener);
   },
   _onEmailChange: function () {
     var subject = this.state.subject;
@@ -74,21 +67,10 @@ var EmailForm = React.createClass({
     // ApiUtil.updateEmail(params);
     ApiUtil.updateEmail(this.props.draft.id, {compose_set: false}, DraftConstants.CLOSE_DRAFT);
 
-  },
-  subjectChange: function (e) {
-    this.setState({subject: e.currentTarget.value});
-    DraftActions.updateValue(this.props.draft.id, {subject: e.currentTarget.value});
-  },
-  recipientChange: function (e) {
-    this.setState({recipient: e.currentTarget.value});
-    DraftActions.updateValue(this.props.draft.id, {recipient: e.currentTarget.value});
-  },
-  bodyChange: function (e) {
-    this.setState({body: e.currentTarget.value});
-    DraftActions.updateValue(this.props.draft.id, {body: e.currentTarget.value});
-  },
 
+  },
   createEmail: function () {
+
     var params = {
       recipient: this.state.recipient,
       title: this.state.title,
@@ -99,6 +81,7 @@ var EmailForm = React.createClass({
       draft_set: false,
       sending_now: true
     };
+
     ApiUtil.updateEmail(this.props.draft.id, params, EmailConstants.SEND_EMAIL);
     ApiUtil.getContacts();
     //
@@ -140,17 +123,16 @@ var EmailForm = React.createClass({
           </div>
       </div>
         <div className="recipients">
-          <input type="text" placeholder="Recipient" onChange={this.recipientChange} value={this.state.recipient}/>
+          <input type="text" valueLink={this.linkState('recipient')}/>
         </div>
         <div className="subject">
-          <input placeholder="Subject" type="text" onChange={this.subjectChange} value={this.state.subject}/>
+          <input type="text" valueLink={this.linkState('subject')}/>
         </div>
         <div className="body">
-        <textarea onChange={this.bodyChange} value={this.state.body}/>
+        <textarea valueLink={this.linkState('body')}/>
         </div>
         <div className="footer">
           <button onClick={this.createEmail}>Send</button>
-
         </div>
       </div>;
 

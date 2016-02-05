@@ -23,7 +23,7 @@ var EmailIndex = React.createClass({
     this.draftListener = DraftStore.addListener(this._onDraftChange);
     this.spamListener = SpamStore.addListener(this._onSpamChange);
     ///seteventlistenerhere
-    this.autoUpdate = setInterval(ApiUtil.autoUpdate, 60000);
+    this.autoUpdate = setInterval(ApiUtil.autoUpdate, 5000);
     ApiUtil.getAllEmail();
   },
   componentWillUnmount: function () {

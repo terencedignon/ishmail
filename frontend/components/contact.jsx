@@ -66,7 +66,7 @@ var Contact = React.createClass({
           {contact.fname} {contact.lname}
           <div className="hidden-contact">
             <div className="hidden-contact-details">
-              <h4>{contact.fname} {contact.lname} {"<" + contact.username + "@ishmael.com>"}</h4><p/>
+              <h4>{contact.fname} {contact.lname} {"<" + contact.username + "@ishmael.website>"}</h4><p/>
 
             </div>
             <div className="hidden-contact-photo">
@@ -84,7 +84,7 @@ var Contact = React.createClass({
           <div className="hidden-contact">
             <div className="hidden-contact-details">
               <h3>{contact.fname} {contact.lname}</h3><p/>
-              <h4>{contact.username + "@ishmael.com"}</h4>
+              <h4>{contact.username + "@ishmael.website"}</h4>
             </div>
             <div className="hidden-contact-photo">
               &nbsp;

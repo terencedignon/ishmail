@@ -1,25 +1,31 @@
 var React = require('react');
 var DraftConstants = require('../constants/draft_constants');
+var EmailConstants = require('../constants/email_constants.js');
 var EmailShowForm = React.createClass({
 
   getInitialState: function () {
+
     return { email: "", body: "" };
   },
-  createEmail: function () {
+  sendReply: function () {
+
     var params = {
-      recipient: this.state.recipient,
-      title: this.state.title,
-      subject: this.state.subject,
+      recipient: this.props.sender,
+      sender: "terrypdignon",
+      parent_email_id: this.props.email.id,
+      title: this.props.email.title,
+      subject: this.props.email.subject,
       body: this.state.body,
       compose_set: false,
       sent_set: true,
       draft_set: false,
       sending_now: true
     };
-    ApiUtil.updateEmail(this.props.draft.id, params, EmailConstants.SEND_EMAIL);
+    ApiUtil.updateEmail(this.props.email.id, params, EmailConstants.SEND_EMAIL);
+    ApiUtil.getAllEmail();
   },
   textHandler: function (e) {
-
+    this.setState({ body: e.currentTarget.value });
     // // this.setState({body: e.currentTarget.value});
     // if (this.state.email instanceof Object) {
     //   ApiUtil.updateEmail(this.state.email.id, {body: this.state.body}, DraftConstants.UPDATE_ALL);
@@ -42,7 +48,7 @@ var EmailShowForm = React.createClass({
 
   },
   render: function () {
-    console.log(this.state.email);
+
     return (
       <div className="show-form">
         <div className="show-form-recipient">

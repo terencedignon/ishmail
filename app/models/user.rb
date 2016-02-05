@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include PgSearch
   attr_reader :password
 
-  validates :username, :fname, :lname, :password_digest, :birthday, :gender, :location, presence: true
+  validates :username, :fname, :password_digest, presence: true
   validates :password, confirmation: true, length: { minimum: 6, allow_nil: true }
   # validates :birth_day, inclusion: { in: 1..31 }
   # validates :birth_month, inclusion: { in: 1..12 }

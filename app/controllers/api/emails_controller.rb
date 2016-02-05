@@ -16,7 +16,7 @@ class Api::EmailsController < ApplicationController
     if params["email"]["sending_now"]
       recip = email_params["recipient"]
 
-      if recip.include?("@ishmael.com") || !recip.include?("@")
+      if recip.include?("@ishmael.website") || !recip.include?("@")
         username = email_params["recipient"].match(/[^\@]*/).to_s
         recipient = User.find_by_username(username)
 
@@ -50,7 +50,7 @@ class Api::EmailsController < ApplicationController
     emails = params["email"]
     @emails = Email.where(id: emails)
     @emails.destroy_all
-  
+
     # email_objects = []
     # emails.each do |id|
     #   email = Email.find(id)

@@ -22,7 +22,7 @@ SearchStore.type = function () {
 };
 
 SearchStore.__onDispatch = function (payload) {
-  // debugger
+
   switch (payload.actionType) {
     case SearchConstants.RECEIVE_SEARCH_RESULTS:
     _type = payload.searchType;

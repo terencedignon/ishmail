@@ -43,7 +43,7 @@ var EmailShow = React.createClass({
     if (receivedEmail.id == this.props.params.id) this.setState({ email: receivedEmail });
   },
   _onDraftChange: function () {
-  
+
     this.setState({ email: DraftStore.getCurrentDraft() });
     // var receivedDraft = DraftStore.getDraft();
   },

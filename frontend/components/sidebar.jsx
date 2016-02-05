@@ -28,6 +28,7 @@ var Sidebar = React.createClass({
     this.setState({ unreadDrafts: DraftStore.unreadCount() });
   },
   _onEmailChange: function() {
+
     var view = (EmailStore.getViewState() === "show" ? this.state.viewState : EmailStore.getViewState());
     this.setState({
       viewState: view,
