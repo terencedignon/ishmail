@@ -103,7 +103,11 @@ var ApiUtils = {
         data: {email: emails, data: data},
         success: function(data) {
           SelectActions.unselectAll();
-          if (typeOfUpdate === "DESTROY_EMAIL" || typeOfUpdate === "GET_SPAM") {
+          if (typeOfUpdate === "GET SPAM") {
+            SpamActions.receiveAllSpam(data);
+            callback && callback(data);
+          }
+            else if (typeOfUpdate === "DESTROY_EMAIL") {
             callback && callback(data.map(function(email) { return email.id; }));
           } else {
             EmailActions.updateAll(data, typeOfUpdate);

@@ -11,6 +11,7 @@ SpamStore.all = function () {
 };
 
 SpamStore.__onDispatch = function (payload) {
+
   if (payload.data && payload.data.length === 1) payload.data = [payload.data];
   var _newSpam = [];
 

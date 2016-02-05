@@ -28,9 +28,9 @@ var Sidebar = React.createClass({
     this.setState({ unreadDrafts: DraftStore.unreadCount() });
   },
   _onEmailChange: function() {
-    console.log("hello");
+    var view = (EmailStore.getViewState() === "show" ? this.state.viewState : EmailStore.getViewState());
     this.setState({
-      viewState: EmailStore.getViewState(),
+      viewState: view,
       unread: EmailStore.unread()
     });
     // unreadDrafts: EmailStore.unreadDrafts()
@@ -90,8 +90,8 @@ var Sidebar = React.createClass({
         <button onClick={this.composeClickHandler}>Compose</button>
         <ul className="sidebar-list">
           {sidebarView}
-          <Contact />
         </ul>
+          <Contact />
 
       </div>
 
