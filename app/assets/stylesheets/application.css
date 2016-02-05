@@ -480,26 +480,28 @@ form.sign-in button, form.demo-sign-in button {
 .email-form {
   float: right;
   font-size: 14px;
+  position: relative;
   /*border: 1px solid #e5e5e5;*/
   /*border-left: 2px solid #e5e5e5;*/
   background: #fff;
-  padding-right: 30px;
-
+  /*padding-right: 30px;*/
+  margin-right: 30px;
   width: 400px;
   /*width: 40%;
   height: 65%;*/
-  box-shadow: 0px 0 2px 2px #f7f7f7;
+  box-shadow: 2px 2px 0px 0px #f7f7f7;
+  border-left: 1px solid #f7f7f7;
 }
 
 .email-form input, textarea {
   padding-left: 6px;
-  border: 1px solid #000;
+  /*border: 1px solid #000;*/
   outline-width: 0;
   border: 0;
   /*background: pink;*/
   font-size: 14px;
   font-family: arial;
-  width: 400px;
+  width: auto;
   height:100%;
 
   /*border-bottom: 1px solid #e5e5e5;*/
@@ -511,8 +513,9 @@ form.sign-in button, form.demo-sign-in button {
   background: #404040;
   cursor: pointer;
   height: 20px;
-  width: 100%;
-  padding: 5px 2px 12px 5px;
+  width: auto;
+  padding: 10px 2px 15px 10px;
+
   overflow:hidden;
   /*height: 5%;
   min-height: 20px;*/
@@ -522,11 +525,13 @@ form.sign-in button, form.demo-sign-in button {
 }
 .email-form-title {
   color: #fff;
-  width: 300px;
+  width: 100%;
+  /*padding-right: 20px;*/
   font-family: arial;
   margin-top: -8px;
   text-align: left;
   padding: 16px;
+  padding-left: 20px;
 }
 .email-form-title-container i {
   color: #b2b2b2;
@@ -548,7 +553,7 @@ form.sign-in button, form.demo-sign-in button {
 
 
 .email-form .recipients {
-  width: 100%;
+  width: auto;
   /*width: 600px;*/
   /*padding: 0 10px;*/
   height: 30px;
@@ -557,7 +562,7 @@ form.sign-in button, form.demo-sign-in button {
   overflow: hidden;
   /*height: 10%;
   min-height: 20px;*/
-  border-right: 1px solid #e5e5e5;
+  /*border-right: 1px solid #e5e5e5;*/
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -565,14 +570,14 @@ form.sign-in button, form.demo-sign-in button {
 
 .email-form .subject {
   padding: 5px 10px;
-  width: 100%;
+  width: auto;
   height: 30px;
   overflow: hidden;
   border-bottom: 1px solid #e5e5e5;
 }
 
 .email-form .body {
-  width: 100%;
+  width: auto;
   padding: 10px;
   height: 300px;
   border-bottom: 1px solid #e5e5e5;
@@ -580,8 +585,10 @@ form.sign-in button, form.demo-sign-in button {
 
 .email-form .footer {
   height: 30px;
+  width: auto;
   padding-top: 5px;
-  padding-left: 10px;
+  padding-right: 12px;
+  padding-left: 17px;
   background: #f5f5f5;
 }
 
@@ -593,6 +600,10 @@ form.sign-in button, form.demo-sign-in button {
 
 .email-form-minimize {
   cursor: pointer;
+  float: left;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   padding-top: 5px;
   padding-bottom: 5px;
   display: flex;
