@@ -27,7 +27,7 @@ DraftStore.getOpenDrafts = function () {
 };
 
 DraftStore.__onDispatch = function (payload) {
-  
+
   if (payload.actionType === DraftConstants.UPDATE_VALUE) {
     var draft = _openDrafts.find(function(obj) { return obj.draft.id === payload.id });
     $.extend(draft.draft, payload.data);

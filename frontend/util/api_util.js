@@ -108,6 +108,7 @@ var ApiUtils = {
             callback && callback(data);
           }
             else if (typeOfUpdate === "DESTROY_EMAIL") {
+        
             callback && callback(data.map(function(email) { return email.id; }));
           } else {
             EmailActions.updateAll(data, typeOfUpdate);

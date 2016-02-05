@@ -90,6 +90,8 @@ var EmailIndexItem = React.createClass({
       </li>;
     }
 
+    var subject = this.props.email.subject;
+    if (subject.length === 0) { subject = "(no subject)"; }
 
     return (
       <ul className={classString}>
@@ -107,7 +109,7 @@ var EmailIndexItem = React.createClass({
        </li>
         {senderRender}
        <li className="subject">
-          <a href={"#/inbox/" + this.props.id}>{this.props.email.subject}</a>
+          <a href={"#/inbox/" + this.props.id}>{subject}</a>
       </li>
       <li className="date">
         {date}

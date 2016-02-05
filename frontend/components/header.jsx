@@ -102,7 +102,7 @@ var Header = React.createClass({
     if (!this.state.show) {
       ApiUtil.updateAll( SelectStore.all(), spamOn, SpamConstants.GET_SPAM, callback );
     } else {
-    ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamOn, EmailConstants.DESTROY_EMAIL, callback );
+    ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamOn, EmailConstants.DESTROY_EMAIL, callback);
     this.history.pushState( null, "/", {} );
   }
   },
@@ -146,6 +146,8 @@ var Header = React.createClass({
   //
   // <li className="header-nav-settings"> <i className="fa fa-cog"></i> </li>
 
+  // <li><a href="#">Starred</a></li>
+  // <li><a href="#">Unstarred</a></li>
 
     var toolbar;
     var checkClass = (this.state.checked ? "select-all" : "");
@@ -159,8 +161,6 @@ var Header = React.createClass({
               <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_NONE)} href="#">None</a></li>
               <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_READ)}  href="#">Read</a></li>
               <li><a onClick={this.toggleRead.bind(this, SelectConstants.SELECT_ALL_UNREAD)} href="#">Unread</a></li>
-              <li><a href="#">Starred</a></li>
-              <li><a href="#">Unstarred</a></li>
             </ul>
         </div>
       </li>
