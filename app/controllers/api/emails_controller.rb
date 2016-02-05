@@ -75,7 +75,7 @@ class Api::EmailsController < ApplicationController
   def create
     @email = Email.new(email_params)
     @email.user_id = current_user.id
-    @email.sender = "#{current_user.username}@ishmael.com"
+    @email.sender = current_user.username
     @email.save
     render :show
   end

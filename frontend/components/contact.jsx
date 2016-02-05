@@ -41,7 +41,7 @@ var Contact = React.createClass({
     $(e.currentTarget).find('div').css("display", "none");
   },
   composeEmail: function (e) {
-    ApiUtil.createEmail({compose_set: true, sender: "terrypdignon", draft_set: true, recipient: e.currentTarget.outerText, read_set: true, subject: ""});
+    ApiUtil.createEmail({compose_set: true, sender: "ishmael", draft_set: true, recipient: e.currentTarget.id + "@ishmael.website", read_set: true, subject: ""});
     EmailActions.getComposeSet();
   },
   searchChange: function (e) {
@@ -62,7 +62,7 @@ var Contact = React.createClass({
     if (this.state.contacts.length > 0 ) {
 
       contactDropDownList = this.state.contacts.map(function(contact) {
-        return <li onClick={this.composeEmail} className="contact-holder-li" key={contact.id}>
+        return <li id={contact.username} onClick={this.composeEmail} className="contact-holder-li" key={contact.id}>
           {contact.fname} {contact.lname}
           <div className="hidden-contact">
             <div className="hidden-contact-details">
@@ -77,8 +77,7 @@ var Contact = React.createClass({
       }.bind(this));
 
       contactList = this.state.contacts.map(function(contact) {
-
-        return <li onClick={this.composeEmail} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave} className="contact-holder-li" key={contact.id}>
+        return <li id={contact.username} onClick={this.composeEmail} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave} className="contact-holder-li" key={contact.id}>
           <div className="contact-square">&nbsp;</div>
           {contact.fname} {contact.lname}
           <div className="hidden-contact">

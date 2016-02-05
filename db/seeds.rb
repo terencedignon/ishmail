@@ -150,7 +150,7 @@ end
 ##conversation 1
 
 
-subject = "My harpooner"
+subject = "The harpooner"
 body = "Expect the harpooner this evening."
 user_id = ishmael.id
 sender =  landlord.username
@@ -158,7 +158,7 @@ draft_set = false
 
 landlord_email = Email.create!(subject: subject, body: body, user_id: user_id, sender: sender, draft_set: draft_set)
 
-subject = "My harpooner"
+subject = "re: The harpooner"
 body = "Landlord! What sort of a chap is he—does he always keep such late hours?"
 user_id = landlord.id
 sender = ishmael.username
@@ -223,7 +223,7 @@ draft_set = false
 
 ahab_email = Email.create!(subject: subject, body: body, user_id: user_id, sender: sender, draft_set: draft_set, parent_email_id: parent_email_id)
 
-subject = "Am I a cannon-ball?"
+subject = "re: Am I a cannon-ball"
 body = "I have never thought of you as a cannon-ball."
 sender = ishmael.username
 user_id = captain_ahab.id
@@ -234,7 +234,7 @@ Email.create!(subject: subject, body: body, user_id: user_id, sender: sender, dr
 
 #message 8
 
-subject = "I was never served so before without giving a hard blow for it."
+subject = "Stubb's soliliquy"
 body = "It's very queer. Stop, Stubb; somehow, now, I don't well know whether to go back and strike him, or—what's that?—down here on my knees and pray for him? "
 sender = stubb.username
 user_id = ishmael.id
@@ -244,7 +244,7 @@ stubb_email = Email.create!(subject: subject, body: body, user_id: user_id, send
 
 
 
-subject = "I was never served so before without giving a hard blow for it."
+subject = "re: I was never served so before..."
 body = "Yes, that was the thought coming up in me; but it would be the first time I ever did pray. It's queer; very queer; and he's queer too; aye, take him fore and aft, he's about the queerest old man Stubb ever sailed with. How he flashed at me!—his eyes like powder-pans! is he mad? Anyway there's something on his mind, as sure as there must be something on a deck when it cracks. He aint in his bed now, either, more than three hours out of the twenty-four; and he don't sleep then. Didn't that Dough-Boy, the steward, tell me that of a morning he always finds the old man's hammock clothes all rumpled and tumbled, and the sheets down at the foot, and the coverlid almost tied into knots, and the pillow a sort of frightful hot, as though a baked brick had been on it? A hot old man! I guess he's got what some folks ashore call a conscience; it's a kind of Tic-Dolly-row they say—worse nor a toothache. Well, well; I don't know what it is, but the Lord keep me from catching it. He's full of riddles; I wonder what he goes into the after hold for, every night, as Dough-Boy tells me he suspects; what's that for, I should like to know? Who's made appointments with him in the hold? Ain't that queer, now? But there's no telling, it's the old game—Here goes for a snooze. Damn me, it's worth a fellow's while to be born into the world, if only to fall right asleep. And now that I think of it, that's about the first thing babies do, and that's a sort of queer, too. Damn me, but all things are queer, come to think of 'em. But that's against my principles. Think not, is my eleventh commandment; and sleep when you can, is my twelfth—So here goes again. But how's that? didn't he call me a dog? blazes! he called me ten times a donkey, and piled a lot of jackasses on top of that! He might as well have kicked me, and done with it. Maybe he did kick me, and I didn't observe it, I was so taken all aback with his brow, somehow. It flashed like a bleached bone. What the devil's the matter with me? I don't stand right on my legs. Coming afoul of that old man has a sort of turned me wrong side out. By the Lord, I must have been dreaming, though—How? how? how?—but the only way's to stash it; so here goes to hammock again; and in the morning, I'll see how this plaguey juggling thinks over by daylight."
 sender = ishmael.username
 user_id = captain_ahab.id
