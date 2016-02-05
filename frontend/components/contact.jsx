@@ -79,6 +79,7 @@ var Contact = React.createClass({
       contactList = this.state.contacts.map(function(contact) {
 
         return <li onClick={this.composeEmail} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave} className="contact-holder-li" key={contact.id}>
+          <div className="contact-square">&nbsp;</div>
           {contact.fname} {contact.lname}
           <div className="hidden-contact">
             <div className="hidden-contact-details">
