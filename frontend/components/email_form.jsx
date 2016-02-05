@@ -11,7 +11,7 @@ var EmailConstants = require('../constants/email_constants.js');
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
-
+    debugger
     return {
       title: this.props.subject, recipient: this.props.draft.recipient, subject: this.props.draft.subject, body: this.props.draft.body,
       created: false, display: false, minimize: false, save_set: false};
