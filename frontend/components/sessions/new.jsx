@@ -19,19 +19,19 @@ render: function() {
 
   return (
     <div className="new-session">
-    <center>  <img src="http://i.imgur.com/R1L0xwC.png"/>
+    <center>  <img src="http://i.imgur.com/uvXD5Fp.png"/>
 
     <form className="react-sign-in" onSubmit={ this.submit }>
 
 
       <div className="new-session-form">
+
         <div>
       <label>
         <input type="text" name="username" placeholder="Username" />
       </label>
-      <br/>
-      <label>
 
+      <label>
         <input type="password" name="password" placeholder="Password"/>
       </label>
     </div>
@@ -47,7 +47,7 @@ render: function() {
   <input type="hidden" name="username" value="ishmael"/>
   <input type="hidden" name="password" value="guest0"/>
     </form>
-    <a href="#/signup">Create Account</a>
+  
   </center>
   </div>
   );

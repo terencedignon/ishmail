@@ -1398,29 +1398,29 @@ h2 i.not-important {
 
 .new-session {
   display: flex;
-  font-family: 'open sans';
-  font-size: 14px;
+  font-family: 'arial';
+  font-size: 13px;
   flex-direction: column;
 }
 
 .new-session img {
   padding: 30px;
   opacity: 1;
-  margin-left: -20px;
+  margin-left: -15px;
 }
 
 .new-session form {
   font-size: 16px;
-  margin-top: -20px;
+  /*margin-top: -20px;*/
   margin-left: 70px;
 
 }
 
 .new-session input {
   border: 1px solid #f7f7f7;
-  padding: 5px 0 5px 20px;
+  padding: 5px 0 5px 40px;
   font-family: arial;
-  font-size: 25px;
+  font-size: 20px;
   margin: 15px 22px 17px 22px;
   height: 30px;
   width: 200px;
@@ -1439,6 +1439,7 @@ h2 i.not-important {
 .new-session-form {
   justify-content: center;
   display: flex;
+  flex-direction: column;
 }
 
 .new-session-form > div:first-child {
@@ -1446,25 +1447,27 @@ h2 i.not-important {
 }
 
 .new-session button {
-
+    cursor: pointer;
     margin-left: 31px;
-    background: #fFF;
+    background: steelblue;
     /*background-image: -webkit-linear-gradient(top,#dd4b39,#d14836);*/
     padding: 0px 10px;
     margin-bottom: 1px;
     margin-top: -2px;
+    margin-left: -5px;
     font-family: arial;
     font-size: 30px;
     line-height: 0px;
+    text-align: center;
     letter-spacing: 20px;
     /*font-weight: bold;*/
     border: 0px;
     text-transform: uppercase;
-    color: #222;
+    color: #fff;
     height: 100px;
-    width: 200px;
+    width: 450px;
     border-radius: 2px;
-    border: 1px solid transparent;
+    /*border: 1px solid gold;*/
     box-shadow: 2px 2px 0px 0px #f7f7f7;
   }
 }
