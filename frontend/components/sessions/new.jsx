@@ -5,6 +5,11 @@ var SessionsApiUtil = require('./../../util/sessions_api_util');
 var SessionForm = React.createClass({
 mixins: [History],
 
+buttonMouseover: function (e) {
+  debugger
+  $(e.currentTarget).css("opacity", 1);
+},
+
 submit: function (e) {
   e.preventDefault();
 
@@ -47,7 +52,7 @@ render: function() {
   <input type="hidden" name="username" value="ishmael"/>
   <input type="hidden" name="password" value="guest0"/>
     </form>
-  
+
   </center>
   </div>
   );
