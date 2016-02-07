@@ -89,6 +89,7 @@ EmailStore.getDisplay = function () {
 
 EmailStore.__onDispatch = function (payload) {
 
+
     if (payload.actionType === "CREATE_EMAIL") {
       _emails.unshift(payload.data);
       EmailStore.__emitChange();

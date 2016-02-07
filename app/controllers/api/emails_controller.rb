@@ -3,6 +3,7 @@ class Api::EmailsController < ApplicationController
   def index
     # if params["auto_update"]
       # @emails = Email.get_by_current_user(current_user.id).includes(:emails).where(parent_email_id: nil, created_at > params ).order(created_at: :desc).first(50)
+    
     @emails = Email.get_by_current_user(current_user.id).includes(:emails).where(parent_email_id: nil).order(created_at: :desc).first(50)
   end
 

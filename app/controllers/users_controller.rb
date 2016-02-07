@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :forbid_signed_in
+  # before_action :forbid_signed_in
 
   def new
     @user = User.new

@@ -19,10 +19,21 @@ SearchStore = require('./stores/search_store.js');
 EmailFormIndex = require('./components/email_form_index.jsx');
 ContactStore = require('./stores/contact_store.js');
 SpamStore = require('./stores/spam_store.js');
-
+var SessionForm = require('./components/sessions/new');
+var UserForm = require('./components/users/user_form');
+CurrentUserStore = require('./stores/current_user_store');
+SessionsApiUtil = require('./util/sessions_api_util');
+// CurrentUserStore = require("./../stores/current_user_store");
 
 var App = React.createClass({
+  componentDidMount: function () {
+     CurrentUserStore.addListener(this.forceUpdate.bind(this));
+      SessionsApiUtil.fetchCurrentUser();
+  },
   render: function() {
+    if (!CurrentUserStore.userHasBeenFetched()) {
+     return <p>Loading</p>;
+   }
     // ApiUtil.getComposeSet();
     return (
       <div>
@@ -35,18 +46,40 @@ var App = React.createClass({
   }
 });
 
-// <Route path="inbox/:emailID" component={EmailShow
 
-var routes = (<Route path="/" component={App}>
-                <IndexRoute component={EmailIndex}/>
+function _ensureLoggedIn(nextState, replace, callback) {
+
+
+  if (CurrentUserStore.userHasBeenFetched()) {
+    _redirectIfNotLoggedIn(); // this function below
+  } else {
+
+    SessionsApiUtil.fetchCurrentUser(_redirectIfNotLoggedIn);
+  }
+
+  function _redirectIfNotLoggedIn() {
+    if (!CurrentUserStore.isLoggedIn()) {
+      replace({}, "/login");
+    }
+    callback();
+  }
+};
+
+var routes = (
+              <Router>
+                <Route path="login" component={ SessionForm }/>
+                <Route path="signup" component={ UserForm }/>
+                <Route path="/" component={App}  onEnter={_ensureLoggedIn}  >
+                <IndexRoute component={EmailIndex} />
                 <Route path="search" component={Search}/>
                 <Route path="inbox/:id" component={EmailShow}/>
-              </Route>
+                </Route>
+              </Router>
             );
 
 document.addEventListener("DOMContentLoaded", function () {
   ReactDOM.render(
-    <Router>{routes}</Router>,
+    routes,
       document.getElementById('root')
   );
 });

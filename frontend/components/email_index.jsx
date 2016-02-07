@@ -111,7 +111,7 @@ var EmailIndex = React.createClass({
 
       display = <div></div>;
     }
-
+    
     return (
       <div>
         {display}

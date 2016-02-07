@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  before_action :forbid_signed_in
+  # before_action :forbid_signed_in
 
   def new
 
