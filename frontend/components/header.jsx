@@ -11,23 +11,25 @@ var History = require('react-router').History;
 var EmailStore = require('../stores/email_store.js');
 var SpamConstants = require('../constants/spam_constants.js');
 var SessionsApiUtil = require('../util/sessions_api_util.js');
-
+var FlashStore = require('../stores/flash_store.js');
+var FlashActions = require('../actions/flash_actions.js');
 
 var Header = React.createClass({
   mixins: [History],
   getInitialState: function() {
-    return { show: false, indexToolbar: true, selectAll: SelectConstants.SELECT_ALL, checked: false };
+    return { flash: "", show: false, indexToolbar: true, selectAll: SelectConstants.SELECT_ALL, checked: false };
   },
   componentDidMount: function() {
     this.selectListener = SelectStore.addListener(this._onSelectChange);
     this.emailListener = EmailStore.addListener(this._onEmailChange);
+    this.flashListener = FlashStore.addListener(this._onFlashChange);
   },
   componentWillUnmount: function () {
     this.selectListener.remove();
     this.emailListener.remove();
+    this.flashListener.remove();
   },
   _onEmailChange: function() {
-
     var view = EmailStore.getViewState();
     if (view === "show") {
       this.setState({ show: true, view: view, indexToolbar: false});
@@ -44,6 +46,14 @@ var Header = React.createClass({
     else {
       this.setState({ indexToolbar: true });
     }
+  },
+  _onFlashChange: function () {
+    if (this.flashInterval) clearInterval(this.flashInterval);
+    this.setState({ flash: FlashStore.message()});
+    this.flashInterval = setInterval(function() {
+      this.setState({ flash: "" });
+    }.bind(this), 5000);
+
   },
   updateAll: function(type) {
     var view = EmailStore.getViewState();
@@ -70,6 +80,7 @@ var Header = React.createClass({
   },
 
   logOut: function () {
+
     SessionsApiUtil.logout(function() {
         this.history.pushState(null, "/login", {});
     }.bind(this));
@@ -90,6 +101,11 @@ var Header = React.createClass({
 
   },
 
+  hover: function (name, e) {
+    $(e.currentTarget).find('i').append("<div class='arrow-up'></div>");
+    $(e.currentTarget).find('i').append("<div class='mouseover'>" + name + "</div>");
+  },
+
   archiveHandler: function () {
     callback = function (data) {
       EmailActions.destroyAll(data);
@@ -97,30 +113,83 @@ var Header = React.createClass({
 
     if (!this.state.show) {
       ApiUtil.updateAll( SelectStore.all(), {archive_set: true} );
+      if (SelectStore.all().length === 1) {
+        FlashActions.deliverFlash("The conversation has been archived.");
+      } else {
+        FlashActions.deliverFlash(SelectStore.all().length + " conversations have been archived.");
+      }
     } else {
     ApiUtil.updateAll( [ EmailStore.getCurrentID() ], {archive_set: true}, EmailConstants.DESTROY_EMAIL, callback );
     this.history.pushState( null, "/", {} );
+      FlashActions.deliverFlash("The conversation has been archived.");
     }
   },
 
-  spamHandler: function (name) {
-    var spamOn = { spam_set: true };
-    callback = function (data) {
-      EmailActions.destroyAll(data);
-    }.bind(this);
+  mouseLeave: function (e) {
+    $(e.currentTarget).find('i').html('');
+  },
 
+  spamHandler: function (name) {
+    var spamSet;
+    if (name === "spam") {
+      spamSet = { spam_set: true };
+
+      callback = function (data) {
+        EmailActions.destroyAll(data);
+      }.bind(this);
+
+      if (!this.state.show) {
+        ApiUtil.updateAll( SelectStore.all(), spamSet, SpamConstants.GET_SPAM, callback );
+        ///flash message
+        if (SelectStore.all().length === 1) {
+          FlashActions.deliverFlash("The conversation has been marked as spam.");
+        } else {
+          FlashActions.deliverFlash(SelectStore.all().length + " conversations have been marked as spam.");
+        }
+      } else {
+        ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamSet, EmailConstants.DESTROY_EMAIL, callback);
+        this.history.pushState( null, "/", {} );
+          FlashActions.deliverFlash("The conversation has been marked as spam.");
+    }
+  } else {
+    spamSet = { spam_set: false };
     if (!this.state.show) {
-      ApiUtil.updateAll( SelectStore.all(), spamOn, SpamConstants.GET_SPAM, callback );
+        ApiUtil.updateAll( SelectStore.all(), spamSet, SpamConstants.DESTROY_SPAM);
+        if (SelectStore.all().length === 1) {
+          FlashActions.deliverFlash("The conversation has been unmarked as spam and moved to the inbox.");
+        } else {
+          FlashActions.deliverFlash(SelectStore.all().length + " conversations have been unmarked as spam and moved to the inbox.");
+        }
     } else {
-    ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamOn, EmailConstants.DESTROY_EMAIL, callback);
-    this.history.pushState( null, "/", {} );
+      ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamSet, SpamConstants.DESTROY_SPAM);
+      this.history.pushState( null, "/", {} );
+        FlashActions.deliverFlash("The conversation has been unmarked as spam and moved to the inbox.");
+    }
   }
+  //
+  //   var spamSet = (name === "spam" ? { spam_set: true } : { spam_set: false } )
+  //   callback = function (data) {
+  //     EmailActions.destroyAll(data);
+  //   }.bind(this);
+  //
+  //   if name
+  //
+  //   if (!this.state.show) {
+  //     ApiUtil.updateAll( SelectStore.all(), spamSet, SpamConstants.GET_SPAM, callback );
+  //   } else {
+  //   ApiUtil.updateAll([ EmailStore.getCurrentID() ], spamSet, EmailConstants.DESTROY_EMAIL, callback);
+  //   this.history.pushState( null, "/", {} );
+  // }
   },
 
   trashHandler: function () {
       if (!this.state.show) {
-
         ApiUtil.destroyAll( SelectStore.all() );
+        if (SelectStore.all().length === 1) {
+          FlashActions.deliverFlash("The conversation has been moved to the Trash.");
+        } else {
+          FlashActions.deliverFlash(SelectStore.all().length + " conversations have been moved to the trash.");
+        }
       } else {
       ApiUtil.destroyAll( [ EmailStore.getCurrentID() ] );
       this.history.pushState( null, "/", {} );
@@ -150,21 +219,16 @@ var Header = React.createClass({
   // },
   render: function () {
 
-    // <li onClick={ApiUtil.getAllEmail}>
-    //   <i className="fa fa-refresh refresh"></i>
-    // </li>
-  //
-  // <li className="header-nav-settings"> <i className="fa fa-cog"></i> </li>
 
-  // <li><a href="#">Starred</a></li>
-  // <li><a href="#">Unstarred</a></li>
+
 
     var toolbar;
     var checkClass = (this.state.checked ? "select-all" : "");
     var checkClassName = "a fa-square-o ";
     var selector = <li onClick={this.toggleDropDown}>
-      <div className={"square " + checkClass} onClick={this.updateAll.bind(this, this.state.selectAll)} />
-
+      <div className={"square " + checkClass} onClick={this.updateAll.bind(this, this.state.selectAll)}>
+      <i className="dropdown-minus fa fa-chevron-down"></i>
+      </div>
         <div className="drop-down">
             <ul className="drop-down-ul">
               <li><a onClick={this.updateAll.bind(this, SelectConstants.SELECT_ALL)} href="#">All</a></li>
@@ -176,14 +240,18 @@ var Header = React.createClass({
       </li>
       ;
 
-    var spamButton = <li onClick={this.spamHandler} className="nav-spam"><i className="fa fa-exclamation-triangle"></i></li>;
+    var spamButton = <li onClick={this.pushBack} onMouseLeave={this.mouseLeave} onMouseOver={this.hover.bind(this, "Spam")} onClick={this.spamHandler.bind(this, "spam")} className="nav-spam"><i className="fa fa-exclamation-triangle"></i></li>;
+
+    var flashMessage = <div></div>;
+    if (this.state.flash.length > 0) flashMessage = <div className="flash-message">{this.state.flash}</div>;
+
 
     if (EmailStore.getViewState() === "spam") {
-      spamButton = <li onClick={this.unSpamHandler} className="nav-spam">Not Spam</li>;
+      spamButton = <li  onMouseOver={this.hover.bind(this, "Not Spam")} onMouseLeave={this.mouseLeave} onClick={this.spamHandler.bind(this, "not-spam")} className="nav-spam">Not Spam</li>;
     }
 
       if (this.state.show) {
-        selector = <li onClick={this.pushBack}>
+        selector = <li onClick={this.pushBack} onMouseOver={this.hover.bind(this, "Back")} onMouseLeave={this.mouseLeave}>
           <div className="nav-back">
             <i className="fa fa-arrow-left"></i>
           </div>
@@ -195,29 +263,33 @@ var Header = React.createClass({
       toolbar =
       <div className="nav-holder">
         {selector}
+          <li  onClick={this.pushBack} onMouseOver={this.hover.bind(this, "Sign Out")} onClick={this.logOut} className="nav-holder-sign-out"><i className="fa fa-cog"></i></li>
       </div>;
     } else {
       toolbar = <div className="nav-holder">
         {selector}
-        <li className="nav-archive" onClick={this.archiveHandler  }><i className="fa fa-archive"></i></li>
+        <li className="nav-archive" onMouseOver={this.hover.bind(this, "Archive")} onMouseLeave={this.mouseLeave} onClick={this.archiveHandler  }><i className="fa fa-archive"></i></li>
         {spamButton}
-        <li onClick={this.trashHandler} className="nav-delete"><i className="fa fa-trash"></i></li>
+        <li onClick={this.trashHandler} onMouseOver={this.hover.bind(this, "Trash")} onMouseLeave={this.mouseLeave} className="nav-delete"><i className="fa fa-trash"></i></li>
         <li className="more">More</li>
-        <li onClick={this.logOut} className="settings">Setting</li>
+        <li onClick={this.logOut} onMouseOver={this.hover.bind(this, "Sign Out")} onMouseLeave={this.mouseLeave}className="nav-holder-sign-out"><i onClick={this.logOut} className="fa fa-cog"></i></li>
       </div>;
     }
 
     return (
       <header>
-        <Search useCase="email" />
+        <Search useCase="email" logOut={this.logOut}/>
         <div className="header-bottom group">
           <div className="bottom-left">
-
           </div>
           <div className="bottom-right">
-            <ul className="header-nav group">
+            <ul className="header-nav">
               {toolbar}
+              {flashMessage}
+
             </ul>
+
+
           </div>
       </div>
     </header>

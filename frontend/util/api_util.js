@@ -103,17 +103,22 @@ var ApiUtils = {
         data: {email: emails, data: data},
         success: function(data) {
           SelectActions.unselectAll();
+					var dataMap = data.map(function(email) { return email.id; });
           if (typeOfUpdate === "GET SPAM") {
             SpamActions.receiveAllSpam(data);
-            callback && callback(data);
+            if (callback) callback(dataMap);
           }
-            else if (typeOfUpdate === "DESTROY_EMAIL") {
+					if (typeOfUpdate === "DESTROY_SPAM") {
 
-            callback && callback(data.map(function(email) { return email.id; }));
+						SpamActions.destroyAll(dataMap);
+					}
+            else if (typeOfUpdate === "DESTROY_EMAIL") {
+            if (callback) callback(dataMap);
           } else {
+
             EmailActions.updateAll(data, typeOfUpdate);
             DraftActions.updateAll(data, typeOfUpdate);
-            callback && callback();
+            if (callback) callback(dataMap);
           }
 
         },
@@ -167,7 +172,7 @@ var ApiUtils = {
 	// },
 
   getContacts: function() {
-		
+
     $.ajax({
       method: "GET",
       url: "api/users/" + CurrentUserStore.currentUser().id,

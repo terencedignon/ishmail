@@ -99,7 +99,7 @@ class Api::EmailsController < ApplicationController
     while current_email.parent_email_id
       current_email = Email.find(current_email.parent_email_id)
     end
-    debugger
+    
     current_email.update!(email_updated_at: Time.new, read_set: false)
   end
 

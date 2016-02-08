@@ -164,6 +164,7 @@ h1 a, a:visited, a:hover, a:active {
   border-bottom: 1px solid #e5e5e5;
   width: 185px;
   height: 59px;
+  /*background-image: url('http://i.imgur.com/nsblUY3.png');*/
   float: left;
 
 }
@@ -189,8 +190,10 @@ header button {
 header input {
   border: 1px solid #e5e5e5;
   padding: 8px;
+  font-family: arial;
+  font-size: 16px;
   margin: 15px 22px 17px 22px;
-  height: 12px;
+  height: 15px;
   width: 47%;
 }
 
@@ -424,6 +427,7 @@ i.fa-square-o {
 
 
 .bottom-left {
+  /*background-image: url('http://i.imgur.com/nsblUY3.png');*/
   width: 200px;
   height: 47px;
   background: #FFF;
@@ -818,6 +822,7 @@ a.selected {
 .square {
   padding: 6.5px;
   border: 1px solid #c5c5c5;
+  margin-left: -9px;
 }
 
 .select-all {
@@ -828,6 +833,7 @@ a.selected {
 .nav-holder {
   color: #000;
   opacity: 1;
+  font-weight: bold;
   position: relative;
   display: flex;
   margin-top: -4px;
@@ -1520,4 +1526,63 @@ h2 i.not-important {
   border-radius: 5px;
   /*border: 1px solid gold;*/
   /*box-shadow: 2px 2px 0px 0px steelblue;*/
+}
+
+.header-nav li:last-child {
+  /*padding:*/
+  margin-right: 30px;
+  margin-left: auto;
+}
+
+.flash-message {
+  z-index: 999999;
+  text-align: center;
+  font-family: arial;
+  font-size: 15px;
+  line-height: 20px;
+  border: 1px solid #f0c36d;
+  position: absolute;
+  width: 500px;
+  font-weight: bold;
+  margin-left: 80px;
+  margin-top: -40px;
+  left: 200px;
+  height: 20px;
+  background: #f9edbe;
+  color: #222;
+  box-shadow: 2px 2px 0px 0px #f0c36d;
+}
+
+.arrow-up {
+  position: absolute;
+	width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+  margin-top: 10px;
+  margin-left: 0;
+	border-bottom: 7px solid #222;
+
+}
+
+.mouseover {
+  position: absolute;
+  background: #222;
+  margin-left: -30px;
+  font-family: arial;
+  margin-top: 15px;
+  color: #f7f7f7;
+  line-height: 22px;
+  font-weight: bold;
+  width: 70px;
+  height: 22px;
+}
+
+.square > i {
+  position: absolute;
+  color: #9f9f9f;
+  opacity: 1;
+  margin-top: -5px;
+  font-size: 10px;
+  margin-left: 15px;
 }

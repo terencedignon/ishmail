@@ -6,12 +6,12 @@ var DraftStore = require('../stores/draft_store.js');
 var DraftActions = require('../actions/draft_actions.js');
 var DraftConstants = require('../constants/draft_constants.js');
 var EmailConstants = require('../constants/email_constants.js');
-
+var FlashActions = require('../actions/flash_actions.js');
 
 var EmailForm = React.createClass({
   mixins: [LinkedStateMixin],
   getInitialState: function() {
-  
+
     return {
       title: this.props.subject, recipient: this.props.draft.recipient, subject: this.props.draft.subject, body: this.props.draft.body,
       created: false, display: false, minimize: false, save_set: false};
@@ -101,6 +101,7 @@ var EmailForm = React.createClass({
     };
     ApiUtil.updateEmail(this.props.draft.id, params, EmailConstants.SEND_EMAIL);
     ApiUtil.getContacts();
+    FlashActions.deliverFlash("Your message has been sent.");
     //
     // findContact = ContactsStore.all().find(function(recipient) {
     //   return recipient.username === recipient_username;

@@ -144,6 +144,7 @@ EmailStore.__onDispatch = function (payload) {
       var mappedIndexes = _emails.map(function(email) { return email.id; });
       var _newEmails = [];
       _emails.forEach(function(email) {
+        
         if (payload.data.indexOf(email.id) == -1) {
           _newEmails.push(email);
         }
