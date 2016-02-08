@@ -10,6 +10,8 @@ var Search = require('./search.jsx');
 var History = require('react-router').History;
 var EmailStore = require('../stores/email_store.js');
 var SpamConstants = require('../constants/spam_constants.js');
+var SessionsApiUtil = require('../util/sessions_api_util.js');
+
 
 var Header = React.createClass({
   mixins: [History],
@@ -66,6 +68,14 @@ var Header = React.createClass({
   // }.bind(this));
     SelectActions.toggleSelect(value, type);
   },
+
+  logOut: function () {
+    SessionsApiUtil.logout(function() {
+        this.history.pushState(null, "/login", {});
+    }.bind(this));
+
+  },
+
   toggleDropDown: function (e) {
     // if (e.currentTarget)
     if (e.target.tagName === "LI") $(".drop-down").toggle();
@@ -193,7 +203,7 @@ var Header = React.createClass({
         {spamButton}
         <li onClick={this.trashHandler} className="nav-delete"><i className="fa fa-trash"></i></li>
         <li className="more">More</li>
-
+        <li onClick={this.logOut} className="settings">Setting</li>
       </div>;
     }
 

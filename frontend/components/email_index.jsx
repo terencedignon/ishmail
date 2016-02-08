@@ -98,7 +98,7 @@ var EmailIndex = React.createClass({
     //   indexItems = <div className="index-header group">There are no conversations with this label</div>;
     // }
 
-    if (lis.length === 5 && indexItems.length > 0) {
+    if (lis.length === 5) {
       display = <div className="content-container group">
 
         {this.props.children}
@@ -109,9 +109,12 @@ var EmailIndex = React.createClass({
       </div>;
     } else {
 
-      display = <div></div>;
+      display =
+      <div className="loading">
+        test
+      </div>;
     }
-    
+
     return (
       <div>
         {display}

@@ -114,6 +114,7 @@ var EmailShowItem = React.createClass({
     <div><div className="email-show-header">
       <div className="email-show-sender-name">
         <h3>{this.props.email.sender.split("@")[0]}</h3>
+        <h3>{this.props.email.recipient}</h3>
       </div>
       <div className="email-show-sender-email">
         {"<" + this.props.email.sender + "@ishmael.website>"}

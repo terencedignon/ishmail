@@ -30,7 +30,9 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    sign_out!
+    user = current_user
+    sign_out
+    render json: user
     # redirect_to new_session_url
   end
 

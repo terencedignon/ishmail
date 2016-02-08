@@ -1404,7 +1404,7 @@ h2 i.not-important {
 }
 
 .new-session img {
-  padding: 30px;
+  padding: 10px;
   opacity: 1;
   margin-left: -15px;
 }
@@ -1424,7 +1424,7 @@ h2 i.not-important {
   margin: 15px 22px 17px 22px;
   height: 30px;
   width: 200px;
-  box-shadow: 5px 5px 0px 0px #f7f7f7;
+  box-shadow: 5px 5px 5px 0px #f7f7f7;
   /*height: 25px;
   font-size: 15px;
   /*border: 0;*/
@@ -1439,36 +1439,85 @@ h2 i.not-important {
 .new-session-form {
   justify-content: center;
   display: flex;
+  /*background: #f7f7f7;*/
   flex-direction: column;
 }
 
-.new-session-form > div:first-child {
-  border-right: 10px solid #f7f7f7;
-}
 
 .new-session button {
     cursor: pointer;
     margin-left: 31px;
-    background: steelblue;
+    background: #fff;
     /*background-image: -webkit-linear-gradient(top,#dd4b39,#d14836);*/
-    padding: 0px 10px;
+    padding: 5px 10px;
     margin-bottom: 1px;
-    margin-top: -2px;
     margin-left: -5px;
     font-family: arial;
     font-size: 30px;
     line-height: 0px;
     text-align: center;
-    letter-spacing: 20px;
+    font-weight: bold;
+    letter-spacing: 10px;
     /*font-weight: bold;*/
     border: 0px;
     text-transform: uppercase;
-    color: #fff;
-    height: 100px;
-    width: 450px;
-    opacity: 0.9;
+    border-right: 10px solid #fff;
+    color: #222;
+    height: 50px;
+    width: 300px;
+    opacity: 0.75;
     border-radius: 5px;
-    /*border: 1px solid gold;*/
+    border: 1px solid transparent;
     box-shadow: 2px 2px 0px 0px #f7f7f7;
-  }
+
+}
+
+.new-session input:focus {
+  outline-width: 0;
+}
+
+.loading {
+  height: 100%;
+  width: 100%;
+  /*background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5e/Sperm_whale_drawing_with_skeleton.jpg');*/
+  padding: 150px;
+  font-weight: bold;
+  font-family: arial;
+  font-size: 30px;
+  /*color: 222;*/
+  background: #fff;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+
+.session-sign-up a {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  background: #f7f7f7;
+  /*background-image: -webkit-linear-gradient(top,#dd4b39,#d14836);*/
+
+
+  text-decoration: none;
+  font-family: arial;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+  letter-spacing: 5px;
+  /*font-weight: bold;*/
+  /*border: 0px;*/
+  text-transform: uppercase;
+  color: #222;
+  height: 50px;
+  width: 150px;
+  opacity: 0.9;
+  border-radius: 5px;
+  /*border: 1px solid gold;*/
+  /*box-shadow: 2px 2px 0px 0px steelblue;*/
 }

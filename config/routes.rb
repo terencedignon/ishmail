@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       end
     end
     get "search", to: "utils#search"
-    resource :session, only: [:show, :create, :destroys]
+    resource :session, only: [:show, :create, :destroy]
     resources :users, only: [:index, :show, :create, :update]
     resources :chats, only: [:show, :create]
     resources :lines, only: [:create, :show, :index]
