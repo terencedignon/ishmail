@@ -193,6 +193,7 @@ var Header = React.createClass({
       } else {
       ApiUtil.destroyAll( [ EmailStore.getCurrentID() ] );
       this.history.pushState( null, "/", {} );
+        FlashActions.deliverFlash("The conversation has been moved to the Trash.");
     }
       // if (this.state.show) {
       //
@@ -263,7 +264,7 @@ var Header = React.createClass({
       toolbar =
       <div className="nav-holder">
         {selector}
-          <li  onClick={this.pushBack} onMouseOver={this.hover.bind(this, "Sign Out")} onClick={this.logOut} className="nav-holder-sign-out"><i className="fa fa-cog"></i></li>
+          <li  onMouseLeave={this.mouseLeave} onMouseOver={this.hover.bind(this, "Sign Out")} onClick={this.logOut} className="nav-holder-sign-out"><i className="fa fa-cog"></i></li>
       </div>;
     } else {
       toolbar = <div className="nav-holder">

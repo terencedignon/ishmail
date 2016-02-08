@@ -1569,6 +1569,7 @@ h2 i.not-important {
   position: absolute;
   background: #222;
   margin-left: -30px;
+  font-size: 12px;
   font-family: arial;
   margin-top: 15px;
   color: #f7f7f7;
@@ -1582,7 +1583,7 @@ h2 i.not-important {
   position: absolute;
   color: #9f9f9f;
   opacity: 1;
-  margin-top: -5px;
-  font-size: 10px;
+  margin-top: -3px;
+  font-size: 5px;
   margin-left: 15px;
 }
