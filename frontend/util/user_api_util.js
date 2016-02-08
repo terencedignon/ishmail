@@ -1,4 +1,6 @@
 var UserActions = require('../actions/user_actions');
+var CurrentUserActions = require('../actions/current_user_actions');
+
 
 var UsersApiUtil = {
   fetchUsers: function () {
@@ -28,10 +30,11 @@ var UsersApiUtil = {
       url: '/api/users',
       type: 'POST',
       dataType: 'json',
-      data: attrs,
+      data: {user: attrs},
       success: function (user) {
         UserActions.receiveUser(user);
-        CurrentUserActions.receive
+
+        CurrentUserActions.receiveCurrentUser(user);
         callback && callback();
       }
     })

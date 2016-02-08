@@ -17,7 +17,7 @@ class Api::EmailsController < ApplicationController
     if params["email"]["sending_now"]
       recip_array = email_params["recipient"].split(",").join.split
       recip_array.each do |recip|
-        debugger
+        
         if recip.include?("@ishmael.website") || !recip.include?("@")
           username = email_params["recipient"].match(/[^\@]*/).to_s
           recipient = User.find_by_username(username)

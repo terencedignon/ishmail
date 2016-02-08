@@ -24,6 +24,10 @@ var UserForm = React.createClass({
 
   submit: function (e) {
     e.preventDefault();
+    params = $(e.currentTarget).serializeJSON();
+    UsersApiUtil.createUser(params, function () {
+      this.history.pushState(null, "/", {});
+    }.bind(this));
   },
 
   render: function() {
@@ -55,10 +59,6 @@ var UserForm = React.createClass({
               </div>
           </form>
 
-          <form id="demo-sign-in" onSubmit={ this.submit } method="POST">
-        <input type="hidden" name="username" value="ishmael"/>
-        <input type="hidden" name="password" value="guest0"/>
-          </form>
           <div className="session-sign-up">
             <a href="#/login"  onMouseLeave={this.mouseLeave} onMouseOver={this.mouseOver}>sign in</a>
           </div>
