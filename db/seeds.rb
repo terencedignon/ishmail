@@ -76,9 +76,6 @@ daemon = User.create!(username: username, password: password,
 
 
 
-gender= "M"
-location= "the_sea"
-birthday = ["1987", "12", "1"]
 
 
 username="whale"
@@ -86,7 +83,7 @@ password="guest0"
 fname="whale"
 lname=""
 
-whale = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+whale = User.create(username: username, password: password, fname: fname, lname: lname)
 
 
 username = "ahab"
@@ -94,7 +91,7 @@ password = "guest0"
 fname="Ahab"
 lname=""
 
-ahab = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+ahab = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username = "ishmael"
 password = "guest0"
@@ -102,7 +99,7 @@ fname="CallMe"
 lname="Ishmael"
 gender="M"
 
-ishmael = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+ishmael = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username = "stubb"
 password = "guest0"
@@ -110,7 +107,7 @@ fname="Stubb"
 lname=""
 gender="M"
 
-stubb = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+stubb = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username = "queequeg"
 password = "guest0"
@@ -118,56 +115,56 @@ fname="Queequeg"
 lname=""
 gender="M"
 
-queequeg = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+queequeg = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username = "starbuck"
 password = "guest0"
 fname="Starbuck"
 lname=""
 
-starbuck = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+starbuck = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username = "bildad"
 password="guest0"
 fname="Bildad"
 lname=""
 
-bildad = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+bildad = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username="peleg"
 password="guest0"
 fname="Peleg"
 lname=""
 
-peleg = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+peleg = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username="pip"
 password="guest0"
 fname="Pip"
 lname=""
 
-pip = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+pip = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username="dough_boy"
 password="guest0"
 fname="Dough"
 lname="Boy"
 
-dough_boy = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+dough_boy = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username="landlord"
 password="guest0"
 fname="Landlord"
 lname=""
 
-landlord = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+landlord = User.create(username: username, password: password, fname: fname, lname: lname)
 
 username="boomer"
 password="guest0"
 fname="Boomer"
 lname=""
 
-boomer = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
+boomer = User.create(username: username, password: password, fname: fname, lname: lname)
 
 ###### create contacts
 
