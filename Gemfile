@@ -20,6 +20,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sendgrid'
 gem 'griddler'
+gem 'griddler-sendgrid'
 # Use ActiveModel has_secure_password
 gem 'pg_search'
 gem 'kaminari'
