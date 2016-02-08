@@ -9,66 +9,65 @@ require 'faker'
 
 username = "mailer-daemon"
 password = "guest0"
-location = "United States of America"
-gender = "M"
-birthday= ["1987", "12", "1"]
+
+
 fname = "Mail Delivery"
 lname = "Subsystem"
-daemon = User.create!(username: username, password: password, location: location,
-  gender: gender, birthday: birthday, fname: fname, lname: lname)
+daemon = User.create!(username: username, password: password,
+   fname: fname, lname: lname)
 
 
   username = "mailer-daemon"
   password = "guest0"
-  location = "United States of America"
-  gender = "M"
-  birthday= ["1987", "12", "1"]
+
+
+
   fname = "Mail Delivery"
   lname = "Subsystem"
-  daemon = User.create!(username: username, password: password, location: location,
-    gender: gender, birthday: birthday, fname: fname, lname: lname)
+  daemon = User.create!(username: username, password: password,
+     fname: fname, lname: lname)
 
 
     username = "MarketWatch"
     password = "guest0"
-    location = "United States of America"
-    gender = "M"
-    birthday= ["1987", "12", "1"]
+
+
+
     fname = "Mail Delivery"
     lname = "Subsystem"
-    market_watch = User.create!(username: username, password: password, location: location,
-      gender: gender, birthday: birthday, fname: fname, lname: lname)
+    market_watch = User.create!(username: username, password: password,
+       fname: fname, lname: lname)
 
       username = "Seamless"
       password = "guest0"
-      location = "United States of America"
-      gender = "M"
-      birthday= ["1987", "12", "1"]
+
+
+
       fname = "Seamless"
       lname = ""
-      seamless = User.create!(username: username, password: password, location: location,
-        gender: gender, birthday: birthday, fname: fname, lname: lname)
+      seamless = User.create!(username: username, password: password,
+         fname: fname, lname: lname)
 
   username = "terence_dignon"
   password = "guest0"
-  location = "United States of America"
-  gender = "M"
-  birthday= ["1987", "12", "1"]
+
+
+
   fname = "Terence"
   lname = "Dignon"
-  terence = User.create!(username: username, password: password, location: location,
-    gender: gender, birthday: birthday, fname: fname, lname: lname)
+  terence = User.create!(username: username, password: password,
+     fname: fname, lname: lname)
 
   #
   # username = "dignonpterry"
   # password = "guest0"
   # location = "United States of America"
-  # gender = "M"
-  # birthday= ["1987", "12", "1"]
+  #
+  #
   # fname = Faker::Name.first_name
   # lname = Faker::Name.last_name
-  # user = User.create!(username: username, password: password, location: location,
-  #   gender: gender, birthday: birthday, fname: fname, lname: lname)
+  # user = User.create!(username: username, password: password,
+  #    fname: fname, lname: lname)
   #
   #
   #   User.all.each do |user|
@@ -87,7 +86,7 @@ password="guest0"
 fname="whale"
 lname=""
 
-whale = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+whale = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 
 username = "ahab"
@@ -95,7 +94,7 @@ password = "guest0"
 fname="Ahab"
 lname=""
 
-ahab = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+ahab = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username = "ishmael"
 password = "guest0"
@@ -103,7 +102,7 @@ fname="CallMe"
 lname="Ishmael"
 gender="M"
 
-ishmael = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+ishmael = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username = "stubb"
 password = "guest0"
@@ -111,7 +110,7 @@ fname="Stubb"
 lname=""
 gender="M"
 
-stubb = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+stubb = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username = "queequeg"
 password = "guest0"
@@ -119,56 +118,56 @@ fname="Queequeg"
 lname=""
 gender="M"
 
-queequeg = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+queequeg = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username = "starbuck"
 password = "guest0"
 fname="Starbuck"
 lname=""
 
-starbuck = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+starbuck = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username = "bildad"
 password="guest0"
 fname="Bildad"
 lname=""
 
-bildad = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+bildad = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username="peleg"
 password="guest0"
 fname="Peleg"
 lname=""
 
-peleg = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+peleg = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username="pip"
 password="guest0"
 fname="Pip"
 lname=""
 
-pip = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+pip = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username="dough_boy"
 password="guest0"
 fname="Dough"
 lname="Boy"
 
-dough_boy = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+dough_boy = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username="landlord"
 password="guest0"
 fname="Landlord"
 lname=""
 
-landlord = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+landlord = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 username="boomer"
 password="guest0"
 fname="Boomer"
 lname=""
 
-boomer = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, location: location, birthday: birthday)
+boomer = User.create(username: username, password: password, fname: fname, lname: lname, gender: gender, birthday: birthday)
 
 ###### create contacts
 
@@ -502,13 +501,13 @@ Email.create!(subject: subject, body: body, user_id: user_id, sender: sender, dr
 # 10.times do |i|
 #   username = "terry#{i}"
 #   password = "guest#{i}"
-#   location = "United States of America"
-#   gender = "M"
-#   birthday= ["1987", "12", "1"]
+#
+#
+#
 #   fname = Faker::Name.first_name
 #   lname = Faker::Name.last_name
-#   user = User.create!(username: username, password: password, location: location,
-#     gender: gender, birthday: birthday, fname: fname, lname: lname)
+#   user = User.create!(username: username, password: password,
+#      fname: fname, lname: lname)
 #
 #     1.times do |j|
 #       first_name = Faker::Name.first_name
