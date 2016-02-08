@@ -5,7 +5,7 @@ class AuthMailer < ActionMailer::Base
   # contains the user's email address
   def signup_email(user)
     mail(
-      to: user.email,
+      to: "terry.p.dignon@gmail.com"
       subject: 'Thanks for signing up'
     )
   end
