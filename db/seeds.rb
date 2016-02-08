@@ -541,7 +541,7 @@ Email.create!(subject: subject, body: body, user_id: user_id, sender: sender, dr
 
 
 subject = "Welcome to Ishmail!"
-body = "Welcome! Your email address is ishmael@ishmael.website.  Ishmael is a web application inspired by Gmail, built using Ruby on Rails and React.js. Ishmael aims to provide Gmail's core functionality in a minimalist build.  Thanks for dropping by, and be in touch!  You can reach me here or at terence.p.dignon@gmail.com."
+body = "Welcome! Your email address is ishmael@ishmail.co.  Ishmail is a web application inspired by Gmail, built using Ruby on Rails and React.js. Ishmail aims to provide Gmail's core functionality in a minimalist build.  Thanks for dropping by, and be in touch!  You can reach me here or at terence.p.dignon@gmail.com."
 user_id = ishmael.id
 sender = terence.username
 draft_set = false
@@ -556,4 +556,8 @@ Email.where(parent_email_id: nil).each do |email|
   if email.sender != "terence_dignon"
     email.update(created_at: Faker::Time.between(2000.days.ago, Time.now, :all), importance_set: importance_set, starred_set: starred_set, read_set: read_set)
   end
+end
+
+Email.all.each do |email|
+  email.update(email_updated_at: email.created_at)
 end

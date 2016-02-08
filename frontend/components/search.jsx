@@ -67,7 +67,7 @@ var Search = React.createClass({
         display = <div className="header-top group">
 
             <div className="top-left">
-                <h1><a href="/#">Ishmael</a></h1>
+                <h1><a href="/#">ISHMAIL</a></h1>
             </div>
               <div className="top-right">
                 <input type="text" placeholder="" onInput={this.search} value={this.state.query}/>

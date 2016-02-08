@@ -22,6 +22,7 @@ gem 'sendgrid'
 gem 'sendgrid-ruby'
 gem 'griddler'
 gem 'griddler-sendgrid'
+gem 'localtunnel'
 # Use ActiveModel has_secure_password
 gem 'pg_search'
 gem 'kaminari'

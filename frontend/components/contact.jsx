@@ -41,7 +41,7 @@ var Contact = React.createClass({
     $(e.currentTarget).find('div').css("display", "none");
   },
   composeEmail: function (e) {
-    ApiUtil.createEmail({compose_set: true, sender: "ishmael", draft_set: true, recipient: e.currentTarget.id + "@ishmael.website", read_set: true, subject: ""});
+    ApiUtil.createEmail({compose_set: true, sender: "ishmael", draft_set: true, recipient: e.currentTarget.id + "@ishmail.co", read_set: true, subject: ""});
     EmailActions.getComposeSet();
   },
   searchChange: function (e) {
@@ -66,7 +66,7 @@ var Contact = React.createClass({
           {contact.fname} {contact.lname}
           <div className="hidden-contact">
             <div className="hidden-contact-details">
-              <h4>{contact.fname} {contact.lname} {"<" + contact.username + "@ishmael.website>"}</h4><p/>
+              <h4>{contact.fname} {contact.lname} {"<" + contact.username + "@ishmail.co>"}</h4><p/>
 
             </div>
             <div className="hidden-contact-photo">
@@ -83,7 +83,7 @@ var Contact = React.createClass({
           <div className="hidden-contact">
             <div className="hidden-contact-details">
               <h3>{contact.fname} {contact.lname}</h3><p/>
-              <h4>{contact.username + "@ishmael.website"}</h4>
+              <h4>{contact.username + "@ishmail.co"}</h4>
             </div>
             <div className="hidden-contact-photo">
               &nbsp;

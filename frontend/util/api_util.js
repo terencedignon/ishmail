@@ -108,7 +108,7 @@ var ApiUtils = {
             callback && callback(data);
           }
             else if (typeOfUpdate === "DESTROY_EMAIL") {
-        
+
             callback && callback(data.map(function(email) { return email.id; }));
           } else {
             EmailActions.updateAll(data, typeOfUpdate);
@@ -167,9 +167,10 @@ var ApiUtils = {
 	// },
 
   getContacts: function() {
+		
     $.ajax({
       method: "GET",
-      url: "api/users/1",
+      url: "api/users/" + CurrentUserStore.currentUser().id,
       success: function(data) {
           ContactActions.receiveContacts(data.contacts);
 

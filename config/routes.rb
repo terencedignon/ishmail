@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       end
     end
     get "search", to: "utils#search"
-    post '/email_processor' => 'griddler/emails#create'
     resource :session, only: [:show, :create, :destroy]
     resources :users, only: [:index, :show, :create, :update]
     resources :chats, only: [:show, :create]
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
   end
 
 
+  mount_griddler
   resources :users, only: [:new, :create, :update, :destroy]
   resource :session, only: [:new, :create, :destroy]
 end

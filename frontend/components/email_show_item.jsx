@@ -117,7 +117,7 @@ var EmailShowItem = React.createClass({
         <h3>{this.props.email.recipient}</h3>
       </div>
       <div className="email-show-sender-email">
-        {"<" + this.props.email.sender + "@ishmael.website>"}
+        {"<" + this.props.email.sender + "@ishmail.co>"}
       </div>
       <div className="email-show-date">
         {createdAt} {"(" + timeElapsed + ")"}

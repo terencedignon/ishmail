@@ -1,7 +1,7 @@
 var CurrentUserActions = require("./../actions/current_user_actions");
 var SessionsApiUtil = {
   login: function (credentials, success) {
-      debugger
+
     $.ajax({
       url: '/api/session',
       type: 'POST',
@@ -13,7 +13,7 @@ var SessionsApiUtil = {
         success && success();
       },
       error: function () {
-        debugger
+        
       }
 
     });

@@ -4,7 +4,8 @@ class Api::EmailsController < ApplicationController
     # if params["auto_update"]
       # @emails = Email.get_by_current_user(current_user.id).includes(:emails).where(parent_email_id: nil, created_at > params ).order(created_at: :desc).first(50)
 
-    @emails = Email.get_by_current_user(current_user.id).includes(:emails, :recipients).where(parent_email_id: nil).order(email_updated_at: :desc).first(50)
+    @emails = Email.get_by_current_user(current_user.id).includes(:emails, :recipients).where(parent_email_id: nil).order(email_updated_at: :desc).first(10)
+
   end
 
   def show
@@ -17,8 +18,8 @@ class Api::EmailsController < ApplicationController
     if params["email"]["sending_now"]
       recip_array = email_params["recipient"].split(",").join.split
       recip_array.each do |recip|
-        
-        if recip.include?("@ishmael.website") || !recip.include?("@")
+
+        if recip.include?("@ishmael.co") || !recip.include?("@")
           username = email_params["recipient"].match(/[^\@]*/).to_s
           recipient = User.find_by_username(username)
 
@@ -78,6 +79,7 @@ class Api::EmailsController < ApplicationController
     @email = Email.new(email_params)
     @email.user_id = current_user.id
     @email.sender = current_user.username
+    @email.email_updated_at = Time.new
     @email.save
     render :show
   end
@@ -92,11 +94,12 @@ class Api::EmailsController < ApplicationController
   end
 
   def update_parent_email
-    debugger
+
     current_email = self
     while current_email.parent_email_id
       current_email = Email.find(current_email.parent_email_id)
     end
+    debugger
     current_email.update!(email_updated_at: Time.new, read_set: false)
   end
 

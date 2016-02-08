@@ -67,6 +67,7 @@ var EmailIndexItem = React.createClass({
     }
   },
   render: function () {
+  
     var date = this.formatDate();
     var classString = this.classList(this.props.email);
     var starClass = (classString.includes('starred') ? "fa fa-star" : "fa fa-star-o");

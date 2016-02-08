@@ -72,6 +72,7 @@ var EmailIndex = React.createClass({
     this.setState({ tabView: name });
   },
   render: function() {
+  
 
     var lis = this.fetchHeaderTags();
     var emailList = this.fetchEmailList();
