@@ -10,8 +10,7 @@ var EmailShowForm = React.createClass({
   sendReply: function () {
 
     var params = {
-      recipient: this.props.sender,
-      sender: "terrypdignon",
+      recipient: this.props.email.from_email,
       parent_email_id: this.props.email.id,
       title: this.props.email.title,
       subject: this.props.email.subject,

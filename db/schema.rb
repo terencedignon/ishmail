@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208005335) do
+ActiveRecord::Schema.define(version: 20160209000516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20160208005335) do
   create_table "emails", force: :cascade do |t|
     t.integer  "parent_email_id"
     t.integer  "user_id"
-    t.string   "sender",                                           null: false
     t.string   "subject",          default: ""
     t.string   "body",             default: ""
     t.boolean  "starred_set",      default: false
@@ -59,6 +58,11 @@ ActiveRecord::Schema.define(version: 20160208005335) do
     t.boolean  "archive_set",      default: false
     t.boolean  "spam_set",         default: false
     t.datetime "email_updated_at", default: '2016-02-07 21:23:57'
+    t.string   "from_email",       default: ""
+    t.string   "from_name",        default: ""
+    t.string   "raw_headers",      default: ""
+    t.string   "raw_text",         default: ""
+    t.string   "raw_html"
   end
 
   create_table "lines", force: :cascade do |t|
@@ -80,10 +84,12 @@ ActiveRecord::Schema.define(version: 20160208005335) do
   add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "recipients", force: :cascade do |t|
-    t.string   "user",       null: false
-    t.integer  "email_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "user",                    null: false
+    t.integer  "email_id",                null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "to_email",   default: ""
+    t.string   "to_name",    default: ""
   end
 
   create_table "users", force: :cascade do |t|

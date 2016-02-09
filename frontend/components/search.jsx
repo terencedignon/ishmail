@@ -5,6 +5,7 @@ var SearchApiUtil = require('../util/search_api_util');
 var EmailIndexItem = require('./email_index_item');
 var SearchActions = require('../actions/search_actions.js');
 var History = require('react-router').History;
+var CurrentUserStore = require('../stores/current_user_store.js');
 // var PostIndexItem = require('./posts/post_index_item');
 
 var Search = React.createClass({
@@ -67,7 +68,7 @@ var Search = React.createClass({
         display = <div className="header-top group">
 
             <div className="top-left">
-                <h1><a href="/#"></a></h1>
+                <h1><a href="/#">ISHMAIL</a></h1>
             </div>
               <div className="top-right">
                 <input type="text" placeholder="" onInput={this.search} value={this.state.query}/>
@@ -81,6 +82,10 @@ var Search = React.createClass({
 
 
             </div>
+            <div className="top-right-user">
+              {CurrentUserStore.currentUser().fname} {CurrentUserStore.currentUser().lname}
+            </div>
+          
           </div>;
     return (
       <div>{display}</div>

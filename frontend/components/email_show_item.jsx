@@ -109,30 +109,60 @@ var EmailShowItem = React.createClass({
   //     </div>
   //     </div>;
   // }
+  //
+  // <div><div className="email-show-header">
+  //   <div className="email-show-sender-name">
+  //     <h3>{this.props.email.from_name}</h3>
+  //   </div>
+  //   <div className="email-show-sender-email">
+  //     {"<" + this.props.email.from_email + ">"}
+  //   </div>
+  //   <div className="email-show-date">
+  //     {createdAt} {"(" + timeElapsed + ")"}
+  //   </div>
+  //   <div onClick={this.starClickHandler} className={starredClass}>
+  //
+  //   </div>
+  //
+  //   <div className="email-show-sender-email">
+  //     {this.props.email.recipient}
+  //   </div>
+  //   <div className="email-show-sender-email">
+  //     {"<" + this.props.email.from_email + ">"}
+  //   </div>
+  //   <div className="email-show-date">
+  //     {createdAt} {"(" + timeElapsed + ")"}
+  //   </div>
+  //   <div onClick={this.starClickHandler} className={starredClass}>
+  //
+  //   </div>
+  //
+  // </div>
+  //
+  // <div className="body holder">
+  //
+  //   <div dangerouslySetInnerHTML={{__html: this.props.email.raw_html}} className="email-show-body">
+  //
+  //   </div>
+  // </div></div>;
 
     display =
-    <div><div className="email-show-header">
-      <div className="email-show-sender-name">
-        <h3>{this.props.email.sender.split("@")[0]}</h3>
-        <h3>{this.props.email.recipient}</h3>
+    <div className="email-holder">
+      <div className="email-sent">
+        <div>{this.props.email.from_name}</div>
+        <div>{"<" + this.props.email.from_email + ">"}</div>
+        <div>{createdAt} {"(" + timeElapsed + ")"}</div>
+        <div onClick={this.starClickHandler} className={starredClass}></div>
       </div>
-      <div className="email-show-sender-email">
-        {"<" + this.props.email.sender + "@ishmail.co>"}
+      <div className="email-to">
+        <div>to: {this.props.email.recipient}</div>
       </div>
-      <div className="email-show-date">
-        {createdAt} {"(" + timeElapsed + ")"}
+      <div className="email-body">
+        <div>{this.props.email.body}</div>
       </div>
+    </div>;
 
-      <div onClick={this.starClickHandler} className={starredClass}>
 
-      </div>
-    </div>
-      <div className="body holder">
-
-    <div className="email-show-body">
-      {this.props.email.body}
-    </div>
-  </div></div>;
 
 
 

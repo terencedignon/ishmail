@@ -11,7 +11,7 @@ var FlashActions = {
   removeFlash: function () {
     Dispatcher.dispatch({
       actionType: FlashConstants.REMOVE_FLASH
-
+      
     });
   }
 

@@ -19,26 +19,37 @@ class Api::EmailsController < ApplicationController
       recip_array = email_params["recipient"].split(",").join.split
       recip_array.each do |recip|
 
-        if recip.include?("@ishmael.co") || !recip.include?("@")
-          username = email_params["recipient"].match(/[^\@]*/).to_s
-          recipient = User.find_by_username(username)
-
-          if recipient
-            send_params = email_params.merge({"user_id" => recipient.id, "sender" => current_user.username, "sent_set" => false})
-            recip_email = Email.create!(send_params)
-
-            Contact.create(user_id: current_user.id, contact_id: recipient.id) unless
-              current_user.contacts.map{ |contact| contact.subject}.include?(recipient)
-          else
-            @email = Email.find(params[:id])
-            @email.update(email_params)
-
-            send_params = email_params.merge({"user_id" => current_user.id, "sender" => User.find(1).username, "sent_set" => false,
-              "parent_email_id" => params[:id], "read_set" => false, "body" => "Delivery to #{username} failed"})
-            recip_email = Email.create!(send_params)
-          end
+        client = SendGrid::Client.new(api_key: ENV["SENDGRID_API_KEY"])
+        mail = SendGrid::Mail.new do |m|
+          m.to = recip
+          m.from = current_user.username + "@ishmail.co"
+          m.subject = email_params["subject"]
+          m.text = email_params["body"]
         end
+        res = client.send(mail)
+
       end
+
+        # if recip.include?("@ishmael.co") || !recip.include?("@")
+        #   username = email_params["recipient"].match(/[^\@]*/).to_s
+        #   recipient = User.find_by_username(username)
+        #
+        #   if recipient
+        #     send_params = email_params.merge({"user_id" => recipient.id, "from_email" => current_user.username, "sent_set" => false})
+        #     recip_email = Email.create!(send_params)
+        #
+        #     Contact.create(user_id: current_user.id, contact_id: recipient.id) unless
+        #       current_user.contacts.map{ |contact| contact.subject}.include?(recipient)
+        #   else
+        #     @email = Email.find(params[:id])
+        #     @email.update(email_params)
+        #
+        #     send_params = email_params.merge({"user_id" => current_user.id, "from_email" => User.find(1).username, "sent_set" => false,
+        #       "parent_email_id" => params[:id], "read_set" => false, "body" => "Delivery to #{username} failed"})
+        #     recip_email = Email.create!(send_params)
+        #   end
+        # end
+
 
     end
 
@@ -78,7 +89,8 @@ class Api::EmailsController < ApplicationController
   def create
     @email = Email.new(email_params)
     @email.user_id = current_user.id
-    @email.sender = current_user.username
+    @email.from_email = current_user.username + "@ishmail.co"
+    @email.from_name = current_user.fname + " " + current_user.lname
     @email.email_updated_at = Time.new
     @email.save
     render :show
@@ -86,7 +98,7 @@ class Api::EmailsController < ApplicationController
 
   private
   def email_params
-    params.require(:email).permit(:emails, :archive_set, :recipient, :starred_set, :delete_set, :spam_set, :user_id, :sender, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
+    params.require(:email).permit(:emails, :archive_set, :recipient, :starred_set, :delete_set, :spam_set, :user_id, :from_email, :from_name, :raw_html, :raw_text, :raw_headers, :body, :subject, :importance_set, :draft_set, :read_set, :sent_set, :parent_email_id, :compose_set)
   end
 
   def user?(username)
@@ -99,7 +111,7 @@ class Api::EmailsController < ApplicationController
     while current_email.parent_email_id
       current_email = Email.find(current_email.parent_email_id)
     end
-    
+
     current_email.update!(email_updated_at: Time.new, read_set: false)
   end
 

@@ -76,11 +76,10 @@ var EmailShow = React.createClass({
         <div className="main-show-holder">
         <div className="email-show-holder">
           <h2>{this.state.email.subject} <i onClick={this.importanceClickHandler} className={importanceDisplay}></i> </h2>
-            <ul className="email-show-ul">
               {renderedShow}
-          </ul>
-          <div className="show-reply-holder">
-            <EmailShowForm sender={this.state.email.sender} email={this.state.email}/>
+
+          <div>
+            <EmailShowForm sender={this.state.email.from_email} email={this.state.email}/>
           </div>
         </div>
       </div>

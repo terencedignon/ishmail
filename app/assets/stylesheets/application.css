@@ -142,7 +142,7 @@ header {
 }
 
 header h1 {
-  color: #000;
+  color: #777;
   /*opacity: 0.75;*/
   padding: 20px 30px;
   display: block;
@@ -150,12 +150,13 @@ header h1 {
   padding-top: 19px;
   font-family: arial;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 5px;
+
 }
 
 h1 a, a:visited, a:hover, a:active {
   text-decoration: none;
-  color: #777
+  color: #fff;
 }
 
 
@@ -911,10 +912,10 @@ a.selected {
   margin-bottom: 20px;
   /*padding-top: 18px;*/
   color: #222;
-  width: 600px;
+  width: 800px;
   /*margin: 0 auto;*/
   font-size: 13px;
-  font-family: sans-serif;
+  font-family: arial;
 }
 
 .email-show-holder {
@@ -964,7 +965,7 @@ a.selected {
   /*padding-top: 5px;*/
   display: flex;
   padding: 0px 0 0 10px;
-
+  flex-direction: column;
   width: 95%;
 
 
@@ -1087,7 +1088,8 @@ a.selected {
   width: 50%;
   /*margin-right: -90%;*/
   text-align: right;
-  line-height: 35px;
+  margin-top: -5px;
+  /*line-height: 35px;*/
 }
 
 .email-show-contact {
@@ -1587,3 +1589,70 @@ h2 i.not-important {
   font-size: 5px;
   margin-left: 15px;
 }
+
+.email-holder {
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 10px;
+}
+.email-sent {
+  width: 800px;
+  display: flex;
+  flex-direction: row;
+}
+
+.email-sent div {
+  width: 25%;
+  padding-right: 40px;
+}
+
+.email-sent div:first-child {
+  font-weight: bold;
+  padding-right: 0px;
+}
+
+.email-sent div:nth-child(2) {
+  margin-left: -70px;
+  color: #777;
+}
+
+
+.email-to {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  /*font-style: italic;*/
+  /*margin-top: 0px;*/
+}
+
+.email-to {
+  color: #777;
+}
+
+.email-body {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.top-right-user {
+  margin-top: 15px;
+  color: #777;
+  font-size: 15px;
+  font-family: arial;
+  margin-left: -10%;
+  /*box-shadow: 2px 2px 0px 0px #33*/
+}
+
+.profile-thumb {
+  width: 50px;
+  height: 50px;
+  margin-left: -100px;
+  border-radius: 50px;
+  background-image: url('https://avatars1.githubusercontent.com/u/9141093?v=3&s=96');
+}
+
+/*margin-left: 800px;*/

@@ -67,13 +67,14 @@ var EmailIndexItem = React.createClass({
     }
   },
   render: function () {
-  
+
     var date = this.formatDate();
     var classString = this.classList(this.props.email);
     var starClass = (classString.includes('starred') ? "fa fa-star" : "fa fa-star-o");
     var importantClass = (classString.includes('important') ? "fa fa-square" : "fa fa-square-o" );
     var checked = (this.props.checked === "true" ? "checkbox checked" : "checkbox");
-    var sender = this.props.email.sender.match(/[a-zA-Z.-]+/)[0];
+    var sender = this.props.email.from_name.split(" ")[0];
+
     var threadCount = "";
     if (this.state.email.emails && this.state.email.emails.length > 0) {
       threadCount = "(" + this.state.email.emails.length + ")";
