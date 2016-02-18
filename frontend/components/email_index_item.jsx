@@ -47,6 +47,7 @@ var EmailIndexItem = React.createClass({
     // this.setState({ checked: truthy });
   },
   _onEmailChange: function () {
+    console.log("email change");
     this.forceUpdate();
   },
   formatDate: function () {
@@ -73,7 +74,8 @@ var EmailIndexItem = React.createClass({
     var starClass = (classString.includes('starred') ? "fa fa-star" : "fa fa-star-o");
     var importantClass = (classString.includes('important') ? "fa fa-square" : "fa fa-square-o" );
     var checked = (this.props.checked === "true" ? "checkbox checked" : "checkbox");
-    var sender = this.props.email.from_name.split(" ")[0];
+    var sender = this.props.email.from_name.split(" ")[0] || "Ahab";
+
 
     var threadCount = "";
     if (this.state.email.emails && this.state.email.emails.length > 0) {
@@ -84,6 +86,7 @@ var EmailIndexItem = React.createClass({
 
     if (this.props.view !== "drafts") {
       senderRender = <li className="sender">
+
         {sender[0].toUpperCase() + sender.slice(1)} {threadCount}
       </li>;
     } else {

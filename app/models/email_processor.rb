@@ -6,7 +6,7 @@ class EmailProcessor
   def process
     # all of your application-specific code here - creating models,
     # processing reports, etc
-
+  
     # Here's an example of model creation
     raw_header = @email.raw_headers.gsub("\n", "<br>").html_safe
     raw_html = @email.raw_html.gsub("\n", "<br>").html_safe
@@ -24,8 +24,8 @@ class EmailProcessor
           subject = @email.subject.gsub("re:", "").gsub("RE:", "").strip
 
           email_id = Email.where(subject: "what up", user_id: user.id).order(created_at: :desc).first
-          parent_email_id = email_id.id
-    
+          parent_email_id = email_id.id if email_id
+
         end
       end
 

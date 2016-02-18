@@ -72,13 +72,13 @@ var EmailIndex = React.createClass({
     this.setState({ tabView: name });
   },
   render: function() {
-  
+
 
     var lis = this.fetchHeaderTags();
     var emailList = this.fetchEmailList();
     var display;
     var indexHeaderLabels;
-
+    
     if (!(typeof this.state.emails === "undefined")) {
       var indexItems = emailList.map(function(email) {
 
@@ -100,6 +100,7 @@ var EmailIndex = React.createClass({
     // }
 
     if (lis.length === 5) {
+
       display = <div className="content-container group">
 
         {this.props.children}

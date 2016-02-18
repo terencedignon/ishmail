@@ -60,7 +60,7 @@ EmailStore.setFilterEmails = function () {
   if (_viewState === "show") _viewState = "inbox";
   _filterEmails = EmailStore.all().filter(function(email) {
     if (_viewState === "inbox") return email.compose_set === false && email.draft_set === false &&
-      email.sent_set === false && email.spam_set === false && email.archive_set === false;
+      email.spam_set === false && email.archive_set === false && email.sent_set === false;
     if (_viewState === "starred") return email.starred_set === true && email.archive_set === false;
     if (_viewState === "important") return email.importance_set === true && email.archive_set === false;
     if (_viewState === "sent") return email.sent_set && email.archive_set === false;
@@ -144,7 +144,7 @@ EmailStore.__onDispatch = function (payload) {
       var mappedIndexes = _emails.map(function(email) { return email.id; });
       var _newEmails = [];
       _emails.forEach(function(email) {
-        
+
         if (payload.data.indexOf(email.id) == -1) {
           _newEmails.push(email);
         }

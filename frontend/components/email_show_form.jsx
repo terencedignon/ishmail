@@ -1,7 +1,10 @@
 var React = require('react');
 var DraftConstants = require('../constants/draft_constants');
 var EmailConstants = require('../constants/email_constants.js');
+var FlashActions = require('../actions/flash_actions.js');
+
 var EmailShowForm = React.createClass({
+
 
   getInitialState: function () {
 
@@ -22,6 +25,7 @@ var EmailShowForm = React.createClass({
     };
     ApiUtil.updateEmail(this.props.email.id, params, EmailConstants.SEND_EMAIL);
     ApiUtil.getAllEmail();
+        FlashActions.deliverFlash("Your message has been sent.");
   },
   textHandler: function (e) {
     this.setState({ body: e.currentTarget.value });

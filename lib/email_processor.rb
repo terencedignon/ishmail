@@ -4,6 +4,7 @@ class EmailProcessor
   end
 
   def process
+    debugger
     # all of your application-specific code here - creating models,
     # processing reports, etc
 
