@@ -6,7 +6,7 @@ class EmailProcessor
   def process
     # all of your application-specific code here - creating models,
     # processing reports, etc
-  
+    debugger
     # Here's an example of model creation
     raw_header = @email.raw_headers.gsub("\n", "<br>").html_safe
     raw_html = @email.raw_html.gsub("\n", "<br>").html_safe
