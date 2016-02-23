@@ -10,8 +10,8 @@ var SearchApiUtil = {
       dataType: 'json',
       data: {query: query, page: page, type: type},
       success: function (data) {
-        
-        console.log(type);
+
+        // console.log(type);
         SearchActions.receiveResults(data, type);
       },
       error: function (data) {

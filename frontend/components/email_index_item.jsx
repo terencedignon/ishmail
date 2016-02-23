@@ -47,7 +47,7 @@ var EmailIndexItem = React.createClass({
     // this.setState({ checked: truthy });
   },
   _onEmailChange: function () {
-    console.log("email change");
+    // console.log("email change");
     this.forceUpdate();
   },
   formatDate: function () {

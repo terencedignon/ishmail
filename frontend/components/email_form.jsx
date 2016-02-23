@@ -40,7 +40,7 @@ var EmailForm = React.createClass({
   },
 
   autoUpdate: function () {
-    console.log("saving");
+    // console.log("saving");
     var params = {body: this.state.body, subject: this.state.subject, recipient: this.state.recipient};
     ApiUtil.autoDraft(this.props.draft.id, params);
     clearInterval(this.autoUpdateListener);
