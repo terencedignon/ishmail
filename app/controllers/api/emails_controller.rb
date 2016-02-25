@@ -19,7 +19,7 @@ class Api::EmailsController < ApplicationController
       recip_array = email_params["recipient"].split(",").join.split
       recip_array.each do |recip|
 
-        client = SendGrid::Client.new(ENV["SENDGRID_KEY"])
+        client = SendGrid::Client.new(api_key: ENV["SENDGRID_KEY"])
         mail = SendGrid::Mail.new do |m|
           m.to = recip
           m.from = current_user.username + "@ishmail.co"
