@@ -16,9 +16,5 @@ Users can
  * Search both contacts and emails.  
 
 
-![splash_page]
-
-![inbox]
-
-[splash_page]: ./docs/splashpage.png
-[inbox]: ./docs/inbox.png
+[![alt tag](./docs/splashpage.png)](http://ishmail.co)
+[![alt tag](./docs/inbox.png)](http://ishmail.co)
